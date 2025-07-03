@@ -1,8 +1,14 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ZXH/Data.meta
 guid: 5b8535dde74f5234a9eec53f17afc52b
 folderAsset: yes
 DefaultImporter:
+========
+guid: 604ede9ffb83c0f4eb8323f92cb9c1ca
+NativeFormatImporter:
+>>>>>>>> pr/2:Assets/New Dialogue Database (Auto-Backup).asset.meta
   externalObjects: {}
+  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
