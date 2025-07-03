@@ -17,6 +17,8 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     public TextMeshProUGUI type; // 卡牌类型（可以从CardData中获取）
 
     private Transform originalParent; // 记录拖拽前的父物体
+    public Transform OriginalParent { get { return originalParent; } }  
+
     private CanvasGroup canvasGroup;
     private Image cardImage;
 
@@ -36,8 +38,12 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             {
                 cardImage.sprite = cardData.artwork;
             }
-            // 你还可以在这里更新Text组件来显示名字、等级等
+
             gameObject.name = "Card_" + cardData.cardName;
+
+            id.text += cardData.id;
+            cardName.text += cardData.cardName;
+            type.text += cardData.cardType.ToString();
         }
     }
 
@@ -80,15 +86,23 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         if (transform.parent == transform.root || transform.parent == originalParent)
         {
             // 没有放置到有效卡槽，返回原位
-            transform.SetParent(originalParent);
-            transform.localPosition = Vector3.zero;
+            SetCardPos();
             Debug.Log("未找到有效卡槽，返回原位。");
         }
     }
 
-    // 当被卡槽成功吸附后，由卡槽调用
-    public void OnPlacedSuccessfully(Transform newParent)
+    // 记录当前父物体——设置当被卡槽成功吸附后，由卡槽调用
+    public void SetNewParent(Transform newParent)
     {
         originalParent = newParent;
+    }
+
+    /// <summary>
+    /// 设置卡牌的位置为原始父物体的位置
+    /// </summary>
+    public void SetCardPos()
+    {
+        transform.SetParent(originalParent);
+        transform.localPosition = Vector3.zero;
     }
 }

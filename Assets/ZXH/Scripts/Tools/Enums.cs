@@ -1,7 +1,8 @@
 
 public enum CardType
 {
-    Attack,     // 攻击类型
-    Defense,    // 防御类型
-    Support     // 辅助类型
+    Role,   // 角色
+    Intel,  // 情报
+    Book,   // 书籍
+    Coin    // 金币
 }
