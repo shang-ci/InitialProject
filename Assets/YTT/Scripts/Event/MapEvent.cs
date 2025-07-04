@@ -63,6 +63,7 @@ public class Condition
 {
     public string statToCheck;
     public int minValueRequired;
+    public string statName;
 }
 
 [System.Serializable]

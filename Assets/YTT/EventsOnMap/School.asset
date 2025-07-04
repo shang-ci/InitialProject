@@ -27,6 +27,7 @@ MonoBehaviour:
   winCondition:
     statToCheck: Wisdom
     minValueRequired: 5
+    statName: 
   winOutcome:
     itemRewards:
     - itemName: Book
