@@ -16,11 +16,18 @@ public class CardSlot : MonoBehaviour, IDropHandler
     /// <param name="card">传经来的卡牌</param>
     public void SetChild(Card card)
     {
-        card.SetNewParent(transform); // 更新卡牌的父物体为当前卡槽
-        card.SetupCard(); // 更新卡牌的显示
-        card.SetCardPos(); // 设置卡牌位置为卡槽中心
+        //card.SetNewParent(transform); // 更新卡牌的父物体为当前卡槽
+        //card.SetupCard(); // 更新卡牌的显示
+        //card.SetCardPos(); // 设置卡牌位置为卡槽中心
 
+        //child = card;
+
+        if (card == null) return;
+        card.transform.SetParent(this.transform);
+        card.transform.localPosition = Vector3.zero;
         child = card;
+        card.SetNewParent(this.transform);
+
     }
 
 
