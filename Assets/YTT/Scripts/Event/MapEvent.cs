@@ -22,7 +22,7 @@ public class MapEvent : ScriptableObject
     public int availableFromDay;
     public int availableUntilDay;
 
-    public string statToCheck;         
+    public string statToCheck;
     public int requiredStatValue;
 
     [Header("行为信息")]

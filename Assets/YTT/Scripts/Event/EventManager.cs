@@ -14,7 +14,6 @@ public class EventManager : MonoBehaviour
     {
         RefreshEvents();
     }
-
     public void RefreshEvents()
     {
         foreach (Transform child in eventButtonParent)
