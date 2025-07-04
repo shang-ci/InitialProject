@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ce56397f1ff20428ecc432c0333a25, type: 3}
+  m_Name: Book2
+  m_EditorClassIdentifier: 
+  id: B1002
+  cardName: Book2
+  cardType: 2
+  attributes:
+    physique: 1
+    social: 0
+    survival: 0
+    intelligence: 0
+    charm: 0
+    combat: 0
+    support: 0
+  description: 
+  artwork: {fileID: 0}

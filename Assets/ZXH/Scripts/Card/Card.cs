@@ -41,9 +41,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
             gameObject.name = "Card_" + cardData.cardName;
 
-            id.text += cardData.id;
-            cardName.text += cardData.cardName;
-            type.text += cardData.cardType.ToString();
+            id.text = "id:" + cardData.id;
+            cardName.text = "Name:" + cardData.cardName;
+            type.text = "Type:" + cardData.cardType.ToString();
         }
     }
 

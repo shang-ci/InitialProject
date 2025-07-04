@@ -9,10 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15549f4e70dcc9f40b58a405081146ae, type: 3}
-  m_Name: card4
+  m_Script: {fileID: 11500000, guid: 09c48b6c4696f804dab18e4488455c52, type: 3}
+  m_Name: Role2
   m_EditorClassIdentifier: 
-  id: B1001
-  cardName: BookA
-  cardType: 2
+  id: R1002
+  cardName: Role2
+  cardType: 0
+  attributes:
+    physique: 2
+    social: 0
+    survival: 0
+    intelligence: 1
+    charm: 1
+    combat: 2
+    support: 0
+  description: 
   artwork: {fileID: 0}

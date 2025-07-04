@@ -1,67 +1,59 @@
-// CardManager.cs
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 卡牌管理器
-/// </summary>
 public class CardManager : MonoBehaviour
 {
     [Header("卡牌数据库")]
-    public List<CardData> cardDatabase; // 存储所有可能的卡牌数据（ScriptableObjects）
+    public List<CardData> cardDatabase;
 
     [Header("生成设置")]
-    public GameObject cardPrefab;       // 卡牌的预制体
-    public GameObject cardSlotPrefab;  // 卡牌槽的预制体
-    public Transform handParent;         // 手牌区域的父物体Transform
+    public GameObject cardPrefab;// 卡牌预制件，用于生成卡牌实例
+    public GameObject cardSlotPrefab;// 卡牌槽预制件，用于放置卡牌的容器
+    public Transform handParent;// 卡牌槽的父物体，通常是手牌区域
 
-    [Header("测试")]
-    [Tooltip("在开始时自动生成几张牌")]
-    public int startingHandSize = 5;
+    private CardDataQueue cardQueue = new CardDataQueue();// 卡牌数据队列，用于存储和管理卡牌数据
 
     void Start()
     {
-        // 游戏开始时发牌
-        for (int i = 0; i < startingHandSize; i++)
+        // 初始化队列
+        foreach (var data in cardDatabase)
+        {
+            cardQueue.Enqueue(data);
+        }
+        // 发牌
+        for (int i = 0; i < 4; i++)
         {
             DrawCard();
         }
     }
 
-    // 从数据库中随机抽取一张卡牌并创建
+    /// <summary>
+    /// 从卡牌队列中抽取一张卡牌并生成对应的卡牌实例
+    /// </summary>
     public void DrawCard()
     {
-        if (cardDatabase == null || cardDatabase.Count == 0)
+        if (cardQueue.Count == 0)
         {
-            Debug.LogError("卡牌数据库为空，无法抽卡！");
+            Debug.LogWarning("没有可用的卡牌数据！");
             return;
         }
 
-        if (cardPrefab == null || handParent == null)
-        {
-            Debug.LogError("请在CardManager中设置Card Prefab和Hand Panel！");
-            return;
-        }
+        CardData data = cardQueue.Dequeue();
+        if (data == null) return;
 
-        // 1. 随机选择一张卡牌数据
-        CardData randomCardData = cardDatabase[Random.Range(0, cardDatabase.Count)];
+        // 1. 生成卡牌槽
+        GameObject slotObj = Instantiate(cardSlotPrefab, handParent);
+        CardSlot slot = slotObj.GetComponent<CardSlot>();
+        slot.acceptedCardType = data.cardType;
+        slot.SetSlotColor(data.cardType);
 
-        // 2. 实例化卡牌槽预制体
-        GameObject newCardSlotObject = Instantiate(cardSlotPrefab, handParent);
-        CardSlot newCardSlot = newCardSlotObject.GetComponent<CardSlot>();
+        // 2. 生成卡牌
+        GameObject cardObj = Instantiate(cardPrefab);
+        Card card = cardObj.GetComponent<Card>();
+        card.cardData = data;
+        card.SetupCard();
 
-
-        // 3. 获取卡牌脚本并设置数据
-        Card newCard = newCardSlotObject.GetComponent<Card>();
-        if (newCard != null)
-        {
-            newCard.cardData = randomCardData;
-            // 手动调用SetupCard来更新卡牌的视觉表现
-            newCard.SetupCard();
-        }
-        else
-        {
-            Debug.LogError("卡牌预制体上没有找到Card脚本！");
-        }
+        // 3. 放入卡牌槽
+        slot.SetChild(card);
     }
 }
