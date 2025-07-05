@@ -16,6 +16,12 @@ public class CardSlot : MonoBehaviour, IDropHandler
     public Color bookColor = new Color(0.8f, 1f, 0.8f);   // 书籍：淡绿
     public Color coinColor = new Color(1f, 0.85f, 0.6f);  // 金币：淡橙
 
+
+    private void Awake()
+    {
+        SetSlotColor(acceptedCardType); // 初始化卡槽颜色
+    }
+
     /// <summary>
     /// 根据类型设置卡槽颜色
     /// </summary>
