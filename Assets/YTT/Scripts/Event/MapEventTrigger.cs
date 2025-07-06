@@ -5,6 +5,7 @@ using PixelCrushers.DialogueSystem;
 public class MapEventTrigger : MonoBehaviour
 {
     public MapEvent mapEvent;
+    public CardManager cardManager;
 
     public void TriggerEvent()
     {
@@ -26,6 +27,23 @@ public class MapEventTrigger : MonoBehaviour
         foreach (var effect in mapEvent.loseOutcome.statEffects)
         {
             DialogueLua.SetVariable($"Penalty_{effect.statName}", effect.valueChange);
+        }
+
+        // 处理胜利获得卡牌
+        if (mapEvent.winOutcome.cardRewards != null)
+        {
+            foreach (var card in mapEvent.winOutcome.cardRewards)
+            {
+                cardManager.AddCard(card);
+            }
+        }
+        // 处理失败失去卡牌
+        if (mapEvent.loseOutcome.cardRemovals != null)
+        {
+            foreach (var card in mapEvent.loseOutcome.cardRemovals)
+            {
+                cardManager.RemoveCard(card);
+            }
         }
 
         // 奖励物品名

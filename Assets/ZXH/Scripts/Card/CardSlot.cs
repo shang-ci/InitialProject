@@ -4,26 +4,27 @@ using UnityEngine.UI;
 
 public class CardSlot : MonoBehaviour, IDropHandler
 {
-    [Header("¿¨ÅÆ²ÛÊôÐÔ")]
+    [Header("ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public CardType acceptedCardType;
     public int level;
-    public Card child; // µ±Ç°¿¨²ÛÄÚµÄ¿¨ÅÆ
+    public Card child; // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
 
 
-    [Header("ÀàÐÍÑÕÉ«")]
-    public Color roleColor = new Color(0.6f, 0.8f, 1f);   // ½ÇÉ«£ºµ­À¶
-    public Color intelColor = new Color(1f, 0.9f, 0.5f);  // Çé±¨£ºµ­»Æ
-    public Color bookColor = new Color(0.8f, 1f, 0.8f);   // Êé¼®£ºµ­ÂÌ
-    public Color coinColor = new Color(1f, 0.85f, 0.6f);  // ½ð±Ò£ºµ­³È
+
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«")]
+    public Color roleColor = new Color(0.6f, 0.8f, 1f);   // ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Color intelColor = new Color(1f, 0.9f, 0.5f);  // ï¿½é±¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Color bookColor = new Color(0.8f, 1f, 0.8f);   // ï¿½é¼®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Color coinColor = new Color(1f, 0.85f, 0.6f);  // ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
     private void Awake()
     {
-        SetSlotColor(acceptedCardType); // ³õÊ¼»¯¿¨²ÛÑÕÉ«
+        SetSlotColor(acceptedCardType); // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
     }
 
     /// <summary>
-    /// ¸ù¾ÝÀàÐÍÉèÖÃ¿¨²ÛÑÕÉ«
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½É«
     /// </summary>
     public void SetSlotColor(CardType type)
     {
@@ -48,14 +49,14 @@ public class CardSlot : MonoBehaviour, IDropHandler
 
 
     /// <summary>
-    /// ÉèÖÃµ±Ç°¿¨²ÛÄÚµÄ¿¨ÅÆ
+    /// ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
     /// </summary>
-    /// <param name="card">´«¾­À´µÄ¿¨ÅÆ</param>
+    /// <param name="card">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½</param>
     public void SetChild(Card card)
     {
-        //card.SetNewParent(transform); // ¸üÐÂ¿¨ÅÆµÄ¸¸ÎïÌåÎªµ±Ç°¿¨²Û
-        //card.SetupCard(); // ¸üÐÂ¿¨ÅÆµÄÏÔÊ¾
-        //card.SetCardPos(); // ÉèÖÃ¿¨ÅÆÎ»ÖÃÎª¿¨²ÛÖÐÐÄ
+        //card.SetNewParent(transform); // ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ÆµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+        //card.SetupCard(); // ï¿½ï¿½ï¿½Â¿ï¿½ï¿½Æµï¿½ï¿½ï¿½Ê¾
+        //card.SetCardPos(); // ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½Î»ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         //child = card;
 
@@ -64,11 +65,11 @@ public class CardSlot : MonoBehaviour, IDropHandler
         card.transform.localPosition = Vector3.zero;
         child = card;
         card.SetNewParent(this.transform);
-        card.SetupCard(); // ¸üÐÂ¿¨ÅÆµÄÏÔÊ¾
+        card.SetupCard(); // ï¿½ï¿½ï¿½Â¿ï¿½ï¿½Æµï¿½ï¿½ï¿½Ê¾
     }
 
 
-    // ´¦Àí¿¨ÅÆ·ÅÖÃÊÂ¼þ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     public void OnDrop(PointerEventData eventData)
     {
         GameObject droppedObject = eventData.pointerDrag;
@@ -81,13 +82,13 @@ public class CardSlot : MonoBehaviour, IDropHandler
         {
             if (child != null && child != draggedCard)
             {
-                // ½»»»£º°ÑÔ­ÓÐ¿¨ÅÆ·Å»ØÍÏ×§¿¨ÅÆµÄÔ­¸¸ÎïÌå
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½Ð¿ï¿½ï¿½Æ·Å»ï¿½ï¿½ï¿½×§ï¿½ï¿½ï¿½Æµï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 Transform oldParent = draggedCard.OriginalParent;
                 child.transform.SetParent(oldParent);
                 child.transform.localPosition = Vector3.zero;
                 child.SetNewParent(oldParent);
 
-                // ¸üÐÂÔ­¸¸ÎïÌåµÄchild£¨Èç¹ûÊÇCardSlot£©
+                // ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½childï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CardSlotï¿½ï¿½
                 CardSlot oldSlot = oldParent.GetComponent<CardSlot>();
                 if (oldSlot != null)
                 {
@@ -95,12 +96,22 @@ public class CardSlot : MonoBehaviour, IDropHandler
                 }
             }
 
-            // ·ÅÖÃÐÂ¿¨ÅÆ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½
             SetChild(draggedCard);
         }
         else
         {
-            Debug.LogWarning($"ÀàÐÍ²»Æ¥Åä! ¿¨²ÛÐèÒª {acceptedCardType}, µ«ÍÏÀ´µÄÊÇ {draggedCard.cardData.cardType}.");
+            Debug.LogWarning($"ï¿½ï¿½ï¿½Í²ï¿½Æ¥ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òª {acceptedCardType}, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ {draggedCard.cardData.cardType}.");
         }
+    }
+
+    public bool HasCard()
+    {
+        return child != null;
+    }
+
+    public Card GetCard()
+    {
+        return child;
     }
 }
