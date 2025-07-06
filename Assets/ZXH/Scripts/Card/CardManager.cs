@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    [Header("¿¨ÅÆÊı¾İ¿â")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½")]
     public List<CardData> cardDatabase;
 
-    [Header("Éú³ÉÉèÖÃ")]
-    public GameObject cardPrefab;// ¿¨ÅÆÔ¤ÖÆ¼ş£¬ÓÃÓÚÉú³É¿¨ÅÆÊµÀı
-    public GameObject cardSlotPrefab;// ¿¨ÅÆ²ÛÔ¤ÖÆ¼ş£¬ÓÃÓÚ·ÅÖÃ¿¨ÅÆµÄÈİÆ÷
-    public Transform handParent;// ¿¨ÅÆ²ÛµÄ¸¸ÎïÌå£¬Í¨³£ÊÇÊÖÅÆÇøÓò
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
+    public GameObject cardPrefab;// ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½Êµï¿½ï¿½
+    public GameObject cardSlotPrefab;// ï¿½ï¿½ï¿½Æ²ï¿½Ô¤ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½Ã¿ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½
+    public Transform handParent;// ï¿½ï¿½ï¿½Æ²ÛµÄ¸ï¿½ï¿½ï¿½ï¿½å£¬Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    private CardDataQueue cardQueue = new CardDataQueue();// ¿¨ÅÆÊı¾İ¶ÓÁĞ£¬ÓÃÓÚ´æ´¢ºÍ¹ÜÀí¿¨ÅÆÊı¾İ
+    private CardDataQueue cardQueue = new CardDataQueue();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¶ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½ï¿½Ú´æ´¢ï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     void Start()
     {
-        // ³õÊ¼»¯¶ÓÁĞ
+        // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         foreach (var data in cardDatabase)
         {
             cardQueue.Enqueue(data);
         }
-        // ·¢ÅÆ
+        // ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < 4; i++)
         {
             DrawCard();
@@ -28,32 +28,68 @@ public class CardManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ´Ó¿¨ÅÆ¶ÓÁĞÖĞ³éÈ¡Ò»ÕÅ¿¨ÅÆ²¢Éú³É¶ÔÓ¦µÄ¿¨ÅÆÊµÀı
+    /// ï¿½Ó¿ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½Ğ³ï¿½È¡Ò»ï¿½Å¿ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½É¶ï¿½Ó¦ï¿½Ä¿ï¿½ï¿½ï¿½Êµï¿½ï¿½
     /// </summary>
     public void DrawCard()
     {
         if (cardQueue.Count == 0)
         {
-            Debug.LogWarning("Ã»ÓĞ¿ÉÓÃµÄ¿¨ÅÆÊı¾İ£¡");
+            Debug.LogWarning("Ã»ï¿½Ğ¿ï¿½ï¿½ÃµÄ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ£ï¿½");
             return;
         }
 
         CardData data = cardQueue.Dequeue();
         if (data == null) return;
 
-        // 1. Éú³É¿¨ÅÆ²Û
+        // 1. ï¿½ï¿½ï¿½É¿ï¿½ï¿½Æ²ï¿½
         GameObject slotObj = Instantiate(cardSlotPrefab, handParent);
         CardSlot slot = slotObj.GetComponent<CardSlot>();
         slot.acceptedCardType = data.cardType;
         slot.SetSlotColor(data.cardType);
 
-        // 2. Éú³É¿¨ÅÆ
+        // 2. ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½
         GameObject cardObj = Instantiate(cardPrefab);
         Card card = cardObj.GetComponent<Card>();
         card.cardData = data;
         card.SetupCard();
 
-        // 3. ·ÅÈë¿¨ÅÆ²Û
+        // 3. ï¿½ï¿½ï¿½ë¿¨ï¿½Æ²ï¿½
         slot.SetChild(card);
     }
+
+    public void AddCard(CardData cardData)
+{
+    // ä½ å¯ä»¥ç›´æ¥æŠŠå¡ç‰ŒåŠ å…¥æ‰‹ç‰Œæˆ–ç‰Œåº“ï¼Œè¿™é‡Œä»¥åŠ å…¥æ‰‹ç‰Œä¸ºä¾‹
+    GameObject slotObj = Instantiate(cardSlotPrefab, handParent);
+    CardSlot slot = slotObj.GetComponent<CardSlot>();
+    slot.acceptedCardType = cardData.cardType;
+    slot.SetSlotColor(cardData.cardType);
+
+    GameObject cardObj = Instantiate(cardPrefab);
+    Card card = cardObj.GetComponent<Card>();
+    card.cardData = cardData;
+    card.SetupCard();
+
+    slot.SetChild(card);
+}
+
+public void RemoveCard(CardData cardData)
+{
+    // éå†æ‰‹ç‰Œï¼Œæ‰¾åˆ°ç¬¬ä¸€ä¸ªåŒ¹é…çš„å¡ç‰Œå¹¶ç§»é™¤
+    foreach (Transform slotTransform in handParent)
+    {
+        CardSlot slot = slotTransform.GetComponent<CardSlot>();
+        if (slot != null && slot.HasCard())
+        {
+            Card card = slot.GetCard();
+            if (card != null && card.cardData == cardData)
+            {
+                Destroy(card.gameObject);
+                // ä½ å¯ä»¥é€‰æ‹©æ˜¯å¦é”€æ¯slot
+                // Destroy(slot.gameObject);
+                break;
+            }
+        }
+    }
+}
 }
