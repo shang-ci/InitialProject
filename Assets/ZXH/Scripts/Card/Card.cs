@@ -7,7 +7,7 @@ using TMPro;
 // 确保卡牌对象上有Image和CanvasGroup组件
 [RequireComponent(typeof(Image))]
 [RequireComponent(typeof(CanvasGroup))]
-public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     [Header("卡牌数据")]
     public CardData cardData; // 引用我们创建的ScriptableObject
@@ -50,8 +50,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     // 开始拖拽
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag: " + cardData.cardName);
-
         // 1. 记录原始父物体，用于拖拽失败时返回
         originalParent = transform.parent;
 
@@ -75,8 +73,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     // 结束拖拽
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("OnEndDrag: " + cardData.cardName);
-
         // 恢复卡牌的射线检测和透明度
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1.0f;
@@ -87,9 +83,18 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         {
             // 没有放置到有效卡槽，返回原位
             SetCardPos();
-            Debug.Log("未找到有效卡槽，返回原位。");
         }
     }
+
+    // 右键点击时弹出卡牌详情
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            CardDetailPanel.Instance.Show(cardData, Input.mousePosition);
+        }
+    }
+
 
     // 记录当前父物体——设置当被卡槽成功吸附后，由卡槽调用
     public void SetNewParent(Transform newParent)

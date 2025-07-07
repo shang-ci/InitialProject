@@ -11,7 +11,7 @@ public class CardManager : MonoBehaviour
     public GameObject cardSlotPrefab;// ���Ʋ�Ԥ�Ƽ������ڷ��ÿ��Ƶ�����
     public Transform handParent;// ���Ʋ۵ĸ����壬ͨ������������
 
-    private CardDataQueue cardQueue = new CardDataQueue();// �������ݶ��У����ڴ洢�͹�����������
+    private CardDataQueue cardQueue = new CardDataQueue();//所有手牌
 
     void Start()
     {
@@ -58,7 +58,7 @@ public class CardManager : MonoBehaviour
     }
 
     public void AddCard(CardData cardData)
-{
+    {
     // 你可以直接把卡牌加入手牌或牌库，这里以加入手牌为例
     GameObject slotObj = Instantiate(cardSlotPrefab, handParent);
     CardSlot slot = slotObj.GetComponent<CardSlot>();
@@ -71,25 +71,25 @@ public class CardManager : MonoBehaviour
     card.SetupCard();
 
     slot.SetChild(card);
-}
+    }
 
-public void RemoveCard(CardData cardData)
-{
-    // 遍历手牌，找到第一个匹配的卡牌并移除
-    foreach (Transform slotTransform in handParent)
+    public void RemoveCard(CardData cardData)
     {
-        CardSlot slot = slotTransform.GetComponent<CardSlot>();
-        if (slot != null && slot.HasCard())
+        // 遍历手牌，找到第一个匹配的卡牌并移除
+        foreach (Transform slotTransform in handParent)
         {
-            Card card = slot.GetCard();
-            if (card != null && card.cardData == cardData)
+            CardSlot slot = slotTransform.GetComponent<CardSlot>();
+            if (slot != null && slot.HasCard())
             {
-                Destroy(card.gameObject);
-                // 你可以选择是否销毁slot
-                // Destroy(slot.gameObject);
-                break;
-            }
+                Card card = slot.GetCard();
+                if (card != null && card.cardData == cardData)
+                {
+                    Destroy(card.gameObject);
+                    // 你可以选择是否销毁slot
+                    // Destroy(slot.gameObject);
+                    break;
+                }
         }
     }
-}
+    }
 }

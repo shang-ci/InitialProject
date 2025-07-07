@@ -81,11 +81,20 @@ public class CardDataQueue
 {
     private readonly Queue<CardData> queue = new Queue<CardData>();
 
+    /// <summary>
+    /// 将卡牌数据添加到队列中
+    /// </summary>
+    /// <param name="data"></param>
     public void Enqueue(CardData data)
     {
         queue.Enqueue(data);
     }
 
+
+    /// <summary>
+    /// 从队列中移除并返回最前面的卡牌数据
+    /// </summary>
+    /// <returns></returns>
     public CardData Dequeue()
     {
         if (queue.Count == 0) return null;
