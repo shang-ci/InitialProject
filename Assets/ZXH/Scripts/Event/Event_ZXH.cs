@@ -10,8 +10,12 @@ public class Event_ZXH : MonoBehaviour
     public GameObject Two;
     public GameObject Three;
 
+    [Header("One静态事件UI_拖拽")]
+    [SerializeField] private TextMeshProUGUI EventName; // 事件名称
+    [SerializeField] private TextMeshProUGUI EventTime; // 事件时间
+
     // 事件UI的引用——每个UI都是和模板里的预制体名字相同的，我们直接通过名字获取组件引用即可，不然每个UI都要单独写一个脚本来获取组件引用，太麻烦了
-    [Header("静态事件UI")]
+    [Header("Two静态事件UI")]
     [SerializeField] private TextMeshProUGUI Story;
     [SerializeField] private TextMeshProUGUI Tips;
     [SerializeField] private TextMeshProUGUI DurationDays;// 事件持续天数
@@ -19,16 +23,20 @@ public class Event_ZXH : MonoBehaviour
     //[SerializeField] private TextMeshProUGUI RequiredAttributes_Value;// 属性列表对应的属性值——读取卡牌槽的数值来填充
     [SerializeField] private TextMeshProUGUI SuccessThreshold;
 
-    [Header("动态引用")]
+    [Header("Two动态生成引用")]
     [SerializeField] private CardSlot[] CardSlots; // 卡牌槽数组，用于获取属性值——通过CardSlot来拿到卡牌槽
     [Tooltip("用于显示属性需求的'列表项'预制体")]
     [SerializeField] private GameObject attributeRequirementItemPrefab;//属性需求项预制体，用于动态生成属性需求列表
     [Tooltip("用于放置属性需求列表项的容器")]
     [SerializeField] private Transform attributesContainer; //场景直接拖入
+    [SerializeField] private List<GameObject> spawnedAttributeItems = new List<GameObject>(); // 存储当前生成的列表项——属性值
 
-    // 存储当前生成的列表项——属性值
-    [SerializeField] private List<GameObject> spawnedAttributeItems = new List<GameObject>();
 
+    [Header("Three静态事件UI_拖拽")]
+    [SerializeField] private TextMeshProUGUI Result_Story; // 事件结果文案
+    [SerializeField] private TextMeshProUGUI Reward_Card; // 事件奖励——卡牌——直接把奖励的卡牌名字打印出来，卡牌直接加入到手牌库里
+    [SerializeField] private TextMeshProUGUI Result_Dice; // 骰子的结果
+    [SerializeField] private TextMeshProUGUI Name; // 事件名字
 
 
     private void Awake()
