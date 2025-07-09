@@ -1639,6 +1639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1177ff2d704124ca9e503ba7a65990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentDay: 1
   One: {fileID: 7928831449105359566}
   Two: {fileID: 7905737184158548522}
   Three: {fileID: 1639055753431227215}
@@ -1648,6 +1649,7 @@ MonoBehaviour:
   Tips: {fileID: 0}
   DurationDays: {fileID: 0}
   SuccessThreshold: {fileID: 0}
+  successProbability: 0.5
   CardSlots: []
   attributeRequirementItemPrefab: {fileID: 5072627080818119159, guid: d2d0120648128ae499d0c16551c830f8, type: 3}
   attributesContainer: {fileID: 5563882210513247385}
@@ -2876,7 +2878,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3651330907665048654}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9053798640011392780}
+        m_TargetAssemblyTypeName: Event_ZXH, Assembly-CSharp
+        m_MethodName: CloseThree
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7076970662694424124
 GameObject:
   m_ObjectHideFlags: 0

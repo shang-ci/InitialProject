@@ -20,6 +20,9 @@ public class EventData
     public List<string> RequiredAttributes { get; private set; } // 需要的属性，已解析为列表
     public int DurationDays { get; private set; }// 事件持续的天数
     public int SuccessThreshold { get; private set; } // 成功的条件/阈值，投出的成功骰子需要大于这个数
+    public string SuccessfulResults { get; private set; } // 成功的结果文本
+    public string FailedResults { get; private set; } // 失败的结果文本
+
     public List<string> RewardItemIDs { get; private set; } // 奖励物品ID，已解析为列表
 
     // 构造函数：负责将从CSV读取的原始字符串数据，解析并填充到类的属性中
@@ -45,7 +48,10 @@ public class EventData
             DurationDays = int.Parse(rawData[8]);
             SuccessThreshold = int.Parse(rawData[9]);
 
-            RewardItemIDs = rawData[10].Split('、').Select(s => s.Trim()).ToList();
+            SuccessfulResults = rawData[10];
+            FailedResults = rawData[11];
+
+            RewardItemIDs = rawData[12].Split('、').Select(s => s.Trim()).ToList();
         }
         catch (Exception e)
         {

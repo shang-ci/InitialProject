@@ -63,7 +63,7 @@ public class CardSlot : MonoBehaviour, IDropHandler
         if (card == null) return;
         card.transform.SetParent(this.transform);
         card.transform.localPosition = Vector3.zero;
-        child = card;
+        child = GetComponentInChildren<Card>();
         card.SetNewParent(this.transform);
         card.SetupCard(); // ���¿��Ƶ���ʾ
     }

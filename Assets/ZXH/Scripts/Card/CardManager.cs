@@ -57,6 +57,7 @@ public class CardManager : MonoBehaviour
         slot.SetChild(card);
     }
 
+
     public void AddCard(CardData cardData)
     {
     // 你可以直接把卡牌加入手牌或牌库，这里以加入手牌为例
