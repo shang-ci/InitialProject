@@ -7,8 +7,10 @@ using UnityEngine;
 public class Event_ZXH : MonoBehaviour
 {
     [Header("辅助字段")] 
-    [SerializeField]private int currentDay = 1; // 倒计时，初始为1
+    [SerializeField]private int currentDay = 0; // 倒计时，初始为1
     private EventData eventData; // 用于存储当前事件数据
+    public bool isEventActive = false; // 是否有事件在进行中
+    public bool isBock;//是否锁住
 
     [Header("拖拽引用")]
     public GameObject One;
@@ -83,10 +85,14 @@ public class Event_ZXH : MonoBehaviour
     public void AddTime()
     {
         currentDay++;
-        if(eventData.DurationDays <= currentDay)
+        if(eventData.DurationDays <= currentDay && !isEventActive)
         {
             ExecutionEvent(eventData); // 执行事件逻辑
+
         }
+        EventTime.text = (eventData.DurationDays - currentDay).ToString();
+        DurationDays.text = $"剩余: {eventData.DurationDays - currentDay} 天"; // 更新UI显示剩余天数
+
     }
 
     /// <summary>
@@ -173,6 +179,7 @@ public class Event_ZXH : MonoBehaviour
                 total += card.cardData.GetAttributeValue(attrName);
             }
         }
+        //Debug.Log($"Event_ZXH: 属性 {attrName} 的总值为 {total}");
         return total;
     }
 
@@ -211,6 +218,15 @@ public class Event_ZXH : MonoBehaviour
         return sum;
     }
 
+
+    /// <summary>
+    /// 锁住面板，不能修改事件的卡牌
+    /// </summary>
+    public void SetRight()
+    {
+        isBock = true; // 锁住事件面板，防止重复操作
+    }
+
     #endregion
 
     #region Three
@@ -221,6 +237,8 @@ public class Event_ZXH : MonoBehaviour
     /// <param name="eventData"></param>
     public void ExecutionEvent(EventData eventData)
     {
+        isEventActive = true; 
+
         if (RollTheDice(eventData,successProbability))
         {
             // 成功逻辑
@@ -279,7 +297,7 @@ public class Event_ZXH : MonoBehaviour
     public bool RollTheDice(EventData eventData, float successProbability)
     {
         Debug.Log($"Event_ZXH: 掷骰子，成功概率为 {successProbability * 100}%");
-        int diceSum = GetAllValueTextSum();//骰子个数
+        int diceSum = 10;//GetAllValueTextSum();//骰子个数
         int threshold = eventData.SuccessThreshold;//成功阈值
 
         t = 0;//成功次数
@@ -315,6 +333,7 @@ public class Event_ZXH : MonoBehaviour
     // 展开One的方法
     public void ExpandOne()
     {
+        CloseAllPanels();
         if (One != null)
         {
             One.SetActive(true);
@@ -334,10 +353,10 @@ public class Event_ZXH : MonoBehaviour
     // 展开Two的方法
     public void ExpandTwo()
     {
+        CloseAllPanels();
         if (Two != null)
         {
             Two.SetActive(true);
-            CloseOne();
         }
     }
 
@@ -346,8 +365,7 @@ public class Event_ZXH : MonoBehaviour
     {
         if (Two != null)
         {
-            Two.SetActive(false);
-            ExpandOne();
+            Two.SetActive(false);;
         }
     }
 
@@ -355,11 +373,11 @@ public class Event_ZXH : MonoBehaviour
     // 展开Three的方法
     public void ExpandThree()
     {
+        CloseAllPanels();
         if (Three != null)
         {
             Three.SetActive(true);
         }
-        CloseTwo();
     }
 
     //关闭Three的方法
@@ -369,7 +387,14 @@ public class Event_ZXH : MonoBehaviour
         {
             Three.SetActive(false);
         }
-        ExpandOne();
+    }
+
+    //关闭所有面板的方法
+    public void CloseAllPanels()
+    {
+        CloseOne();
+        CloseTwo();
+        CloseThree();
     }
 
     #endregion

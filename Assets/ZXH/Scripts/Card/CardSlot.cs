@@ -2,30 +2,32 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// 卡牌槽，负责管理卡牌的放置、交换和类型限制
+/// </summary>
 public class CardSlot : MonoBehaviour, IDropHandler
 {
-    [Header("���Ʋ�����")]
-    public CardType acceptedCardType;
-    public int level;
-    public Card child; // ��ǰ�����ڵĿ���
+    [Header("卡牌槽属性")]
+    public CardType acceptedCardType; // 该槽接受的卡牌类型
+    public int level;                  // 槽的等级（可扩展用）
+    public Card child;                 // 当前槽内的卡牌
 
-
-
-    [Header("������ɫ")]
-    public Color roleColor = new Color(0.6f, 0.8f, 1f);   // ��ɫ������
-    public Color intelColor = new Color(1f, 0.9f, 0.5f);  // �鱨������
-    public Color bookColor = new Color(0.8f, 1f, 0.8f);   // �鼮������
-    public Color coinColor = new Color(1f, 0.85f, 0.6f);  // ��ң�����
-
+    [Header("类型颜色")]
+    public Color roleColor = new Color(0.6f, 0.8f, 1f);   // 角色：淡蓝
+    public Color intelColor = new Color(1f, 0.9f, 0.5f);  // 情报：淡黄
+    public Color bookColor = new Color(0.8f, 1f, 0.8f);   // 书籍：淡绿
+    public Color coinColor = new Color(1f, 0.85f, 0.6f);  // 金币：淡橙
 
     private void Awake()
     {
-        SetSlotColor(acceptedCardType); // ��ʼ��������ɫ
+        // 初始化卡槽颜色
+        SetSlotColor(acceptedCardType);
     }
 
     /// <summary>
-    /// �����������ÿ�����ɫ
+    /// 根据卡牌类型设置卡槽的背景颜色
     /// </summary>
+    /// <param name="type">卡牌类型</param>
     public void SetSlotColor(CardType type)
     {
         Image img = GetComponent<Image>();
@@ -47,69 +49,78 @@ public class CardSlot : MonoBehaviour, IDropHandler
         }
     }
 
-
     /// <summary>
-    /// ���õ�ǰ�����ڵĿ���
+    /// 设置当前卡槽内的卡牌，并建立父子关系
     /// </summary>
-    /// <param name="card">�������Ŀ���</param>
+    /// <param name="card">要放入的卡牌</param>
     public void SetChild(Card card)
     {
-        //card.SetNewParent(transform); // ���¿��Ƶĸ�����Ϊ��ǰ����
-        //card.SetupCard(); // ���¿��Ƶ���ʾ
-        //card.SetCardPos(); // ���ÿ���λ��Ϊ��������
-
-        //child = card;
-
         if (card == null) return;
+        // 设置卡牌的父物体为当前卡槽
         card.transform.SetParent(this.transform);
         card.transform.localPosition = Vector3.zero;
-        child = GetComponentInChildren<Card>();
+        // 更新child引用
+        child = card;
+        // 通知卡牌其新父物体
         card.SetNewParent(this.transform);
-        card.SetupCard(); // ���¿��Ƶ���ʾ
+        // 刷新卡牌显示
+        card.SetupCard();
     }
 
-
-    // �������Ʒ����¼�
+    /// <summary>
+    /// 处理拖拽放置事件
+    /// </summary>
+    /// <param name="eventData">拖拽事件数据</param>
     public void OnDrop(PointerEventData eventData)
     {
+        // 检查拖拽的物体是否为卡牌
         GameObject droppedObject = eventData.pointerDrag;
         if (droppedObject == null) return;
 
+        // 获取拖拽的卡牌组件
         Card draggedCard = droppedObject.GetComponent<Card>();
         if (draggedCard == null) return;
 
+        // 类型匹配才允许放置
         if (draggedCard.cardData.cardType == acceptedCardType)
         {
+            // 如果当前槽已有卡牌且不是自己，进行交换
             if (child != null && child != draggedCard)
             {
-                // ��������ԭ�п��ƷŻ���ק���Ƶ�ԭ������
                 Transform oldParent = draggedCard.OriginalParent;
-                child.transform.SetParent(oldParent);
-                child.transform.localPosition = Vector3.zero;
-                child.SetNewParent(oldParent);
+                // 原有卡牌放回拖拽卡牌的原父物体
+                //child.transform.SetParent(oldParent);
+                //child.transform.localPosition = Vector3.zero;
+                //child.SetNewParent(oldParent);
+                //SetChild(child); // 将当前槽的卡牌放回拖拽卡牌的原父物体
 
-                // ����ԭ�������child�������CardSlot��
+                // 如果原父物体是卡槽，更新其child引用
                 CardSlot oldSlot = oldParent.GetComponent<CardSlot>();
                 if (oldSlot != null)
                 {
-                    oldSlot.child = child;
+                    oldSlot.SetChild(child);
                 }
             }
-
-            // �����¿���
+            // 放置新卡牌
             SetChild(draggedCard);
         }
         else
         {
-            Debug.LogWarning($"���Ͳ�ƥ��! ������Ҫ {acceptedCardType}, ���������� {draggedCard.cardData.cardType}.");
+            Debug.LogWarning($"类型不匹配! 卡槽需要 {acceptedCardType}, 但拖来的是 {draggedCard.cardData.cardType}.");
         }
     }
 
+    /// <summary>
+    /// 判断卡槽内是否有卡牌
+    /// </summary>
     public bool HasCard()
     {
         return child != null;
     }
 
+    /// <summary>
+    /// 获取当前卡槽内的卡牌
+    /// </summary>
     public Card GetCard()
     {
         return child;

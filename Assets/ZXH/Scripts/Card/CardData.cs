@@ -1,35 +1,35 @@
-// CardData.cs
+ï»¿// CardData.cs
 using System.Collections.Generic;
 using UnityEngine;
 
-// Ê¹ÓÃCreateAssetMenuÌØĞÔ£¬ÎÒÃÇ¿ÉÒÔÔÚUnity±à¼­Æ÷µÄ "Create" ²Ëµ¥ÖĞÖ±½Ó´´½¨ÕâÖÖ×ÊÔ´ÎÄ¼ş¡£
+// ä½¿ç”¨CreateAssetMenuç‰¹æ€§ï¼Œæˆ‘ä»¬å¯ä»¥åœ¨Unityç¼–è¾‘å™¨çš„ "Create" èœå•ä¸­ç›´æ¥åˆ›å»ºè¿™ç§èµ„æºæ–‡ä»¶ã€‚
 [CreateAssetMenu(fileName = "New CardData", menuName = "Card/Card Data")]
 public class CardData : ScriptableObject
 {
-    [Header("¿¨ÅÆ»ù´¡ĞÅÏ¢")]
+    [Header("å¡ç‰ŒåŸºç¡€ä¿¡æ¯")]
     public string id;
     public string cardName;
     public CardType cardType;
-    public Attributes attributes; // ¿¨ÅÆµÄÊôĞÔ
-    public string description; // ¿¨ÅÆµÄÃèÊö
+    public Attributes attributes; // å¡ç‰Œçš„å±æ€§
+    public string description; // å¡ç‰Œçš„æè¿°
 
-    [Header("¿¨ÅÆÊÓ¾õ±íÏÖ")]
-    public Sprite artwork; // ¿¨ÅÆµÄÍ¼»­
-                           // public GameObject cardPrefab; // Èç¹û¿¨ÅÆÓĞ¸´ÔÓµÄ3DÄ£ĞÍ»òÌØĞ§£¬¿ÉÒÔÔÚÕâÀïÒıÓÃ
+    [Header("å¡ç‰Œè§†è§‰è¡¨ç°")]
+    public Sprite artwork; // å¡ç‰Œçš„å›¾ç”»
+                           // public GameObject cardPrefab; // å¦‚æœå¡ç‰Œæœ‰å¤æ‚çš„3Dæ¨¡å‹æˆ–ç‰¹æ•ˆï¼Œå¯ä»¥åœ¨è¿™é‡Œå¼•ç”¨
 
-    // ¶ÁÈ¡ÊôĞÔ
+    // è¯»å–å±æ€§
     public Attributes GetAttributes()
     {
         return attributes;
     }
 
-    // ÉèÖÃÊôĞÔ£¨ÕûÌåÌæ»»£©
+    // è®¾ç½®å±æ€§ï¼ˆæ•´ä½“æ›¿æ¢ï¼‰
     public void SetAttributes(Attributes newAttributes)
     {
         attributes = newAttributes;
     }
 
-    // µ¥¶ÀÉèÖÃÄ³¸öÊôĞÔ
+    // å•ç‹¬è®¾ç½®æŸä¸ªå±æ€§
     public void SetAttributeValue(string attrName, int value)
     {
         switch (attrName)
@@ -44,7 +44,7 @@ public class CardData : ScriptableObject
         }
     }
 
-    // µ¥¶À»ñÈ¡Ä³¸öÊôĞÔ
+    // å•ç‹¬è·å–æŸä¸ªå±æ€§
     public int GetAttributeValue(string attrName)
     {
         return attrName switch
@@ -60,7 +60,7 @@ public class CardData : ScriptableObject
         };
     }
 
-    // ÊôĞÔµş¼Ó£¨Èç¼Ó³É£©
+    // å±æ€§å åŠ ï¼ˆå¦‚åŠ æˆï¼‰
     public void AddAttributes(Attributes add)
     {
         attributes.physique += add.physique;
@@ -75,14 +75,14 @@ public class CardData : ScriptableObject
 }
 
 /// <summary>
-/// ¿¨ÅÆÊı¾İ¶ÓÁĞ£¬ÓÃÓÚ´æ´¢ºÍ¹ÜÀí¿¨ÅÆÊı¾İµÄ¶ÓÁĞ
+/// å¡ç‰Œæ•°æ®é˜Ÿåˆ—ï¼Œç”¨äºå­˜å‚¨å’Œç®¡ç†å¡ç‰Œæ•°æ®çš„é˜Ÿåˆ—
 /// </summary>
 public class CardDataQueue
 {
     private readonly Queue<CardData> queue = new Queue<CardData>();
 
     /// <summary>
-    /// ½«¿¨ÅÆÊı¾İÌí¼Óµ½¶ÓÁĞÖĞ
+    /// å°†å¡ç‰Œæ•°æ®æ·»åŠ åˆ°é˜Ÿåˆ—ä¸­
     /// </summary>
     /// <param name="data"></param>
     public void Enqueue(CardData data)
@@ -92,7 +92,7 @@ public class CardDataQueue
 
 
     /// <summary>
-    /// ´Ó¶ÓÁĞÖĞÒÆ³ı²¢·µ»Ø×îÇ°ÃæµÄ¿¨ÅÆÊı¾İ
+    /// ä»é˜Ÿåˆ—ä¸­ç§»é™¤å¹¶è¿”å›æœ€å‰é¢çš„å¡ç‰Œæ•°æ®
     /// </summary>
     /// <returns></returns>
     public CardData Dequeue()
@@ -105,16 +105,16 @@ public class CardDataQueue
 }
 
 /// <summary>
-/// ÊôĞÔ½á¹¹Ìå£¬ÓÃÓÚ´æ´¢¿¨ÅÆµÄ¸÷ÖÖÊôĞÔÖµ
+/// å±æ€§ç»“æ„ä½“ï¼Œç”¨äºå­˜å‚¨å¡ç‰Œçš„å„ç§å±æ€§å€¼
 /// </summary>
 [System.Serializable]
 public struct Attributes
 {
-    public int physique;   // ÌåÆÇ
-    public int social;     // Éç½»
-    public int survival;   // Éú´æ
-    public int intelligence; // ÖÇ»Û
-    public int charm;      // ÷ÈÁ¦
-    public int combat;     // Õ½¶·
-    public int support;    // Ö§³Ö
+    public int physique;   // ä½“é­„
+    public int social;     // ç¤¾äº¤
+    public int survival;   // ç”Ÿå­˜
+    public int intelligence; // æ™ºæ…§
+    public int charm;      // é­…åŠ›
+    public int combat;     // æˆ˜æ–—
+    public int support;    // æ”¯æŒ
 }

@@ -1650,6 +1650,8 @@ MonoBehaviour:
   DurationDays: {fileID: 0}
   SuccessThreshold: {fileID: 0}
   successProbability: 0.5
+  t: 0
+  isSuccess: 0
   CardSlots: []
   attributeRequirementItemPrefab: {fileID: 5072627080818119159, guid: d2d0120648128ae499d0c16551c830f8, type: 3}
   attributesContainer: {fileID: 5563882210513247385}
@@ -2881,7 +2883,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9053798640011392780}
         m_TargetAssemblyTypeName: Event_ZXH, Assembly-CSharp
-        m_MethodName: CloseThree
+        m_MethodName: ExpandOne
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3974,7 +3976,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9053798640011392780}
         m_TargetAssemblyTypeName: Event_ZXH, Assembly-CSharp
-        m_MethodName: CloseTwo
+        m_MethodName: ExpandOne
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

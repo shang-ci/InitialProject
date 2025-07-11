@@ -45,6 +45,8 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             cardName.text = "Name:" + cardData.cardName;
             type.text = "Type:" + cardData.cardType.ToString();
         }
+
+        PrintAllAttributes(); // 打印所有属性信息
     }
 
     // 开始拖拽
@@ -109,5 +111,27 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     {
         transform.SetParent(originalParent);
         transform.localPosition = Vector3.zero;
+    }
+
+    public void PrintAllAttributes()
+    {
+        if (cardData == null)
+        {
+            Debug.LogWarning("CardData 为空，无法打印属性。");
+            return;
+        }
+
+        string[] attrNames = new string[]
+        {
+        "physique", "social", "survival", "intelligence", "charm", "combat", "support"
+        };
+
+        string info = $"卡牌 [{cardData.cardName}] 属性：";
+        foreach (var attrName in attrNames)
+        {
+            int value = cardData.GetAttributeValue(attrName);
+            info += $"\n{attrName}: {value}";
+        }
+        Debug.Log(info);
     }
 }
