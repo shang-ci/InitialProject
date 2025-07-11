@@ -15,9 +15,10 @@ public class MapEvent : ScriptableObject
     public string description;// 事件描述
     public Sprite icon;// 事件图标
 
-    public enum TriggerType { Always, StatBased, DayBased }
+    public enum TriggerType { Always, StatBased, DayBased, PrecedingEventCompleted }
     public TriggerType triggerType;
     // 触发类型：总是触发、基于属性触发、基于天数触发
+    public string precedingEventID;// 前置事件的ID（仅在PrecedingEventCompleted时有效）
 
     public int triggerDay;// 触发事件的具体天数（仅在DayBased时有效）
     public int availableFromDay;// 事件可用的起始天数
@@ -72,8 +73,10 @@ public class Condition
 public class Outcome
 {
     public List<ItemReward> itemRewards = new();//胜利获得的物品
-    public List<StatEffect> statEffects = new();//胜利或失败后对属性的影响
+    public List<StatEffect> statEffects = new();//胜利后对属性的影响
     public List<CardData> cardRewards = new();//胜利获得的卡牌
+
+    public List<StatEffect> loseStatEffects = new();//失败后对属性的影响
     public List<CardData> cardRemovals = new();//失败移除的卡牌
 }
 

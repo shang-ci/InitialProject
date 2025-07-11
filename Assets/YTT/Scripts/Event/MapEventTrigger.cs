@@ -8,6 +8,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using PixelCrushers.DialogueSystem;
 using UnityEngine.UI;
+using Unity.Burst;
 
 public class MapEventTrigger : MonoBehaviour
 {
@@ -15,36 +16,66 @@ public class MapEventTrigger : MonoBehaviour
     public CardManager cardManager;
     public PlayerManager playerManager;
     public GameObject buttonObject;
-    public string unlockVariableName = ""; // 解锁后续事件的变量名
-    public int unlockValue = 1;            // 解锁时赋的值
-    private bool triggeredToday = false;
     public GameManager gameManager;
 
-    // void Start()
-    // {
-    //     RefreshButton();
-    // }
+    void Start()
+    {
+        if (gameManager == null)
+        {
+            gameManager = GameManager.Instance;
+        }
 
-    // public void RefreshButton()
-    // {
-    //     int statValue = 0;
+        RefreshButton();
+    }
 
-    //     if (mapEvent.triggerType == MapEvent.TriggerType.StatBased)
-    //     {
-    //         statValue = DialogueLua.GetVariable(mapEvent.statToCheck).asInt;
-    //     }
-    //     bool available = mapEvent.IsAvailable(0, statValue);
-    //     buttonObject.SetActive(available);
-    // }
+    public void RefreshButton()
+    {
+        bool available = false;
+
+        switch (mapEvent.triggerType)
+        {
+            case MapEvent.TriggerType.Always:
+                available = true;
+                break;
+            case MapEvent.TriggerType.StatBased:
+                int statsValue = DialogueLua.GetVariable(mapEvent.statToCheck).asInt;
+                available = mapEvent.IsAvailable(0, statsValue);
+                break;
+            case MapEvent.TriggerType.DayBased:
+                available = gameManager.currentDay >= mapEvent.triggerDay;
+                break;
+            case MapEvent.TriggerType.PrecedingEventCompleted:
+                if (gameManager.HasEventBeenCompleted(mapEvent.precedingEventID))
+                {
+                    available = true;
+                }
+                break;
+        }
+
+        buttonObject.SetActive(available);
+
+        if (available && gameManager.HasEventBeenCompleted(mapEvent.eventID))
+        {
+            buttonObject.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            buttonObject.GetComponent<Button>().interactable = true;
+        }
+    }
+
 
     public void TriggerEvent()
     {
-        if (triggeredToday) return; // 已触发则不再响应
-        triggeredToday = true;
-
         if (DialogueManager.IsConversationActive) return;
 
-        // 判定胜利
+        if (gameManager != null)
+        {
+            gameManager.RegisterEvent(this);
+            //Debug.Log($"Event : {mapEvent.eventID} has been registered as completed");
+        }
+
+        //判定胜利
         bool isWin = false;
         if (mapEvent.winCondition != null && playerManager != null)
         {
@@ -56,65 +87,61 @@ public class MapEventTrigger : MonoBehaviour
         DialogueLua.SetVariable("CurrentEventID", mapEvent.eventID);
         DialogueLua.SetVariable("WinConditionStat", mapEvent.winCondition.statName);
         DialogueLua.SetVariable("WinConditionValue", mapEvent.winCondition.minValueRequired);
+        DialogueLua.SetVariable("EventResult", isWin ? "Win" : "Lose");
 
         if (isWin)
         {
-            Debug.Log($"事件胜利：{mapEvent.title}，玩家获得奖励！"); // 添加胜利提示
-            // 写入胜利奖励属性
-            foreach (var effect in mapEvent.winOutcome.statEffects)
-            {
-                // 给玩家加成属性
-                playerManager.AddStat(effect.statName, effect.valueChange);
-                Debug.Log($"属性 {effect.statName} 变更为 {effect.valueChange}");
-            }
-            // 处理胜利获得卡牌
-            if (mapEvent.winOutcome.cardRewards != null)
-            {
-                foreach (var card in mapEvent.winOutcome.cardRewards)
-                {
-                    cardManager.AddCard(card);
-                }
-            }
-            // 奖励物品名
-            DialogueLua.SetVariable("RewardItemName", mapEvent.winOutcome.itemRewards.Count > 0 ? mapEvent.winOutcome.itemRewards[0].itemName : "");
-            // 触发解锁变量，用于解锁后续事件
-            if (!string.IsNullOrEmpty(unlockVariableName))
-            {
-                DialogueLua.SetVariable(unlockVariableName, unlockValue);
-            }
+            Debug.Log($"事件{mapEvent.title}胜利，玩家获得奖励！");
+            ApplyOutcomeEffects(mapEvent.winOutcome);
+
+            //设置胜利奖励
+            DialogueLua.SetVariable("RewardItemName", mapEvent.winOutcome.itemRewards.Count > 0 ?
+            mapEvent.winOutcome.itemRewards[0].itemName : "");
         }
         else
         {
-            Debug.Log($"事件失败：{mapEvent.title}，玩家接受惩罚！"); // 添加胜利提示
-            // 写入失败惩罚属性
-            foreach (var effect in mapEvent.loseOutcome.statEffects)
-            {
-                DialogueLua.SetVariable($"Penalty_{effect.statName}", effect.valueChange);
-                // 给玩家减成属性
-                playerManager.AddStat(effect.statName, effect.valueChange);
-            }
-            // 处理失败失去卡牌
-            if (mapEvent.loseOutcome.cardRemovals != null)
-            {
-                foreach (var card in mapEvent.loseOutcome.cardRemovals)
-                {
-                    cardManager.RemoveCard(card);
-                }
-            }
-            // 失败物品名（如有需要可写入）
+            Debug.Log($"事件{mapEvent.title}失败，玩家得到惩罚！");
+            ApplyOutcomeEffects(mapEvent.loseOutcome);
         }
 
-        // 启动 DSU 对话
+        //启动对话
         DialogueManager.StartConversation(mapEvent.conversationStartNode);
 
-        // if (gameManager != null)
-        //     gameManager.registerEvent(this);
-        // buttonObject.GetComponent<Button>().interactable = false; // 禁用按钮，防止重复触发
+        //注册事件为已触发
+        if (gameManager != null)
+            gameManager.RegisterEvent(this);
+
+        //更新按钮状态
+        RefreshButton();
     }
+
+    private void ApplyOutcomeEffects(Outcome outcome)
+    {
+        foreach (var effect in outcome.statEffects)
+        {
+            playerManager.AddStat(effect.statName, effect.valueChange);
+        }
+
+        if (outcome.cardRewards != null)
+        {
+            foreach (var card in outcome.cardRewards)
+            {
+                cardManager.AddCard(card);
+            }
+        }
+
+        if (outcome.cardRemovals != null)
+        {
+            foreach (var card in outcome.cardRemovals)
+            {
+                cardManager.RemoveCard(card);
+            }
+        }
+    }
+
 
     public void ResetEventForNewDay()
     {
-        triggeredToday = false;
-        buttonObject.GetComponent<Button>().interactable = true; // 重置按钮状态
+        RefreshButton();
     }
 }

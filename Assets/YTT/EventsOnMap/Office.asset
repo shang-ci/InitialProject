@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39d554fea8fd1043b32de6d73e48d9c, type: 3}
   m_Name: Office
   m_EditorClassIdentifier: 
-  eventID: office_1004
+  eventID: office_004
   title: "\u529E\u516C\u5BA4"
   description: "\u5F88\u5C11\u8E0F\u8DB3\u7684\u4E00\u7247\u533A\u57DF\uFF0C\u4E00\u65E6\u8E0F\u8DB3\u8981\u4E48\u662F\u5927\u597D\u4E8B\uFF0C\u8981\u4E48\u3002\u3002\u3002\u3002"
   icon: {fileID: 0}
-  triggerType: 1
+  triggerType: 3
+  precedingEventID: school_001
   triggerDay: 0
   availableFromDay: 0
   availableUntilDay: 0
@@ -33,9 +34,11 @@ MonoBehaviour:
     itemRewards: []
     statEffects: []
     cardRewards: []
+    loseStatEffects: []
     cardRemovals: []
   loseOutcome:
     itemRewards: []
     statEffects: []
     cardRewards: []
+    loseStatEffects: []
     cardRemovals: []
