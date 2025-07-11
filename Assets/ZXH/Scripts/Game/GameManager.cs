@@ -1,18 +1,29 @@
+// /*
+// 7.11
+// YTTä½œå‡ºæ”¹åŠ¨
+// */
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int Time = 1; // ÓÎÏ·Ê±¼ä£¬³õÊ¼ÖµÎª1
+    public int currentDay = 1; // ï¿½ï¿½Ï·Ê±ï¿½ä£¬ï¿½ï¿½Ê¼ÖµÎª1
 
     public static GameManager Instance { get; private set; }
-    public Transform EventUIContainer; // ÊÂ¼şUIÈİÆ÷
+    public Transform EventUIContainer; // äº‹ä»¶UIå®¹å™¨
+    public TextMeshProUGUI DayText; //UIæ—¶é—´æ–‡æœ¬
+    public Button nextDayButton; // ä¸‹ä¸€å¤©æŒ‰é’®
+    public List<MapEventTrigger> allEventTrigger; //æ‰€æœ‰äº‹ä»¶è§¦å‘å™¨
+    private HashSet<MapEventTrigger> triggeredEvents = new HashSet<MapEventTrigger>();
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -22,24 +33,40 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // µÈ´ıÒ»Ö¡È·±£DataManagerµÄAwakeÒÑ¾­Ö´ĞĞÍê±Ï
+        UpdateDayUI();
+        nextDayButton.onClick.AddListener(NextDay);
+        ResetEvents();
+
+        nextDayButton.gameObject.SetActive(true);
+
+        // ï¿½È´ï¿½Ò»Ö¡È·ï¿½ï¿½DataManagerï¿½ï¿½Awakeï¿½Ñ¾ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½
         Invoke("TestEventLoading", 1f);
     }
 
-
-    /// <summary>
-    /// Ôö¼ÓÓÎÏ·Ê±¼ä£¬Ã¿´Îµ÷ÓÃÔö¼Ó1Ìì
-    /// </summary>
-    public void AddTime()
+    public void RegisterEvent(MapEventTrigger trigger)
     {
-        Time++;
-        Debug.Log($"Game Time increased to: {Time}");
+        triggeredEvents.Add(trigger);
+    }
 
-        // ²éÕÒËùÓĞ¼¤»îµÄ Event_ZXH ²¢µ÷ÓÃ AddTime¡ª¡ª²»Ğ´ÊÂ¼ş¹ÜÀíÆ÷ÁË
-        var eventPanels = GameObject.FindObjectsOfType<Event_ZXH>(true);
+    public void NextDay()
+    {
+        Debug.Log($"ç¬¬{currentDay}å¤©ç»“æŸï¼Œå±æ€§å€¼ï¼š{FindObjectOfType<PlayerManager>()?.GetAllStatsString()}");
+        currentDay++;
+        UpdateDayUI();
+        ResetEvents();
+        triggeredEvents.Clear();
+    }
+
+    void UpdateActiveEventsTime()
+    {
+        var eventPanels = new List<Event_ZXH>();
+        var allEventComponents = GameObject.FindObjectsOfType<Event_ZXH>();
+        foreach (var component in allEventComponents)
+        {
+            eventPanels.Add(component);
+        }
         foreach (var eventPanel in eventPanels)
         {
-            // Ö»¶Ô¼¤»îµÄÊÂ¼şÃæ°åµ÷ÓÃ
             if (eventPanel.gameObject.activeInHierarchy)
             {
                 eventPanel.AddTime();
@@ -47,28 +74,139 @@ public class GameManager : MonoBehaviour
         }
     }
 
-        void TestEventLoading()
+    void UpdateDayUI()
     {
-        // Í¨¹ıID»ñÈ¡ÎÒÃÇÅäÖÃµÄÊÂ¼ş
+        DayText.text = $"Day : {currentDay}";
+    }
+
+    void ResetEvents()
+    {
+        foreach (var trigger in allEventTrigger)
+        {
+            trigger.ResetEventForNewDay();
+        }
+    }
+
+    //åŠŸèƒ½æ·»åŠ ï¼Œæµ‹è¯•æ˜¯å¦ä¼šæŠ¥é”™
+    /// <summary>
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·Ê±ï¿½ä£¬Ã¿ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½
+    /// </summary>
+    // public void AddTime()
+    // {
+    //     Time++;
+    //     Debug.Log($"Game Time increased to: {Time}");
+
+    //     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¼ï¿½ï¿½ï¿½ï¿½ Event_ZXH ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ AddTimeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //     var eventPanels = GameObject.FindObjectsOfType<Event_ZXH>(true);
+    //     foreach (var eventPanel in eventPanels)
+    //     {
+    //         // Ö»ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //         if (eventPanel.gameObject.activeInHierarchy)
+    //         {
+    //             eventPanel.AddTime();
+    //         }
+    //     }
+    // }
+
+    void TestEventLoading()
+    {
+        // Í¨é€šè¿‡IDè·å–æ—¶é—´æ•°æ®
         EventData testEvent = DataManager.Instance.GetEventByID("E1001");
 
         if (testEvent != null)
         {
             Debug.Log("--- Event E1001 Loaded Successfully! ---");
-            Debug.Log($"ÊÂ¼şÃû³Æ: {testEvent.EventName}");
-            Debug.Log($"ÊÂ¼şÀàĞÍ: {testEvent.EventType}");
-            Debug.Log($"¾çÇé: {testEvent.Story}");
-            Debug.Log($"ËùĞèÊôĞÔ: {string.Join(" & ", testEvent.RequiredAttributes)}");
-            Debug.Log($"³ÖĞøÌìÊı: {testEvent.DurationDays}");
-            Debug.Log($"³É¹¦ºó½±ÀøÎïÆ·: {string.Join(", ", testEvent.RewardItemIDs)}");
-            Debug.Log($"PrefabÂ·¾¶: {testEvent.EventPrefabName}");
-            Debug.Log($"³É¹¦½á¹û: {testEvent.SuccessfulResults}");
-            Debug.Log($"Ê§°Ü½á¹û: {testEvent.FailedResults}");
+            Debug.Log($"æ—¶é—´åç§°: {testEvent.EventName}");
+            Debug.Log($"äº‹ä»¶ç±»å‹: {testEvent.EventType}");
+            Debug.Log($"éœ€æ±‚å±æ€§: {string.Join(" & ", testEvent.RequiredAttributes)}");
+            Debug.Log($"æŒç»­å¤©æ•°: {testEvent.DurationDays}");
+            Debug.Log($"æˆåŠŸå¥–åŠ±ç‰©å“: {string.Join(", ", testEvent.RewardItemIDs)}");
+            Debug.Log($"Prefabè·¯å¾„: {testEvent.EventPrefabName}");
+            Debug.Log($"æˆåŠŸç»“æœ: {testEvent.SuccessfulResults}");
+            Debug.Log($"å¤±è´¥ç»“æœ: {testEvent.FailedResults}");
 
-            // ÏÂÒ»²½¾ÍÊÇ¸ù¾İÕâ¸öÂ·¾¶È¥¼ÓÔØ²¢ÊµÀı»¯UIÔ¤ÖÆÌåÁË
+            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½È¥ï¿½ï¿½ï¿½Ø²ï¿½Êµï¿½ï¿½ï¿½ï¿½UIÔ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             GameObject eventUIInstance = DataManager.Instance.InstantiateEventPrefab(testEvent, EventUIContainer);
             Event_ZXH eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
             eventUI.Initialize(testEvent);
         }
     }
 }
+
+
+
+
+
+// using UnityEngine;
+
+// public class GameManager : MonoBehaviour
+// {
+//     public int Time = 1; // ï¿½ï¿½Ï·Ê±ï¿½ä£¬ï¿½ï¿½Ê¼ÖµÎª1
+
+//     public static GameManager Instance { get; private set; }
+//     public Transform EventUIContainer; // ï¿½Â¼ï¿½UIï¿½ï¿½ï¿½ï¿½
+
+//     private void Awake()
+//     {
+//         if (Instance == null)
+//         {
+//             Instance = this;
+//             DontDestroyOnLoad(gameObject); 
+//         }
+//         else
+//         {
+//             Destroy(gameObject);
+//         }
+//     }
+
+//     void Start()
+//     {
+//         // ï¿½È´ï¿½Ò»Ö¡È·ï¿½ï¿½DataManagerï¿½ï¿½Awakeï¿½Ñ¾ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½
+//         Invoke("TestEventLoading", 1f);
+//     }
+
+
+//     /// <summary>
+//     /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·Ê±ï¿½ä£¬Ã¿ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½
+//     /// </summary>
+//     public void AddTime()
+//     {
+//         Time++;
+//         Debug.Log($"Game Time increased to: {Time}");
+
+//         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¼ï¿½ï¿½ï¿½ï¿½ Event_ZXH ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ AddTimeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//         var eventPanels = GameObject.FindObjectsOfType<Event_ZXH>(true);
+//         foreach (var eventPanel in eventPanels)
+//         {
+//             // Ö»ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//             if (eventPanel.gameObject.activeInHierarchy)
+//             {
+//                 eventPanel.AddTime();
+//             }
+//         }
+//     }
+
+//         void TestEventLoading()
+//     {
+//         // Í¨ï¿½ï¿½IDï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½Â¼ï¿½
+//         EventData testEvent = DataManager.Instance.GetEventByID("E1001");
+
+//         if (testEvent != null)
+//         {
+//             Debug.Log("--- Event E1001 Loaded Successfully! ---");
+//             Debug.Log($"ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½: {testEvent.EventName}");
+//             Debug.Log($"ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½: {testEvent.EventType}");
+//             Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: {string.Join(" & ", testEvent.RequiredAttributes)}");
+//             Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: {testEvent.DurationDays}");
+//             Debug.Log($"ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·: {string.Join(", ", testEvent.RewardItemIDs)}");
+//             Debug.Log($"PrefabÂ·ï¿½ï¿½: {testEvent.EventPrefabName}");
+//             Debug.Log($"ï¿½É¹ï¿½ï¿½ï¿½ï¿½: {testEvent.SuccessfulResults}");
+//             Debug.Log($"Ê§ï¿½Ü½ï¿½ï¿½: {testEvent.FailedResults}");
+
+//             // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½È¥ï¿½ï¿½ï¿½Ø²ï¿½Êµï¿½ï¿½ï¿½ï¿½UIÔ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//             GameObject eventUIInstance = DataManager.Instance.InstantiateEventPrefab(testEvent, EventUIContainer);
+//             Event_ZXH eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
+//             eventUI.Initialize(testEvent);
+//         }
+//     }
+// }

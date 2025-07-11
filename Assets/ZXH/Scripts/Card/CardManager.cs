@@ -60,18 +60,18 @@ public class CardManager : MonoBehaviour
 
     public void AddCard(CardData cardData)
     {
-    // 你可以直接把卡牌加入手牌或牌库，这里以加入手牌为例
-    GameObject slotObj = Instantiate(cardSlotPrefab, handParent);
-    CardSlot slot = slotObj.GetComponent<CardSlot>();
-    slot.acceptedCardType = cardData.cardType;
-    slot.SetSlotColor(cardData.cardType);
+        // 你可以直接把卡牌加入手牌或牌库，这里以加入手牌为例
+        GameObject slotObj = Instantiate(cardSlotPrefab, handParent);
+        CardSlot slot = slotObj.GetComponent<CardSlot>();
+        slot.acceptedCardType = cardData.cardType;
+        slot.SetSlotColor(cardData.cardType);
 
-    GameObject cardObj = Instantiate(cardPrefab);
-    Card card = cardObj.GetComponent<Card>();
-    card.cardData = cardData;
-    card.SetupCard();
+        GameObject cardObj = Instantiate(cardPrefab);
+        Card card = cardObj.GetComponent<Card>();
+        card.cardData = cardData;
+        card.SetupCard();
 
-    slot.SetChild(card);
+        slot.SetChild(card);
     }
 
     public void RemoveCard(CardData cardData)
@@ -90,7 +90,7 @@ public class CardManager : MonoBehaviour
                     // Destroy(slot.gameObject);
                     break;
                 }
+            }
         }
-    }
     }
 }

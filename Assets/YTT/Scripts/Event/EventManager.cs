@@ -1,36 +1,40 @@
-using System.Collections.Generic;
-using UnityEngine;
+/*
+7.8
 
-public class EventManager : MonoBehaviour
-{
-    public List<MapEvent> allEvents;
-    public Transform eventButtonParent;
-    public GameObject eventButtonPrefab;
+*/
+// using System.Collections.Generic;
+// using UnityEngine;
 
-    public int currentDay = 1;
-    public PlayerStats playerStats; // 玩家属性管理器
+// public class EventManager : MonoBehaviour
+// {
+//     public List<MapEvent> allEvents;
+//     public Transform eventButtonParent;
+//     public GameObject eventButtonPrefab;
 
-    void Start()
-    {
-        RefreshEvents();
-    }
-    public void RefreshEvents()
-    {
-        foreach (Transform child in eventButtonParent)
-        {
-            Destroy(child.gameObject);
-        }
+//     public int currentDay = 1;
+//     public PlayerStats playerStats; // 玩家属性管理器
 
-        foreach (var mapEvent in allEvents)
-        {
-            int statValue = playerStats.GetStat(mapEvent.statToCheck);
+//     void Start()
+//     {
+//         RefreshEvents();
+//     }
+//     public void RefreshEvents()
+//     {
+//         foreach (Transform child in eventButtonParent)
+//         {
+//             Destroy(child.gameObject);
+//         }
 
-            if (mapEvent.IsAvailable(currentDay, statValue))
-            {
-                var btn = Instantiate(eventButtonPrefab, eventButtonParent);
-                btn.GetComponent<MapEventTrigger>().mapEvent = mapEvent;
-                // 设置图标、标题等 UI
-            }
-        }
-    }
-}
+//         foreach (var mapEvent in allEvents)
+//         {
+//             int statValue = playerStats.GetStat(mapEvent.statToCheck);
+
+//             if (mapEvent.IsAvailable(currentDay, statValue))
+//             {
+//                 var btn = Instantiate(eventButtonPrefab, eventButtonParent);
+//                 btn.GetComponent<MapEventTrigger>().mapEvent = mapEvent;
+//                 // 设置图标、标题等 UI
+//             }
+//         }
+//     }
+// }
