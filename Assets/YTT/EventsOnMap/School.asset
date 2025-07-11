@@ -20,30 +20,32 @@ MonoBehaviour:
   triggerDay: 0
   availableFromDay: 0
   availableUntilDay: 0
-  statToCheck: Wisdom
-  requiredStatValue: 5
+  statToCheck: =
+  requiredStatValue: 0
   durationHours: 7.5
   conversationStartNode: SchoolEvent
   winCondition:
     statToCheck: Wisdom
     minValueRequired: 5
+    maxValueRequired: 0
     statName: 
   winOutcome:
     itemRewards:
-    - itemName: Book
+    - itemName: Star
       quantity: 1
     statEffects:
     - statName: Hardworking
-      valueChange: 1
-    cardRewards: []
+      valueChange: 100
+    - statName: Wisdom
+      valueChange: 100
+    cardRewards:
+    - {fileID: 11400000, guid: 4747c8a8274ed9f4e8234885a8549381, type: 2}
+    - {fileID: 11400000, guid: 2afed78bcefb44848bf23004063b9843, type: 2}
     cardRemovals: []
   loseOutcome:
     itemRewards: []
     statEffects:
     - statName: Hardworking
       valueChange: -1
-    cardRewards:
-    - {fileID: 11400000, guid: 4747c8a8274ed9f4e8234885a8549381, type: 2}
-    - {fileID: 11400000, guid: 4747c8a8274ed9f4e8234885a8549381, type: 2}
-    - {fileID: 11400000, guid: 4747c8a8274ed9f4e8234885a8549381, type: 2}
+    cardRewards: []
     cardRemovals: []

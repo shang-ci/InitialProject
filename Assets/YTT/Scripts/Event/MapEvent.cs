@@ -1,7 +1,7 @@
 /* 
 7.3
 定义一个类，包含事件应该有的字段
- */
+*/
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,6 +64,7 @@ public class Condition
 {
     public string statToCheck;// 需要检查的属性名称
     public int minValueRequired;// 触发事件所需的最小属性值
+    public int maxValueRequired;// 触发事件所需的最大属性值
     public string statName;// 需要检查的属性名称（用于胜利条件）
 }
 

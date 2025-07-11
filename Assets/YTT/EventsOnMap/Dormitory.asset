@@ -31,6 +31,10 @@ MonoBehaviour:
   winOutcome:
     itemRewards: []
     statEffects: []
+    cardRewards: []
+    cardRemovals: []
   loseOutcome:
     itemRewards: []
     statEffects: []
+    cardRewards: []
+    cardRemovals: []
