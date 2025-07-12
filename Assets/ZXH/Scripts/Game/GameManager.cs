@@ -125,55 +125,55 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // void TestEventLoading()
-    // {
-    //     // ͨ通过ID获取时间数据
-    //     EventData testEvent = DataManager.Instance.GetEventByID("E1001");
+    //void TestEventLoading()
+    //{
+    //    // ͨ通过ID获取时间数据
+    //    EventData testEvent = DataManager.Instance.GetEventByID("E1001");
 
-    //     if (testEvent != null)
-    //     {
-    //         Debug.Log("--- Event E1001 Loaded Successfully! ---");
-    //         Debug.Log($"时间名称: {testEvent.EventName}");
-    //         Debug.Log($"事件类型: {testEvent.EventType}");
-    //         Debug.Log($"需求属性: {string.Join(" & ", testEvent.RequiredAttributes)}");
-    //         Debug.Log($"持续天数: {testEvent.DurationDays}");
-    //         Debug.Log($"成功奖励物品: {string.Join(", ", testEvent.RewardItemIDs)}");
-    //         Debug.Log($"Prefab路径: {testEvent.EventPrefabName}");
-    //         Debug.Log($"成功结果: {testEvent.SuccessfulResults}");
-    //         Debug.Log($"失败结果: {testEvent.FailedResults}");
+    //    if (testEvent != null)
+    //    {
+    //        Debug.Log("--- Event E1001 Loaded Successfully! ---");
+    //        Debug.Log($"时间名称: {testEvent.EventName}");
+    //        Debug.Log($"事件类型: {testEvent.EventType}");
+    //        Debug.Log($"需求属性: {string.Join(" & ", testEvent.RequiredAttributes)}");
+    //        Debug.Log($"持续天数: {testEvent.DurationDays}");
+    //        Debug.Log($"成功奖励物品: {string.Join(", ", testEvent.RewardItemIDs)}");
+    //        Debug.Log($"Prefab路径: {testEvent.EventPrefabName}");
+    //        Debug.Log($"成功结果: {testEvent.SuccessfulResults}");
+    //        Debug.Log($"失败结果: {testEvent.FailedResults}");
 
-    //         if (DataManager.Instance == null)
-    //         {
-    //             Debug.LogError("DataManager.Instance is null!");
-    //             return;
-    //         }
+    //        if (DataManager.Instance == null)
+    //        {
+    //            Debug.LogError("DataManager.Instance is null!");
+    //            return;
+    //        }
 
-    //         GameObject eventUIInstance = DataManager.Instance.InstantiateEventPrefab(testEvent, EventUIContainer);
-    //         if (eventUIInstance == null)
-    //         {
-    //             Debug.LogError($"Failed to instantiate event prefab for {testEvent.EventName}");
-    //             return;
-    //         }
+    //        GameObject eventUIInstance = DataManager.Instance.InstantiateEventPrefab(testEvent, EventUIContainer);
+    //        if (eventUIInstance == null)
+    //        {
+    //            Debug.LogError($"Failed to instantiate event prefab for {testEvent.EventName}");
+    //            return;
+    //        }
 
-    //         Debug.Log($"Event prefab instantiated: {eventUIInstance.name}");
+    //        Debug.Log($"Event prefab instantiated: {eventUIInstance.name}");
 
-    //         Event_ZXH eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
+    //        Event_ZXH eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
 
-    //         if (eventUI == null)
-    //         {
-    //             Debug.LogError($"No Event_ZXH component found in {eventUIInstance.name} or its children");
+    //        if (eventUI == null)
+    //        {
+    //            Debug.LogError($"No Event_ZXH component found in {eventUIInstance.name} or its children");
 
-    //             // 打印子对象信息用于调试
-    //             foreach (Transform child in eventUIInstance.transform)
-    //             {
-    //                 Debug.Log($"Child: {child.name}");
-    //             }
+    //            // 打印子对象信息用于调试
+    //            foreach (Transform child in eventUIInstance.transform)
+    //            {
+    //                Debug.Log($"Child: {child.name}");
+    //            }
 
-    //             return;
-    //         }
-    //         eventUI.Initialize(testEvent);
-    //     }
-    // }
+    //            return;
+    //        }
+    //        eventUI.Initialize(testEvent);
+    //    }
+    //}
 
     public bool HasEventBeenCompleted(string eventID)
     {
