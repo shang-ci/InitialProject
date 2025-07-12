@@ -22,35 +22,29 @@ public class MapEventTrigger : MonoBehaviour
     {
         if (gameManager == null)
         {
+            //获得游戏管理器的单例实例
             gameManager = GameManager.Instance;
         }
 
+        //游戏开始执行时便刷新事件按钮的显示状态
         RefreshButton();
     }
 
+    //刷新事件按钮的显示状态，根据触发条件判断按钮是否可见
     public void RefreshButton()
     {
-        bool available = false;
-
-        switch (mapEvent.triggerType)
+        int statValue = 0;
+        if (playerManager != null && !string.IsNullOrEmpty(mapEvent.statToCheck))
         {
-            case MapEvent.TriggerType.Always:
-                available = true;
-                break;
-            case MapEvent.TriggerType.StatBased:
-                int statsValue = DialogueLua.GetVariable(mapEvent.statToCheck).asInt;
-                available = mapEvent.IsAvailable(0, statsValue);
-                break;
-            case MapEvent.TriggerType.DayBased:
-                available = gameManager.currentDay >= mapEvent.triggerDay;
-                break;
-            case MapEvent.TriggerType.PrecedingEventCompleted:
-                if (gameManager.HasEventBeenCompleted(mapEvent.precedingEventID))
-                {
-                    available = true;
-                }
-                break;
+            statValue = playerManager.GetStat(mapEvent.statToCheck);
         }
+
+        bool available = mapEvent.IsAvailable(
+            gameManager.currentDay,
+            statValue,
+            gameManager.HasCompletedEventSuccessfully
+        );
+        //Debug.Log($"Event {mapEvent.eventID} is {available}");
 
         buttonObject.SetActive(available);
 
@@ -64,13 +58,15 @@ public class MapEventTrigger : MonoBehaviour
         }
     }
 
-
+    //触发事件的逻辑，玩家点击事件按钮时执行
     public void TriggerEvent()
     {
+        //若当前有对话在进行，则不执行事件
         if (DialogueManager.IsConversationActive) return;
 
         if (gameManager != null)
         {
+            //将该事件注册为已触发
             gameManager.RegisterEvent(this);
             //Debug.Log($"Event : {mapEvent.eventID} has been registered as completed");
         }
@@ -107,9 +103,7 @@ public class MapEventTrigger : MonoBehaviour
         //启动对话
         DialogueManager.StartConversation(mapEvent.conversationStartNode);
 
-        //注册事件为已触发
-        if (gameManager != null)
-            gameManager.RegisterEvent(this);
+        
 
         //更新按钮状态
         RefreshButton();
@@ -139,7 +133,7 @@ public class MapEventTrigger : MonoBehaviour
         }
     }
 
-
+    //新的一天重置事件，并更新按钮状态
     public void ResetEventForNewDay()
     {
         RefreshButton();

@@ -12,17 +12,16 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
     public int currentDay = 1;
-
     public static GameManager Instance { get; private set; }
     public Transform EventUIContainer; // 事件UI容器
     public TextMeshProUGUI DayText; //UI时间文本
     public Button nextDayButton; // 下一天按钮
     public List<MapEventTrigger> allEventTrigger; //所有事件触发器
-    public string preEvent;
-    public string afterEvent;
 
-    //triggeredEvents 用于记录当天已触发的事件
+    //triggeredEvents 记录当天已触发的事件
     private HashSet<MapEventTrigger> triggeredEvents = new HashSet<MapEventTrigger>();
+    //wonTriggeredEvents 记录当前胜利了的已触发事件
+    private HashSet<MapEventTrigger> wonTriggeredEvents = new HashSet<MapEventTrigger>();
 
     private void Awake()
     {
@@ -45,28 +44,35 @@ public class GameManager : MonoBehaviour
 
         nextDayButton.gameObject.SetActive(true);
 
-        Invoke("TestEventLoading", 1f);
+        //Invoke("TestEventLoading", 1f);
     }
 
+    //注册事件触发
     public void RegisterEvent(MapEventTrigger trigger)
     {
         triggeredEvents.Add(trigger);
-    }
+        //Debug.Log($"事件{trigger.mapEvent.eventID}已触发");
+        MapEvent mapEvent = trigger.mapEvent;
+        Condition winCondition = mapEvent.winCondition;
+        PlayerManager playerManager = FindObjectOfType<PlayerManager>();
+        int currentStatValue = 0;
 
-    public void CompleteEvent(MapEventTrigger trigger)
-    {
-        GameManager.Instance.RegisterEvent(trigger);
-        Debug.Log($"事件 {trigger.mapEvent.eventID} 已完成并加入到已触发的事件列表！");
-    }
+        if (playerManager != null)
+        {
+            currentStatValue = playerManager.GetStat(winCondition.statToCheck);
+        }
+        if (currentStatValue >= winCondition.minValueRequired)
+        {
+            wonTriggeredEvents.Add(trigger);
+            //Debug.Log($"事件{trigger.mapEvent.eventID}已成功");
+        }
 
-    public bool HasEventOccurred(string eventID)
-    {
-        return triggeredEvents.Any(trigger => trigger.mapEvent.eventID == eventID);
+        //！！！重要：刷新按钮状态后即可开启后续事件！！！
+        RefreshButton();
     }
 
     public void NextDay()
     {
-        //Debug.Log($"第{currentDay}天结束，属性值：{FindObjectOfType<PlayerManager>()?.GetAllStatsString()}");
         currentDay++;
         UpdateDayUI();
 
@@ -75,35 +81,14 @@ public class GameManager : MonoBehaviour
 
         //清空已触发的事件集合
         triggeredEvents.Clear();
-
-        // 检查是否有跨天事件完成（例如：学校事件完成，办公室事件按钮显示）
-        CheckEventForNextDay();
+        //清空胜利了的已触发事件集合
+        wonTriggeredEvents.Clear();
 
         //更新按钮状态
         RefreshButton();
     }
 
-    private void CheckEventForNextDay()
-    {
-        if (HasEventBeenCompleted(preEvent))
-        {
-            var newEvent = allEventTrigger.FirstOrDefault(trigger => trigger.mapEvent.eventID == afterEvent);
-            if (newEvent != null)
-            {
-                newEvent.buttonObject.SetActive(true);
-                Debug.Log($"{currentDay} 事件{preEvent}已完成，触发新事件：{afterEvent}");
-            }
-            else
-            {
-                Debug.Log($"{currentDay} ，无法触发新事件");
-            }
-        }
-        else
-        {
-            Debug.Log($"{currentDay} 事件{preEvent}未完成");
-        }
-    }
-
+    //刷新所有的事件按钮状态
     private void RefreshButton()
     {
         foreach (var eventTrigger in allEventTrigger)
@@ -117,6 +102,7 @@ public class GameManager : MonoBehaviour
         DayText.text = $"Day : {currentDay}";
     }
 
+    //新一天重置所有事件状态
     void ResetEvents()
     {
         foreach (var trigger in allEventTrigger)
@@ -175,8 +161,16 @@ public class GameManager : MonoBehaviour
     //    }
     //}
 
+    //检测事件是否触发
     public bool HasEventBeenCompleted(string eventID)
     {
         return triggeredEvents.Any(trigger => trigger.mapEvent.eventID == eventID);
+    }
+
+    //检测触发了的事件是否胜利
+    public bool HasCompletedEventSuccessfully(string eventID)
+    {
+        
+        return wonTriggeredEvents.Any(trigger => trigger.mapEvent.eventID == eventID);
     }
 }

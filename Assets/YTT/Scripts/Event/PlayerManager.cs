@@ -2,15 +2,42 @@
 7.8
 将玩家属性管理器 PlayerManager 提取出来
 将玩家属性存储在字典中，方便管理和扩展
+7.10 PlayerStatUI
+制作一个属性版
+实时更新玩家的属性值
+从dialogue system中实时获取各属性的数值
+7.12
+将PlayerStatUI脚本内容（实时获取属性值打印在屏幕上）合并到该脚本
 */
 using System.Collections.Generic;
 using UnityEngine;
 using PixelCrushers.DialogueSystem;
+using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
     // 玩家属性字典，key为属性名，value为属性值
     private Dictionary<string, int> stats = new Dictionary<string, int>();
+    public TextMeshProUGUI wisdomText;
+    public TextMeshProUGUI hardworkingText;
+    public TextMeshProUGUI angerText;
+
+    void Update()
+    {
+        int wisdom = DialogueLua.GetVariable("Wisdom").asInt;
+        int hardworking = DialogueLua.GetVariable("Hardworking").asInt;
+        int anger = DialogueLua.GetVariable("Anger").asInt;
+
+        //更新stats字典
+        stats["Wisdom"] = wisdom;
+        stats["Hardworking"] = hardworking;
+        stats["Anger"] = anger;
+
+        //更新UI显示
+        wisdomText.text = $"Wisdom: {wisdom}";
+        hardworkingText.text = $"Hardworking: {hardworking}";
+        angerText.text = $"Anger: {anger}";
+    }
 
     // 初始化属性,自动同步所有 DSU 变量
     public void Start()
@@ -43,27 +70,5 @@ public class PlayerManager : MonoBehaviour
         stats[statName] += valueChange;
 
         DialogueLua.SetVariable(statName, stats[statName]);
-        //Debug.Log($"Stat {statName} changed by {valueChange}, new value: {stats[statName]}");
-    }
-
-    // 可选：设置属性值
-    public void SetStat(string statName, int value)
-    {
-        stats[statName] = value;
-
-        DialogueLua.SetVariable(statName, value);
-    }
-
-    public string GetAllStatsString()
-    {
-        string result = "";
-        foreach (var stat in stats)
-        {
-            result += $"{stat.Key} : {stat.Value},";
-        }
-
-        if (result.Length > 2)
-            result = result.Substring(0, result.Length - 2);
-            return result;
     }
 }

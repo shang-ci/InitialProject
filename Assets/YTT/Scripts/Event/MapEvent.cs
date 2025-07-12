@@ -4,6 +4,7 @@
 */
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 
 [CreateAssetMenu(fileName = "NewMapEvent", menuName = "Events/Map Event")]
 public class MapEvent : ScriptableObject
@@ -15,14 +16,13 @@ public class MapEvent : ScriptableObject
     public string description;// 事件描述
     public Sprite icon;// 事件图标
 
-    public enum TriggerType { Always, StatBased, DayBased, PrecedingEventCompleted }
+    public enum TriggerType { Always, DayBased, StatBased, PrecedingEventCompleted }
     public TriggerType triggerType;
     // 触发类型：总是触发、基于属性触发、基于天数触发
-    public string precedingEventID;// 前置事件的ID（仅在PrecedingEventCompleted时有效）
 
-    public int triggerDay;// 触发事件的具体天数（仅在DayBased时有效）
     public int availableFromDay;// 事件可用的起始天数
     public int availableUntilDay;// 事件可用的结束天数
+    public string precedingEventID;// 前置事件的ID（仅在PrecedingEventCompleted时有效）
 
     public string statToCheck;// 触发事件所需检查的属性（仅在StatBased时有效）
     public int requiredStatValue;// 触发事件所需的属性值（仅在StatBased时有效）
@@ -41,19 +41,31 @@ public class MapEvent : ScriptableObject
     public Outcome loseOutcome;// 失败后的结果
 
     // 判断当前事件是否可用（在地图上显示）
-    public bool IsAvailable(int currentDay, int currentStat)
+    public bool IsAvailable(int currentDay, int currentStat, System.Func<string, bool> HasCompletedEventSuccessfully)
     {
-        if (currentDay < availableFromDay || currentDay > availableUntilDay)
-            return false;
+        //Debug.Log($"RefreshButton method called for event {eventID}");
 
         switch (triggerType)
         {
             case TriggerType.Always:
                 return true;
+
             case TriggerType.DayBased:
-                return currentDay == triggerDay;
+                return currentDay >= availableFromDay && currentDay <= availableUntilDay;
+
             case TriggerType.StatBased:
                 return currentStat >= requiredStatValue;
+                
+
+            case TriggerType.PrecedingEventCompleted:
+            if (string.IsNullOrEmpty(precedingEventID))
+            {
+                Debug.Log("PrecedingEventID is empty, event is not available");
+                return false;
+            }
+            //Debug.Log($"PrecedingEventCompleted check result: {HasCompletedEventSuccessfully(precedingEventID)}");
+                return HasCompletedEventSuccessfully(precedingEventID);
+
             default:
                 return false;
         }

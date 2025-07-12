@@ -990,8 +990,6 @@ MonoBehaviour:
   - {fileID: 74813537}
   - {fileID: 39706023}
   - {fileID: 1938670090}
-  preEvent: school_001
-  afterEvent: office_004
 --- !u!4 &579542369
 Transform:
   m_ObjectHideFlags: 0
@@ -2230,7 +2228,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1599788851}
   - component: {fileID: 1599788850}
-  - component: {fileID: 1599788852}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -2250,6 +2247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef69b37e84c4fb46a2ea16b67e2d6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wisdomText: {fileID: 642578012}
+  hardworkingText: {fileID: 1057678167}
+  angerText: {fileID: 1946026268}
 --- !u!4 &1599788851
 Transform:
   m_ObjectHideFlags: 0
@@ -2265,21 +2265,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1599788852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599788849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0300ba64f3dc5864b9e54bcf72005d0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wisdomText: {fileID: 642578012}
-  hardworkingText: {fileID: 1057678167}
-  angerText: {fileID: 1946026268}
 --- !u!1 &1689935373
 GameObject:
   m_ObjectHideFlags: 0
