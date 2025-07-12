@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviour
         stats[statName] += valueChange;
 
         DialogueLua.SetVariable(statName, stats[statName]);
-        Debug.Log($"Stat {statName} changed by {valueChange}, new value: {stats[statName]}");
+        //Debug.Log($"Stat {statName} changed by {valueChange}, new value: {stats[statName]}");
     }
 
     // 可选：设置属性值

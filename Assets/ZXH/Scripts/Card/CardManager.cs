@@ -34,7 +34,7 @@ public class CardManager : MonoBehaviour
     {
         if (cardQueue.Count == 0)
         {
-            Debug.LogWarning("û�п��õĿ������ݣ�");
+            //Debug.LogWarning("û�п��õĿ������ݣ�");
             return;
         }
 

@@ -6,16 +6,22 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
-    public int currentDay = 1; // ��Ϸʱ�䣬��ʼֵΪ1
+    public int currentDay = 1;
 
     public static GameManager Instance { get; private set; }
     public Transform EventUIContainer; // 事件UI容器
     public TextMeshProUGUI DayText; //UI时间文本
     public Button nextDayButton; // 下一天按钮
     public List<MapEventTrigger> allEventTrigger; //所有事件触发器
+    public string preEvent;
+    public string afterEvent;
+
+    //triggeredEvents 用于记录当天已触发的事件
     private HashSet<MapEventTrigger> triggeredEvents = new HashSet<MapEventTrigger>();
 
     private void Awake()
@@ -39,7 +45,6 @@ public class GameManager : MonoBehaviour
 
         nextDayButton.gameObject.SetActive(true);
 
-        // �ȴ�һ֡ȷ��DataManager��Awake�Ѿ�ִ�����
         Invoke("TestEventLoading", 1f);
     }
 
@@ -48,29 +53,62 @@ public class GameManager : MonoBehaviour
         triggeredEvents.Add(trigger);
     }
 
-    public void NextDay()
+    public void CompleteEvent(MapEventTrigger trigger)
     {
-        Debug.Log($"第{currentDay}天结束，属性值：{FindObjectOfType<PlayerManager>()?.GetAllStatsString()}");
-        currentDay++;
-        UpdateDayUI();
-        ResetEvents();
-        triggeredEvents.Clear();
+        GameManager.Instance.RegisterEvent(trigger);
+        Debug.Log($"事件 {trigger.mapEvent.eventID} 已完成并加入到已触发的事件列表！");
     }
 
-    void UpdateActiveEventsTime()
+    public bool HasEventOccurred(string eventID)
     {
-        var eventPanels = new List<Event_ZXH>();
-        var allEventComponents = GameObject.FindObjectsOfType<Event_ZXH>();
-        foreach (var component in allEventComponents)
+        return triggeredEvents.Any(trigger => trigger.mapEvent.eventID == eventID);
+    }
+
+    public void NextDay()
+    {
+        //Debug.Log($"第{currentDay}天结束，属性值：{FindObjectOfType<PlayerManager>()?.GetAllStatsString()}");
+        currentDay++;
+        UpdateDayUI();
+
+        //重置事件
+        ResetEvents();
+
+        //清空已触发的事件集合
+        triggeredEvents.Clear();
+
+        // 检查是否有跨天事件完成（例如：学校事件完成，办公室事件按钮显示）
+        CheckEventForNextDay();
+
+        //更新按钮状态
+        RefreshButton();
+    }
+
+    private void CheckEventForNextDay()
+    {
+        if (HasEventBeenCompleted(preEvent))
         {
-            eventPanels.Add(component);
-        }
-        foreach (var eventPanel in eventPanels)
-        {
-            if (eventPanel.gameObject.activeInHierarchy)
+            var newEvent = allEventTrigger.FirstOrDefault(trigger => trigger.mapEvent.eventID == afterEvent);
+            if (newEvent != null)
             {
-                eventPanel.AddTime();
+                newEvent.buttonObject.SetActive(true);
+                Debug.Log($"{currentDay} 事件{preEvent}已完成，触发新事件：{afterEvent}");
             }
+            else
+            {
+                Debug.Log($"{currentDay} ，无法触发新事件");
+            }
+        }
+        else
+        {
+            Debug.Log($"{currentDay} 事件{preEvent}未完成");
+        }
+    }
+
+    private void RefreshButton()
+    {
+        foreach (var eventTrigger in allEventTrigger)
+        {
+            eventTrigger.RefreshButton();
         }
     }
 
@@ -87,126 +125,58 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //功能添加，测试是否会报错
-    /// <summary>
-    /// ������Ϸʱ�䣬ÿ�ε�������1��
-    /// </summary>
-    // public void AddTime()
+    // void TestEventLoading()
     // {
-    //     Time++;
-    //     Debug.Log($"Game Time increased to: {Time}");
+    //     // ͨ通过ID获取时间数据
+    //     EventData testEvent = DataManager.Instance.GetEventByID("E1001");
 
-    //     // �������м���� Event_ZXH ������ AddTime������д�¼���������
-    //     var eventPanels = GameObject.FindObjectsOfType<Event_ZXH>(true);
-    //     foreach (var eventPanel in eventPanels)
+    //     if (testEvent != null)
     //     {
-    //         // ֻ�Լ�����¼�������
-    //         if (eventPanel.gameObject.activeInHierarchy)
+    //         Debug.Log("--- Event E1001 Loaded Successfully! ---");
+    //         Debug.Log($"时间名称: {testEvent.EventName}");
+    //         Debug.Log($"事件类型: {testEvent.EventType}");
+    //         Debug.Log($"需求属性: {string.Join(" & ", testEvent.RequiredAttributes)}");
+    //         Debug.Log($"持续天数: {testEvent.DurationDays}");
+    //         Debug.Log($"成功奖励物品: {string.Join(", ", testEvent.RewardItemIDs)}");
+    //         Debug.Log($"Prefab路径: {testEvent.EventPrefabName}");
+    //         Debug.Log($"成功结果: {testEvent.SuccessfulResults}");
+    //         Debug.Log($"失败结果: {testEvent.FailedResults}");
+
+    //         if (DataManager.Instance == null)
     //         {
-    //             eventPanel.AddTime();
+    //             Debug.LogError("DataManager.Instance is null!");
+    //             return;
     //         }
+
+    //         GameObject eventUIInstance = DataManager.Instance.InstantiateEventPrefab(testEvent, EventUIContainer);
+    //         if (eventUIInstance == null)
+    //         {
+    //             Debug.LogError($"Failed to instantiate event prefab for {testEvent.EventName}");
+    //             return;
+    //         }
+
+    //         Debug.Log($"Event prefab instantiated: {eventUIInstance.name}");
+
+    //         Event_ZXH eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
+
+    //         if (eventUI == null)
+    //         {
+    //             Debug.LogError($"No Event_ZXH component found in {eventUIInstance.name} or its children");
+
+    //             // 打印子对象信息用于调试
+    //             foreach (Transform child in eventUIInstance.transform)
+    //             {
+    //                 Debug.Log($"Child: {child.name}");
+    //             }
+
+    //             return;
+    //         }
+    //         eventUI.Initialize(testEvent);
     //     }
     // }
 
-    void TestEventLoading()
+    public bool HasEventBeenCompleted(string eventID)
     {
-        // ͨ通过ID获取时间数据
-        EventData testEvent = DataManager.Instance.GetEventByID("E1001");
-
-        if (testEvent != null)
-        {
-            Debug.Log("--- Event E1001 Loaded Successfully! ---");
-            Debug.Log($"时间名称: {testEvent.EventName}");
-            Debug.Log($"事件类型: {testEvent.EventType}");
-            Debug.Log($"需求属性: {string.Join(" & ", testEvent.RequiredAttributes)}");
-            Debug.Log($"持续天数: {testEvent.DurationDays}");
-            Debug.Log($"成功奖励物品: {string.Join(", ", testEvent.RewardItemIDs)}");
-            Debug.Log($"Prefab路径: {testEvent.EventPrefabName}");
-            Debug.Log($"成功结果: {testEvent.SuccessfulResults}");
-            Debug.Log($"失败结果: {testEvent.FailedResults}");
-
-            // ��һ�����Ǹ������·��ȥ���ز�ʵ����UIԤ������
-            GameObject eventUIInstance = DataManager.Instance.InstantiateEventPrefab(testEvent, EventUIContainer);
-            Event_ZXH eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
-            eventUI.Initialize(testEvent);
-        }
+        return triggeredEvents.Any(trigger => trigger.mapEvent.eventID == eventID);
     }
 }
-
-
-
-
-
-// using UnityEngine;
-
-// public class GameManager : MonoBehaviour
-// {
-//     public int Time = 1; // ��Ϸʱ�䣬��ʼֵΪ1
-
-//     public static GameManager Instance { get; private set; }
-//     public Transform EventUIContainer; // �¼�UI����
-
-//     private void Awake()
-//     {
-//         if (Instance == null)
-//         {
-//             Instance = this;
-//             DontDestroyOnLoad(gameObject); 
-//         }
-//         else
-//         {
-//             Destroy(gameObject);
-//         }
-//     }
-
-//     void Start()
-//     {
-//         // �ȴ�һ֡ȷ��DataManager��Awake�Ѿ�ִ�����
-//         Invoke("TestEventLoading", 1f);
-//     }
-
-
-//     /// <summary>
-//     /// ������Ϸʱ�䣬ÿ�ε�������1��
-//     /// </summary>
-//     public void AddTime()
-//     {
-//         Time++;
-//         Debug.Log($"Game Time increased to: {Time}");
-
-//         // �������м���� Event_ZXH ������ AddTime������д�¼���������
-//         var eventPanels = GameObject.FindObjectsOfType<Event_ZXH>(true);
-//         foreach (var eventPanel in eventPanels)
-//         {
-//             // ֻ�Լ�����¼�������
-//             if (eventPanel.gameObject.activeInHierarchy)
-//             {
-//                 eventPanel.AddTime();
-//             }
-//         }
-//     }
-
-//         void TestEventLoading()
-//     {
-//         // ͨ��ID��ȡ�������õ��¼�
-//         EventData testEvent = DataManager.Instance.GetEventByID("E1001");
-
-//         if (testEvent != null)
-//         {
-//             Debug.Log("--- Event E1001 Loaded Successfully! ---");
-//             Debug.Log($"�¼�����: {testEvent.EventName}");
-//             Debug.Log($"�¼�����: {testEvent.EventType}");
-//             Debug.Log($"������: {string.Join(" & ", testEvent.RequiredAttributes)}");
-//             Debug.Log($"��������: {testEvent.DurationDays}");
-//             Debug.Log($"�ɹ�������Ʒ: {string.Join(", ", testEvent.RewardItemIDs)}");
-//             Debug.Log($"Prefab·��: {testEvent.EventPrefabName}");
-//             Debug.Log($"�ɹ����: {testEvent.SuccessfulResults}");
-//             Debug.Log($"ʧ�ܽ��: {testEvent.FailedResults}");
-
-//             // ��һ�����Ǹ������·��ȥ���ز�ʵ����UIԤ������
-//             GameObject eventUIInstance = DataManager.Instance.InstantiateEventPrefab(testEvent, EventUIContainer);
-//             Event_ZXH eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
-//             eventUI.Initialize(testEvent);
-//         }
-//     }
-// }

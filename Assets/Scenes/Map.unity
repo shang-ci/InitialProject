@@ -178,9 +178,7 @@ MonoBehaviour:
   cardManager: {fileID: 1130606889}
   playerManager: {fileID: 1599788850}
   buttonObject: {fileID: 39706021}
-  unlockVariableName: ConditionEventTriger
-  unlockValue: 1
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 579542368}
 --- !u!114 &39706024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,9 +329,7 @@ MonoBehaviour:
   cardManager: {fileID: 1130606889}
   playerManager: {fileID: 1599788850}
   buttonObject: {fileID: 74813535}
-  unlockVariableName: ConditionEventTriger
-  unlockValue: 1
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 579542368}
 --- !u!114 &74813538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,7 +985,13 @@ MonoBehaviour:
   EventUIContainer: {fileID: 1889021152}
   DayText: {fileID: 123986373}
   nextDayButton: {fileID: 1322028430}
-  allEventTrigger: []
+  allEventTrigger:
+  - {fileID: 1189365821}
+  - {fileID: 74813537}
+  - {fileID: 39706023}
+  - {fileID: 1938670090}
+  preEvent: school_001
+  afterEvent: office_004
 --- !u!4 &579542369
 Transform:
   m_ObjectHideFlags: 0
@@ -1808,9 +1810,7 @@ MonoBehaviour:
   cardManager: {fileID: 1130606889}
   playerManager: {fileID: 1599788850}
   buttonObject: {fileID: 1189365816}
-  unlockVariableName: ConditionEventTriger
-  unlockValue: 1
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 579542368}
 --- !u!1 &1305498889
 GameObject:
   m_ObjectHideFlags: 0
@@ -2576,9 +2576,7 @@ MonoBehaviour:
   cardManager: {fileID: 1130606889}
   playerManager: {fileID: 1599788850}
   buttonObject: {fileID: 1938670088}
-  unlockVariableName: ConditionEventTriger
-  unlockValue: 1
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 579542368}
 --- !u!114 &1938670091
 MonoBehaviour:
   m_ObjectHideFlags: 0
