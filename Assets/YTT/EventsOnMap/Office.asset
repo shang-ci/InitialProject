@@ -17,12 +17,11 @@ MonoBehaviour:
   description: "\u5F88\u5C11\u8E0F\u8DB3\u7684\u4E00\u7247\u533A\u57DF\uFF0C\u4E00\u65E6\u8E0F\u8DB3\u8981\u4E48\u662F\u5927\u597D\u4E8B\uFF0C\u8981\u4E48\u3002\u3002\u3002\u3002"
   icon: {fileID: 0}
   triggerType: 3
-  precedingEventID: school_001
-  triggerDay: 0
   availableFromDay: 0
   availableUntilDay: 0
-  statToCheck: ConditionEventTrigger
-  requiredStatValue: 1
+  precedingEventID: school_001
+  statToCheck: 
+  requiredStatValue: 0
   durationHours: 0
   conversationStartNode: OfficeEvent
   winCondition:
