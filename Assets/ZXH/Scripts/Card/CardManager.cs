@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
+    public static CardManager Instance { get; private set; }
+
     [Header("�������ݿ�")]
     public List<CardData> cardDatabase;
 
@@ -12,6 +14,20 @@ public class CardManager : MonoBehaviour
     public Transform handParent;// ���Ʋ۵ĸ����壬ͨ������������
 
     private CardDataQueue cardQueue = new CardDataQueue();//所有手牌
+
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {

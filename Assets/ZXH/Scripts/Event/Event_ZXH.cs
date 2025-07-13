@@ -275,6 +275,7 @@ public class Event_ZXH : MonoBehaviour
             return;
         }
 
+        // 遍历奖励ID列表，查找对应的卡牌数据并添加到手牌和背包
         foreach (string rewardName in eventData.RewardItemIDs)
         {
             // 查找cardDatabase中名字匹配的CardData
@@ -282,6 +283,7 @@ public class Event_ZXH : MonoBehaviour
             if (rewardCard != null)
             {
                 cardManager.AddCard(rewardCard);
+                UIManager.Instance.Backpack.AddCard(rewardCard); //加入背包
                 Debug.Log($"奖励卡牌：{rewardCard.cardName} 已加入手牌");
             }
             else
