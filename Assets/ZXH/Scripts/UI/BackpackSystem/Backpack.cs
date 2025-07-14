@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // 引入UI命名空间，用于按钮交互
+using UnityEngine.UI;
 
+/// <summary>
+/// 背包系统
+/// </summary>
 public class Backpack : MonoBehaviour
 {
     [Header("头部按钮 (Buttons)")]
@@ -21,7 +24,6 @@ public class Backpack : MonoBehaviour
     public GameObject CardPrafbe;     // 卡牌预制体
 
     // 使用字典按类型分类存储所有卡牌数据
-    // 键(Key)是CardType, 值(Value)是该类型所有卡牌的列表
     private Dictionary<CardType, List<CardData>> cardCollection = new Dictionary<CardType, List<CardData>>();
     public List<CardData> cardDatabase;
 
@@ -156,5 +158,42 @@ public class Backpack : MonoBehaviour
             CardType.Coin => coinPanel,
             _ => null,
         };
+    }
+
+    /// <summary>
+    /// 从背包中移除一张指定的卡牌
+    /// </summary>
+    /// <param name="dataToRemove">要移除的卡牌的数据</param>
+    public void RemoveCard(CardData dataToRemove)
+    {
+        if (dataToRemove == null)
+        {
+            Debug.LogWarning("尝试移除一个空的卡牌数据！");
+            return;
+        }
+
+        // 检查字典中是否存在该卡牌的分类
+        if (cardCollection.ContainsKey(dataToRemove.cardType))
+        {
+            // 从对应的列表中移除第一个匹配的卡牌数据
+            bool removed = cardCollection[dataToRemove.cardType].Remove(dataToRemove);
+
+            if (removed)
+            {
+                Debug.Log($"已从数据中移除卡牌 '{dataToRemove.cardName}'");
+
+                // 检查这张被移除的卡牌所在的分类面板当前是否为激活状态
+                if (currentActivePanel == GetPanelForType(dataToRemove.cardType))
+                {
+                    // 如果是，则调用PopulatePanel来刷新整个面板，
+                    // 这会自动移除不再存在于数据列表中的卡牌UI
+                    PopulatePanel(currentActivePanel, dataToRemove.cardType);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"在背包数据中未找到要移除的卡牌 '{dataToRemove.cardName}'。");
+            }
+        }
     }
 }

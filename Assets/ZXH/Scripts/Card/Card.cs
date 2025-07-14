@@ -10,11 +10,11 @@ using TMPro;
 public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     [Header("卡牌数据")]
-    public CardData cardData; // 引用我们创建的ScriptableObject
-    public CardType cardType; // 卡牌类型（可以从CardData中获取）
-    public TextMeshProUGUI id; // 卡牌ID（可以从CardData中获取）
-    public TextMeshProUGUI cardName; // 卡牌名称（可以从CardData中获取）
-    public TextMeshProUGUI type; // 卡牌类型（可以从CardData中获取）
+    public CardData cardData; // 数据
+    public CardType cardType; // 卡牌类型
+    public TextMeshProUGUI id; // 卡牌ID
+    public TextMeshProUGUI cardName; // 卡牌名称
+    public TextMeshProUGUI type; // 卡牌类型
 
     private Transform originalParent; // 记录拖拽前的父物体
     public Transform OriginalParent { get { return originalParent; } }  
@@ -29,7 +29,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         SetupCard();
     }
 
-    // 根据CardData初始化卡牌的显示
+    /// <summary>
+    /// 根据CardData初始化卡牌的显示
+    /// </summary>
     public void SetupCard()
     {
         if (cardData != null)
@@ -46,10 +48,13 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             type.text = "Type:" + cardData.cardType.ToString();
         }
 
-        PrintAllAttributes(); // 打印所有属性信息
+        //PrintAllAttributes(); // 打印所有属性信息
     }
 
-    // 开始拖拽
+    /// <summary>
+    /// 开始拖拽
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
         // 1. 记录原始父物体，用于拖拽失败时返回
@@ -65,14 +70,20 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         canvasGroup.alpha = 0.7f; // 半透明效果，给用户拖拽的视觉反馈
     }
 
-    // 拖拽过程中
+    /// <summary>
+    /// 拖拽过程中
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnDrag(PointerEventData eventData)
     {
         // 更新卡牌的位置跟随鼠标/手指
         transform.position = eventData.position;
     }
 
-    // 结束拖拽
+    /// <summary>
+    /// 结束拖拽
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
         // 恢复卡牌的射线检测和透明度
@@ -88,7 +99,10 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         }
     }
 
-    // 右键点击时弹出卡牌详情
+    /// <summary>
+    /// 右键点击时弹出卡牌详情
+    /// </summary>
+    /// <param name="eventData">卡牌数据</param>
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
@@ -98,7 +112,10 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     }
 
 
-    // 记录当前父物体——设置当被卡槽成功吸附后，由卡槽调用
+    /// <summary>
+    /// 记录当前父物体——设置当被卡槽成功吸附后，由卡槽调用
+    /// </summary>
+    /// <param name="newParent">设置卡牌的原始父物体</param>
     public void SetNewParent(Transform newParent)
     {
         originalParent = newParent;
@@ -113,6 +130,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         transform.localPosition = Vector3.zero;
     }
 
+    /// <summary>
+    /// 打印卡牌的所有属性信息到控制台
+    /// </summary>
     public void PrintAllAttributes()
     {
         if (cardData == null)

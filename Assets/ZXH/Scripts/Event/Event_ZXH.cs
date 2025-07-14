@@ -26,8 +26,6 @@ public class Event_ZXH : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Story;
     [SerializeField] private TextMeshProUGUI Tips;
     [SerializeField] private TextMeshProUGUI DurationDays;// 事件持续天数
-    //[SerializeField] private TextMeshProUGUI RequiredAttributes;// 需要的属性列表——通过读取的数据填写——会有多个同名的，我们要按顺序存起来和下面的RequiredAttributes_Value对应起来
-    //[SerializeField] private TextMeshProUGUI RequiredAttributes_Value;// 属性列表对应的属性值——读取卡牌槽的数值来填充
     [SerializeField] private TextMeshProUGUI SuccessThreshold;
     [SerializeField]private float successProbability = 1f;//成功概率
     [SerializeField]private int t= 0;//成功次数
@@ -255,8 +253,16 @@ public class Event_ZXH : MonoBehaviour
             Result_Dice.text = "成功骰子的个数：{t}";
             Reward_Card.text = "没有奖励";
         }
+
         // 展开Three面板
         ExpandThree();
+
+        //消耗掉所有卡槽中的卡牌
+        foreach (var cardSlot in CardSlots)
+        {
+            var card = cardSlot.GetComponentInChildren<Card>();
+            UIManager.Instance.Backpack.RemoveCard(card.cardData);
+        }
     }
 
     /// <summary>
