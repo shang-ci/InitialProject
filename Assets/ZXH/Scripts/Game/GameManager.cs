@@ -1,7 +1,7 @@
-// /*
-// 7.11
-// YTT作出改动
-// */
+/*
+7.11
+YTT作出改动
+*/
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
