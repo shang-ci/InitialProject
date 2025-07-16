@@ -18,10 +18,16 @@ public class CardSlot : MonoBehaviour, IDropHandler
     public Color bookColor = new Color(0.8f, 1f, 0.8f);   // 书籍：淡绿
     public Color coinColor = new Color(1f, 0.85f, 0.6f);  // 金币：淡橙
 
+    [Header("卡牌槽辅助属性")]
+    public bool isDroppable = true; //控制卡槽是否可放置
+    private Image slotImage; // 控制是否接受射线
+
     private void Awake()
     {
         // 初始化卡槽颜色
         SetSlotColor(acceptedCardType);
+
+        slotImage = GetComponent<Image>();
     }
 
     /// <summary>
@@ -73,6 +79,12 @@ public class CardSlot : MonoBehaviour, IDropHandler
     /// <param name="eventData">拖拽事件数据</param>
     public void OnDrop(PointerEventData eventData)
     {
+        // 如果当前卡槽被设置为不可放置，则直接返回——锁定状态
+        if (!isDroppable)
+        {
+            return;
+        }
+
         // 检查拖拽的物体是否为卡牌
         GameObject droppedObject = eventData.pointerDrag;
         if (droppedObject == null) return;
@@ -125,4 +137,27 @@ public class CardSlot : MonoBehaviour, IDropHandler
     {
         return child;
     }
+
+    /// <summary>
+    /// 设置卡槽及其子卡的可交互状态
+    /// </summary>
+    /// <param name="interactable">是否可交互</param>
+    public void SetInteractable(bool interactable)
+    {
+        // 1. 控制是否可以放置
+        isDroppable = interactable;
+
+        // 2. 控制UI元素是否接收鼠标事件——射线
+        if (slotImage != null)
+        {
+            slotImage.raycastTarget = interactable;
+        }
+
+        // 3. 同时控制其内部卡牌是否可以被拖拽
+        if (child != null)
+        {
+            child.isDraggable = interactable;
+        }
+    }
+
 }

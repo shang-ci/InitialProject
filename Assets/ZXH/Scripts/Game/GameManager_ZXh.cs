@@ -91,9 +91,6 @@ public class GameManager_ZXh : MonoBehaviour
     /// </summary>
     public void AddTime()
     {
-        Time++;
-        Debug.Log($"Game Time increased to: {Time}");
-
         // 查找所有激活的 Event_ZXH 并调用 AddTime
         var eventPanels = GameObject.FindObjectsOfType<Event_ZXH>(true);
         foreach (var eventPanel in eventPanels)
@@ -104,5 +101,8 @@ public class GameManager_ZXh : MonoBehaviour
                 eventPanel.AddTime();
             }
         }
+
+        Time++;
+        Debug.Log($"Game Time increased to: {Time}");
     }
 }

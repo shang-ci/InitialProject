@@ -10,9 +10,8 @@ public class DataManager : MonoBehaviour
     public static DataManager Instance { get; private set; }
 
     // 使用字典存储所有事件，Key是EventID，Value是事件数据，我们可以知道事件的名字来查找ID然后再拿到数据
-    // 这使得通过ID查找事件非常高效 O(1)
+    // 通过ID查找事件
     private Dictionary<string, EventData> eventDatabase = new Dictionary<string, EventData>();
-    //Name -> EventID 的映射，用于快速查找
     private Dictionary<string, string> eventNameToIdMap = new Dictionary<string, string>();
 
 

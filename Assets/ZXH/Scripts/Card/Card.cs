@@ -16,6 +16,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     public TextMeshProUGUI cardName; // 卡牌名称
     public TextMeshProUGUI type; // 卡牌类型
 
+    [Header("卡牌辅助属性")]
+    public bool isDraggable = true;  //控制卡牌是否可拖拽
+
     private Transform originalParent; // 记录拖拽前的父物体
     public Transform OriginalParent { get { return originalParent; } }  
 
@@ -57,6 +60,13 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
+        // 如果当前卡牌被设置为不可拖拽，则立刻中止拖拽操作
+        if (!isDraggable)
+        {
+            eventData.pointerDrag = null; // 取消拖拽
+            return;
+        }
+
         // 1. 记录原始父物体，用于拖拽失败时返回
         originalParent = transform.parent;
 
@@ -105,12 +115,15 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     /// <param name="eventData">卡牌数据</param>
     public void OnPointerClick(PointerEventData eventData)
     {
+        //显示卡牌详情面板
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             CardDetailPanel.Instance.Show(cardData, Input.mousePosition);
         }
-    }
 
+        //人物卡装备卡牌
+        Inventory.Instance.Backpack.SelectCard(cardData);
+    }
 
     /// <summary>
     /// 记录当前父物体——设置当被卡槽成功吸附后，由卡槽调用

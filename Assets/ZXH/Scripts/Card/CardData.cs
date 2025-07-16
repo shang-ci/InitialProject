@@ -1,6 +1,7 @@
 ﻿// CardData.cs
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // 使用CreateAssetMenu特性，我们可以在Unity编辑器的 "Create" 菜单中直接创建这种资源文件。
 [CreateAssetMenu(fileName = "New CardData", menuName = "Card/Card Data")]
@@ -17,19 +18,29 @@ public class CardData : ScriptableObject
     public Sprite artwork; // 卡牌的图画
                            // public GameObject cardPrefab; // 如果卡牌有复杂的3D模型或特效，可以在这里引用
 
-    // 读取属性
+    /// <summary>
+    /// 读取属性
+    /// </summary>
+    /// <returns></returns>
     public Attributes GetAttributes()
     {
         return attributes;
     }
 
-    // 设置属性（整体替换）
+    /// <summary>
+    /// 设置属性（整体替换）
+    /// </summary>
+    /// <param name="newAttributes"></param>
     public void SetAttributes(Attributes newAttributes)
     {
         attributes = newAttributes;
     }
 
-    // 单独设置某个属性
+    /// <summary>
+    /// 单独设置某个属性
+    /// </summary>
+    /// <param name="attrName"></param>
+    /// <param name="value"></param>
     public void SetAttributeValue(string attrName, int value)
     {
         switch (attrName)
@@ -44,7 +55,11 @@ public class CardData : ScriptableObject
         }
     }
 
-    // 单独获取某个属性
+    /// <summary>
+    /// 单独获取某个属性
+    /// </summary>
+    /// <param name="attrName"></param>
+    /// <returns></returns>
     public int GetAttributeValue(string attrName)
     {
         return attrName switch
@@ -60,7 +75,10 @@ public class CardData : ScriptableObject
         };
     }
 
-    // 属性叠加（如加成）
+    /// <summary>
+    /// 属性叠加（如加成）
+    /// </summary>
+    /// <param name="add"></param>
     public void AddAttributes(Attributes add)
     {
         attributes.physique += add.physique;
@@ -72,6 +90,20 @@ public class CardData : ScriptableObject
         attributes.support += add.support;
     }
 
+    /// <summary>
+    /// 属性移除
+    /// </summary>
+    /// <param name="remove"></param>
+    public void RemoveAttributes(Attributes remove)
+    {
+        attributes.physique -= remove.physique;
+        attributes.social -= remove.social;
+        attributes.survival -= remove.survival;
+        attributes.intelligence -= remove.intelligence;
+        attributes.charm -= remove.charm;
+        attributes.combat -= remove.combat;
+        attributes.support -= remove.support;
+    }
 }
 
 /// <summary>

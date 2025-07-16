@@ -13,7 +13,8 @@ public class CardManager : MonoBehaviour
     public GameObject cardSlotPrefab;// ���Ʋ�Ԥ�Ƽ������ڷ��ÿ��Ƶ�����
     public Transform handParent;// ���Ʋ۵ĸ����壬ͨ������������
 
-    private CardDataQueue cardQueue = new CardDataQueue();//所有手牌
+    public CardDataQueue cardQueue = new CardDataQueue();//所有手牌
+    public List<CardData> handCards = new List<CardData>();//当前手牌——invent库
 
 
     private void Awake()
@@ -27,26 +28,35 @@ public class CardManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        foreach (var data in Inventory.Instance.Backpack.cardDatabase)
+        {
+            cardQueue.Enqueue(data);
+        }
+        Debug.Log($"{cardQueue.Count}");
     }
 
     void Start()
     {
-        // ��ʼ������
-        foreach (var data in cardDatabase)
+        //填充手牌队列
+        InitHandCard();
+    }
+
+    /// <summary>
+    /// 初始化手牌
+    /// </summary>
+    private void InitHandCard()
+    {
+        for (int i = 0; i < 5; i++)
         {
-            cardQueue.Enqueue(data);
-        }
-        // ����
-        for (int i = 0; i < 4; i++)
-        {
-            DrawCard();
+            AddCardData();
         }
     }
 
     /// <summary>
-    /// �ӿ��ƶ����г�ȡһ�ſ��Ʋ����ɶ�Ӧ�Ŀ���ʵ��
+    /// 加入手牌堆，只有这一个加入方法
     /// </summary>
-    public void DrawCard()
+    public void AddCardData()
     {
         if (cardQueue.Count == 0)
         {
@@ -95,15 +105,13 @@ public class CardManager : MonoBehaviour
         // 遍历手牌，找到第一个匹配的卡牌并移除
         foreach (Transform slotTransform in handParent)
         {
-            CardSlot slot = slotTransform.GetComponent<CardSlot>();
+            CardSlot slot = slotTransform.GetComponentInChildren<CardSlot>();
             if (slot != null && slot.HasCard())
             {
                 Card card = slot.GetCard();
                 if (card != null && card.cardData == cardData)
                 {
                     Destroy(card.gameObject);
-                    // 你可以选择是否销毁slot
-                    // Destroy(slot.gameObject);
                     break;
                 }
             }

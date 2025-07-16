@@ -55,9 +55,13 @@ public class Event_ZXH : MonoBehaviour
         DurationDays = FindTMPDeep("DurationDays");
         //SuccessThreshold = FindTMPDeep("SuccessThreshold");
 
-        CardSlots = transform.GetComponentsInChildren<CardSlot>(); 
+        CardSlots = transform.GetComponentsInChildren<CardSlot>(true); 
     }
 
+    private void Start()
+    {
+        AddTime(); //第一天
+    }
 
     private void Update()
     {
@@ -218,21 +222,40 @@ public class Event_ZXH : MonoBehaviour
 
 
     /// <summary>
-    /// 锁住面板，不能修改事件的卡牌
+    /// right按钮点击
     /// </summary>
     public void SetRight()
     {
+        LockingEvent(); // 锁住事件面板
+    }
+
+    /// <summary>
+    /// 锁定事件
+    /// </summary>
+    public void LockingEvent ()
+    {
         isBock = true; // 锁住事件面板，防止重复操作
+        Debug.Log("确认选择，正在锁定事件卡槽...");
+
+        // 遍历所有指定的卡槽
+        foreach (CardSlot slot in CardSlots)
+        {
+            if (slot != null)
+            {
+                // 调用我们刚刚在CardSlot中创建的方法来禁用它
+                slot.SetInteractable(false);
+            }
+        }
     }
 
     #endregion
 
-    #region Three
+        #region Three
 
-    /// <summary>
-    /// 执行事件逻辑，根据事件数据和成功概率来决定事件结果
-    /// </summary>
-    /// <param name="eventData"></param>
+        /// <summary>
+        /// 执行事件逻辑，根据事件数据和成功概率来决定事件结果
+        /// </summary>
+        /// <param name="eventData"></param>
     public void ExecutionEvent(EventData eventData)
     {
         isEventActive = true; 
@@ -250,7 +273,7 @@ public class Event_ZXH : MonoBehaviour
         {
             // 失败逻辑
             Result_Story.text = eventData.FailedResults;
-            Result_Dice.text = "成功骰子的个数：{t}";
+            Result_Dice.text = $"成功骰子的个数：{t}";
             Reward_Card.text = "没有奖励";
         }
 
@@ -261,7 +284,11 @@ public class Event_ZXH : MonoBehaviour
         foreach (var cardSlot in CardSlots)
         {
             var card = cardSlot.GetComponentInChildren<Card>();
-            UIManager.Instance.Backpack.RemoveCard(card.cardData);
+            if(card != null)
+            {
+                Inventory.Instance.Backpack.RemoveCard(card.cardData);
+            }
+            
         }
     }
 
@@ -288,8 +315,7 @@ public class Event_ZXH : MonoBehaviour
             CardData rewardCard = cardManager.cardDatabase.FirstOrDefault(cd => cd.cardName == rewardName);
             if (rewardCard != null)
             {
-                cardManager.AddCard(rewardCard);
-                UIManager.Instance.Backpack.AddCard(rewardCard); //加入背包
+                UIManager.Instance.Backpack.AddCard(rewardCard); //加入背包、手牌堆
                 Debug.Log($"奖励卡牌：{rewardCard.cardName} 已加入手牌");
             }
             else
@@ -305,7 +331,7 @@ public class Event_ZXH : MonoBehaviour
     public bool RollTheDice(EventData eventData, float successProbability)
     {
         Debug.Log($"Event_ZXH: 掷骰子，成功概率为 {successProbability * 100}%");
-        int diceSum = 10;//GetAllValueTextSum();//骰子个数
+        int diceSum = GetAllValueTextSum();//骰子个数
         int threshold = eventData.SuccessThreshold;//成功阈值
 
         t = 0;//成功次数
