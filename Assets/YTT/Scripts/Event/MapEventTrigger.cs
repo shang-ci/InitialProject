@@ -17,6 +17,7 @@ public class MapEventTrigger : MonoBehaviour
     public PlayerManager playerManager;
     public GameObject buttonObject;
     public GameManager gameManager;
+    public Inventory inventory;
 
     void Start()
     {
@@ -114,6 +115,12 @@ public class MapEventTrigger : MonoBehaviour
         foreach (var effect in outcome.statEffects)
         {
             playerManager.AddStat(effect.statName, effect.valueChange);
+
+            foreach (var itemReward in outcome.itemRewards)
+            {
+                inventory.AddItemToInventory(itemReward.itemName, itemReward.quantity);
+                Debug.Log($"map event trigger里面获得物品 {itemReward.itemName}");
+            }
         }
 
         if (outcome.cardRewards != null)

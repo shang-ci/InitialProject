@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.VirtualTexturing;
 
+namespace MapEventSpace{
 [CreateAssetMenu(fileName = "NewMapEvent", menuName = "Events/Map Event")]
 public class MapEvent : ScriptableObject
 {
@@ -105,4 +106,4 @@ public class StatEffect
     public string statName;// 属性名称
     public int valueChange;// 属性值变化量
 }
-
+}
