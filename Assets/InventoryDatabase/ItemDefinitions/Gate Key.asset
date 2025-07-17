@@ -61,8 +61,8 @@ MonoBehaviour:
       m_ValuePositions: 000000000800000009000000090000000d0000000d0000001100000011000000150000001500000019000000190000001d000000210000002100000025000000
       m_Values: 42757950726963650100000000ae5dc1cd000000000200000005000000000000000a00000001000000
       m_UnityObjects:
-      - {fileID: 11400000, guid: 2ba90964d00e500428100eaa4809e67d, type: 2}
-      - {fileID: 11400000, guid: 48404f8843544c44cbdae0504f985eeb, type: 2}
+      - {fileID: 11400000, guid: d5ff848f8a041f04a926f015877fd88f, type: 2}
+      - {fileID: 11400000, guid: eb0a94e44340aab499427bd7c4799373, type: 2}
       m_Version: 3.4
     - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[Opsive.UltimateInventorySystem.Exchange.CurrencyAmounts,
         Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
@@ -71,7 +71,7 @@ MonoBehaviour:
       m_ValuePositions: 00000000090000000a0000000a0000000e0000000e000000120000001200000016000000160000001a0000001a0000001e000000
       m_Values: 53656c6c50726963650100000000aa478af900000000010000000f00000000000000
       m_UnityObjects:
-      - {fileID: 11400000, guid: 48404f8843544c44cbdae0504f985eeb, type: 2}
+      - {fileID: 11400000, guid: eb0a94e44340aab499427bd7c4799373, type: 2}
       m_Version: 3.4
     - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[Opsive.UltimateInventorySystem.UI.Item.ItemShape,
         Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]

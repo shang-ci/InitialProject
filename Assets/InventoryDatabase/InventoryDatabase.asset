@@ -39,6 +39,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7242c7c6e67f28944a2b7e67bf5b880a, type: 2}
   - {fileID: 11400000, guid: 714b77259a9e4f94e86f8ca01e3e61c4, type: 2}
   - {fileID: 11400000, guid: 6edf6108e6d46a7459a0d3c41136915c, type: 2}
+  - {fileID: 11400000, guid: 0a51d3b35c6650d4185a2913b21ff233, type: 2}
+  - {fileID: 11400000, guid: 895e7d1878e76434bb1e59c69e068307, type: 2}
+  - {fileID: 11400000, guid: 2abc4f33f0260ef45a81a69246a4878c, type: 2}
+  - {fileID: 11400000, guid: c65cba135486ad94e83f572e7c53ea9d, type: 2}
   m_ItemDefinitions:
   - {fileID: 11400000, guid: dd5fa9abce94f0d479e9f9f31ef744bb, type: 2}
   - {fileID: 11400000, guid: db266e875e9291644b515a1ac3e14442, type: 2}
@@ -71,6 +75,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4085129c4981dbf40b41327bcaf53c7d, type: 2}
   - {fileID: 11400000, guid: 1aeecbf68ccf677438e806d6932aaea2, type: 2}
   - {fileID: 11400000, guid: 89957d1987155274097b9b38e551e5cd, type: 2}
+  - {fileID: 11400000, guid: 30324de8bc0ceaa49845a8104f9bc335, type: 2}
+  - {fileID: 11400000, guid: b45bee99804fe864d99aa3a4d0d95eca, type: 2}
+  - {fileID: 11400000, guid: e45bff208147cba4192c40bc1ef1b28c, type: 2}
   m_Currencies:
   - {fileID: 11400000, guid: eb0a94e44340aab499427bd7c4799373, type: 2}
   - {fileID: 11400000, guid: d5ff848f8a041f04a926f015877fd88f, type: 2}

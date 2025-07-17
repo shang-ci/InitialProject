@@ -51,7 +51,7 @@ MonoBehaviour:
       m_ValuePositions: 000000000c0000000d0000000d00000011000000110000001500000019000000
       m_Values: 5069636b75705072656661620100000000013f992dffffffff00000000
       m_UnityObjects:
-      - {fileID: 1394257913490840763, guid: 427be4eadd7d3fd4e960c2790ba78d6b, type: 3}
+      - {fileID: 1394257913490840763, guid: 7d681d04ffe7ad8468e5fb370d06e044, type: 3}
       m_Version: 3.4
     - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[System.Int32,
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
@@ -68,7 +68,7 @@ MonoBehaviour:
       m_ValuePositions: 000000000800000009000000090000000d0000000d0000001100000011000000150000001500000019000000190000001d000000
       m_Values: 42757950726963650100000000a355d9a800000000010000000a00000000000000
       m_UnityObjects:
-      - {fileID: 11400000, guid: 2ba90964d00e500428100eaa4809e67d, type: 2}
+      - {fileID: 11400000, guid: d5ff848f8a041f04a926f015877fd88f, type: 2}
       m_Version: 3.4
     - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[Opsive.UltimateInventorySystem.Exchange.CurrencyAmounts,
         Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]

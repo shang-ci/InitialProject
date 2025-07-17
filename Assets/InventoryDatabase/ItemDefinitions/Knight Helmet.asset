@@ -120,5 +120,21 @@ MonoBehaviour:
     m_ItemDefinitionID: 4289281774
     m_ItemDefinition: {fileID: 11400000}
     m_ItemAttributeCollection:
-      m_AttributeCollectionData: []
+      m_AttributeCollectionData:
+      - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[Opsive.UltimateInventorySystem.Core.DataStructures.ItemAmounts,
+          Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
+        m_ValueHashes: 
+        m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa6516a0d9940eb1e2833aedf32ad8c9cece78165a2854a9014d4
+        m_ValuePositions: 000000000500000006000000060000000a0000000a0000000e0000000e0000000e000000
+        m_Values: 536c6f7473010000000076e59f4e00000000
+        m_UnityObjects: []
+        m_Version: 3.4
+      - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[System.Int32,
+          mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
+        m_ValueHashes: 
+        m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651424b280f5394b559861dc27bf4117a0e
+        m_ValuePositions: 000000000700000008000000080000000c0000000c0000001000000014000000
+        m_Values: 446566656e73650100000000cb613fc90000000003000000
+        m_UnityObjects: []
+        m_Version: 3.4
   m_EditorIcon: {fileID: 9151725625850188775, guid: 50fc8ea05e8ba3c4abe0062bb85830c6, type: 3}
