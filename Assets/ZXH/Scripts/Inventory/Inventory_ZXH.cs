@@ -5,9 +5,9 @@ using UnityEngine;
 /// <summary>
 /// 通用的物品管理系统——存数据
 /// </summary>
-public class Inventory : MonoBehaviour
+public class Inventory_ZXH : MonoBehaviour
 {
-    public static Inventory Instance;
+    public static Inventory_ZXH Instance;
 
     public Backpack Backpack;
 

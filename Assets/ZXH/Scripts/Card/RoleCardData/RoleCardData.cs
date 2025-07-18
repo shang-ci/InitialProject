@@ -35,7 +35,7 @@ public class RoleCardData : CardData
         // 将旧装备放回库存
         if (oldEquip != null)
         {
-            Inventory.Instance.Backpack.AddCard(oldEquip); 
+            Inventory_ZXH.Instance.Backpack.AddCard(oldEquip); 
             equipments.Remove(oldEquip);
             equipmentDictionary.Remove(oldEquip.equipmentType);
 
@@ -44,7 +44,7 @@ public class RoleCardData : CardData
         }
 
         // 添加新装备
-        Inventory.Instance.Backpack.RemoveCard(equip);//刷新过了
+        Inventory_ZXH.Instance.Backpack.RemoveCard(equip);//刷新过了
         equipments.Add(equip);
         equipmentDictionary[equip.equipmentType] = equip;
 
@@ -65,7 +65,7 @@ public class RoleCardData : CardData
             equipmentDictionary.Remove(equip.equipmentType);
 
             // 将装备放回库存
-            Inventory.Instance.Backpack.AddCard(equip);
+            Inventory_ZXH.Instance.Backpack.AddCard(equip);
 
             // 减少属性
             RemoveAttributes(equip.attributes);

@@ -286,7 +286,7 @@ public class Event_ZXH : MonoBehaviour
             var card = cardSlot.GetComponentInChildren<Card>();
             if(card != null)
             {
-                Inventory.Instance.Backpack.RemoveCard(card.cardData);
+                Inventory_ZXH.Instance.Backpack.RemoveCard(card.cardData);
             }
             
         }

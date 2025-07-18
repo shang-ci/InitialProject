@@ -122,7 +122,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         }
 
         //人物卡装备卡牌
-        Inventory.Instance.Backpack.SelectCard(cardData);
+        Inventory_ZXH.Instance.Backpack.SelectCard(cardData);
     }
 
     /// <summary>

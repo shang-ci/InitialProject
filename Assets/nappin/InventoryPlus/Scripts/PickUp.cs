@@ -8,7 +8,7 @@ namespace InventoryPlus
     [RequireComponent(typeof(BoxCollider2D))]
     public class PickUp : MonoBehaviour
     {
-        [Header("Inventory Changes")]
+        [Header("Inventory_ZXH Changes")]
         public List<ItemSlot> addToInventory;
         public List<ItemSlot> removeFromInventory;
 
@@ -174,7 +174,7 @@ namespace InventoryPlus
                 if (playAudioOnEvent) eventAudio.Play();
             }
 
-            else Debug.LogError("Can't update Inventory because player has no Inventory reference");
+            else Debug.LogError("Can't update Inventory_ZXH because player has no Inventory_ZXH reference");
         }
 
 
