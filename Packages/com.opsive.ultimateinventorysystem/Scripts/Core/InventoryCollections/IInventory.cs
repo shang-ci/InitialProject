@@ -74,7 +74,7 @@ namespace Opsive.UltimateInventorySystem.Core.InventoryCollections
         /// </summary>
         /// <param name="itemInfo">The amount of item to remove.</param>
         /// <returns>Returns true if the item was removed correctly.</returns>
-        ItemInfo RemoveItem(ItemInfo itemInfo);
+        ItemInfo RemoveItem(int v, ItemInfo itemInfo);
 
         /// <summary>
         /// Get the item collection with the ID specified.
