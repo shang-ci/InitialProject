@@ -1,3 +1,4 @@
+using Opsive.UltimateInventorySystem.Core.InventoryCollections;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,19 @@ public class Character : MonoBehaviour
     protected int damage;
     protected int armor;
 
+    public Inventory inventory;
+
+    private void Awake()
+    {
+        inventory = GetComponent<Inventory>();
+    }
+
+    [ContextMenu("加入2张Armor到背包")]
+    public void AddToInventory()
+    {
+        
+        inventory.AddItem("Armor",2);
+    }
 
     public void Heal(int amount)
     {

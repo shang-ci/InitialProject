@@ -91,7 +91,7 @@ namespace InventoryPlus
 
         private void ToggleInventory()
         {
-            // Reference to the Input for toggling the Inventory, it is recommended to swap to an InputManager entry: https://www.youtube.com/watch?v=DB5xkz-3nHk
+            // Reference to the Input for toggling the Inventory_ZXH, it is recommended to swap to an InputManager entry: https://www.youtube.com/watch?v=DB5xkz-3nHk
             // Example of a InputManager entry: (Input.GetButtonDown("ToggleInventory"))
             if (Input.GetKeyDown(KeyCode.I))
             {

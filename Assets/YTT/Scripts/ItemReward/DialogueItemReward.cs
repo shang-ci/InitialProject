@@ -11,8 +11,8 @@ using Opsive.UltimateInventorySystem.Core;
 
 public class DialogueItemReward : MonoBehaviour
 {
-    [Tooltip("玩家的 Inventory 组件")]
-    public Inventory playerInventory;
+    [Tooltip("玩家的 Inventory_ZXH 组件")]
+    public Inventory_ZXH playerInventory;
 
     void Start()
     {

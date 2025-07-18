@@ -70,7 +70,7 @@ namespace InventoryPlus
                 if (playAudioOnEvent) eventAudio.Play();
             }
 
-            else Debug.LogError("Can't update Inventory because player has no Inventory reference");
+            else Debug.LogError("Can't update Inventory_ZXH because player has no Inventory_ZXH reference");
         }
 
         #endregion

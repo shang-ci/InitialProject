@@ -237,13 +237,13 @@ namespace InventoryPlus
 
             if (showInventory)
             {
-                if (GUILayout.Button("Hide Inventory", GUILayout.Height(26))) showInventory = !showInventory;
+                if (GUILayout.Button("Hide Inventory_ZXH", GUILayout.Height(26))) showInventory = !showInventory;
 
                 EditorGUILayout.Space(5);
                 DisplayGrid();
 
             }
-            else if (GUILayout.Button("Show Inventory", GUILayout.Height(26))) showInventory = !showInventory;
+            else if (GUILayout.Button("Show Inventory_ZXH", GUILayout.Height(26))) showInventory = !showInventory;
 
 
             EditorGUILayout.EndVertical();

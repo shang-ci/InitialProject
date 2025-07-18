@@ -80,7 +80,7 @@ namespace InventoryPlus
             }
 
             wasLoaded = true;
-            if (enableDebug) Debug.Log("Inventory loaded");
+            if (enableDebug) Debug.Log("Inventory_ZXH loaded");
         }
 
 
@@ -624,7 +624,7 @@ namespace InventoryPlus
             }
 
             if (sortAudio != null) sortAudio.Play();
-            if (enableDebug) Debug.Log("Inventory sorted");
+            if (enableDebug) Debug.Log("Inventory_ZXH sorted");
         }
 
 
