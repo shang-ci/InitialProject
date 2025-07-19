@@ -1068,10 +1068,5 @@ namespace Opsive.UltimateInventorySystem.Core.InventoryCollections
 
             return result.ToArray();
         }
-
-        public ItemInfo RemoveItem(int v, ItemInfo itemInfo)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -71,6 +71,14 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 44e171b922942054cbb1ecede3b7c6a5, type: 3}
       - {fileID: 21300000, guid: 44e171b922942054cbb1ecede3b7c6a5, type: 3}
       m_Version: 3.4
+    - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[System.Int32,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
+      m_ValueHashes: 
+      m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651424b280f5394b559861dc27bf4117a0e
+      m_ValuePositions: 00000000090000000a0000000a0000000e0000000e0000001200000016000000
+      m_Values: 536c6f74436f756e740100000000dd78cae50000000000000000
+      m_UnityObjects: []
+      m_Version: 3.4
   m_DefaultItem:
     m_ID: 2507085676
     m_Name: Armor
@@ -124,6 +132,14 @@ MonoBehaviour:
         m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651424b280f5394b559861dc27bf4117a0e
         m_ValuePositions: 000000000600000007000000070000000b0000000b0000000f00000013000000
         m_Values: 636f6d6261740101000000946d306b0000000000000000
+        m_UnityObjects: []
+        m_Version: 3.4
+      - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[Opsive.UltimateInventorySystem.Core.DataStructures.ItemAmounts,
+          Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
+        m_ValueHashes: 
+        m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa6516a0d9940eb1e283335481f3fb1a4cd28aedf32ad8c9cece7
+        m_ValuePositions: 000000000500000006000000060000000a0000000a0000000e0000000e00000012000000
+        m_Values: 536c6f7473010000000076e59f4e00000000
         m_UnityObjects: []
         m_Version: 3.4
   m_EditorIcon: {fileID: 0}
