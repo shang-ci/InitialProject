@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.VirtualTexturing;
 
-namespace MapEventSpace{
 [CreateAssetMenu(fileName = "NewMapEvent", menuName = "Events/Map Event")]
 public class MapEvent : ScriptableObject
 {
@@ -91,19 +90,18 @@ public class Outcome
 
     public List<StatEffect> loseStatEffects = new();//失败后对属性的影响
     public List<CardData> cardRemovals = new();//失败移除的卡牌
-}
 
-[System.Serializable]
-public class ItemReward
-{
-    public string itemName;// 物品名称
-    public int quantity;// 物品数量
-}
+    [System.Serializable]
+    public class ItemReward
+    {
+        public string itemName;// 物品名称
+        public int quantity;// 物品数量
+    }
 
-[System.Serializable]
-public class StatEffect
-{
-    public string statName;// 属性名称
-    public int valueChange;// 属性值变化量
-}
+    [System.Serializable]
+    public class StatEffect
+    {
+        public string statName;// 属性名称
+        public int valueChange;// 属性值变化量
+    }
 }
