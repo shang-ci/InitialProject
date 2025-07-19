@@ -16836,6 +16836,7 @@ GameObject:
   - component: {fileID: 595377719}
   - component: {fileID: 595377731}
   - component: {fileID: 595377732}
+  - component: {fileID: 595377733}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -17136,7 +17137,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 30
+  currentDamage: 0
   inventory: {fileID: 0}
+--- !u!114 &595377733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595377718}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e25cb047ddf2412eb6cef58b7e8053e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Inventory: {fileID: 595377725}
+  m_EquipmentItemCollectionID:
+    m_Name: Equipped
+    m_Purpose: 3
+  m_SkinnedMeshCharacter: 1
+  m_EquipablePrefabAttributeName: EquipmentPrefab
+  m_UsableItemPrefabAttributeName: UsableItemPrefab
+  m_ItemSlotSet: {fileID: 11400000, guid: 580d1be826ac57d47a82ac9deeff876a, type: 2}
+  m_ItemObjectSlots:
+  - m_Name: Head
+    m_Category:
+      m_Name: EquipCard
+      m_ItemCategory: {fileID: 11400000, guid: c65cba135486ad94e83f572e7c53ea9d, type: 2}
+    m_IsSkinnedEquipment: 1
+    m_Transform: {fileID: 0}
+    m_ItemObject: {fileID: 0}
+    m_HideWhenWearingEquipment: []
+  - m_Name: Jewelry
+    m_Category:
+      m_Name: EquipCard
+      m_ItemCategory: {fileID: 11400000, guid: c65cba135486ad94e83f572e7c53ea9d, type: 2}
+    m_IsSkinnedEquipment: 1
+    m_Transform: {fileID: 0}
+    m_ItemObject: {fileID: 0}
+    m_HideWhenWearingEquipment: []
+  - m_Name: Weapons
+    m_Category:
+      m_Name: EquipCard
+      m_ItemCategory: {fileID: 11400000, guid: c65cba135486ad94e83f572e7c53ea9d, type: 2}
+    m_IsSkinnedEquipment: 1
+    m_Transform: {fileID: 0}
+    m_ItemObject: {fileID: 0}
+    m_HideWhenWearingEquipment: []
+  m_MainRootNode: {fileID: 0}
 --- !u!1 &599976647
 GameObject:
   m_ObjectHideFlags: 0
