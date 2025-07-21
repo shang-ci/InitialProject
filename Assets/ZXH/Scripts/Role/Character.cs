@@ -1,4 +1,4 @@
-using Opsive.UltimateInventorySystem.Core;
+ï»¿using Opsive.UltimateInventorySystem.Core;
 using Opsive.UltimateInventorySystem.Core.InventoryCollections;
 using Opsive.UltimateInventorySystem.Equipping;
 using Opsive.Shared.Events;
@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [Header("½ÇÉ«»ù´¡ÊôĞÔ")]
+    [Header("è§’è‰²åŸºç¡€å±æ€§")]
     protected string characterName;
     [SerializeField]protected int currentHealth = 30;
     protected int maxHealth = 100;
@@ -18,7 +18,7 @@ public class Character : MonoBehaviour
     [SerializeField]protected int currentDamage;
     protected int armor;
 
-    [Header("¼Ó×°±¸")]
+    [Header("åŠ è£…å¤‡")]
     protected IEquipper m_Equipper;
 
     public Inventory inventory;
@@ -48,11 +48,11 @@ public class Character : MonoBehaviour
     {
         float bounsCombat = m_Equipper.GetEquipmentStatInt("combat");
         currentDamage = baseDamage + Mathf.RoundToInt(bounsCombat);
-        Debug.Log($"µ±Ç°ÉËº¦ = {currentDamage}");
+        Debug.Log($"å½“å‰ä¼¤å®³ = {currentDamage}");
     }
 
 
-    [ContextMenu("¼ÓÈë2ÕÅArmorµ½±³°ü")]
+    [ContextMenu("åŠ å…¥2å¼ Armoråˆ°èƒŒåŒ…")]
     public void AddToInventory()
     {
         

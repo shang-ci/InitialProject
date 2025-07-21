@@ -1,4 +1,4 @@
-/*
+﻿/*
 7.17
 Dialogue System中可通过Lua调用给玩家添加道具的方法
 直接奖励道具放入inventory

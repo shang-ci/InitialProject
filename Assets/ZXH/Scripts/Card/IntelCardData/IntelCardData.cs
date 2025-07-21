@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New IntelCardData", menuName = "Card/Intel Card Data")]
 public class IntelCardData : CardData
@@ -7,6 +7,6 @@ public class IntelCardData : CardData
 
     private void Awake()
     {
-        cardType = CardType.Intel; // ÉèÖÃ¿¨Æ¬ÀàĞÍÎª Intel
+        cardType = CardType.Intel; // è®¾ç½®å¡ç‰‡ç±»å‹ä¸º Intel
     }
 }
