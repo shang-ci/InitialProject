@@ -1,25 +1,25 @@
-// Card.cs
+ï»¿// Card.cs
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-// È·±£¿¨ÅÆ¶ÔÏóÉÏÓĞImageºÍCanvasGroup×é¼ş
+// ç¡®ä¿å¡ç‰Œå¯¹è±¡ä¸Šæœ‰Imageå’ŒCanvasGroupç»„ä»¶
 [RequireComponent(typeof(Image))]
-[RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(CanvasGroup))]  
 public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    [Header("¿¨ÅÆÊı¾İ")]
-    public CardData cardData; // Êı¾İ
-    public CardType cardType; // ¿¨ÅÆÀàĞÍ
-    public TextMeshProUGUI id; // ¿¨ÅÆID
-    public TextMeshProUGUI cardName; // ¿¨ÅÆÃû³Æ
-    public TextMeshProUGUI type; // ¿¨ÅÆÀàĞÍ
+    [Header("å¡ç‰Œæ•°æ®")]
+    public CardData cardData; // æ•°æ®
+    public CardType cardType; // å¡ç‰Œç±»å‹
+    public TextMeshProUGUI id; // å¡ç‰ŒID
+    public TextMeshProUGUI cardName; // å¡ç‰Œåç§°
+    public TextMeshProUGUI type; // å¡ç‰Œç±»å‹
 
-    [Header("¿¨ÅÆ¸¨ÖúÊôĞÔ")]
-    public bool isDraggable = true;  //¿ØÖÆ¿¨ÅÆÊÇ·ñ¿ÉÍÏ×§
+    [Header("å¡ç‰Œè¾…åŠ©å±æ€§")]
+    public bool isDraggable = true;  //æ§åˆ¶å¡ç‰Œæ˜¯å¦å¯æ‹–æ‹½
 
-    private Transform originalParent; // ¼ÇÂ¼ÍÏ×§Ç°µÄ¸¸ÎïÌå
+    private Transform originalParent; // è®°å½•æ‹–æ‹½å‰çš„çˆ¶ç‰©ä½“
     public Transform OriginalParent { get { return originalParent; } }  
 
     private CanvasGroup canvasGroup;
@@ -33,7 +33,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     }
 
     /// <summary>
-    /// ¸ù¾İCardData³õÊ¼»¯¿¨ÅÆµÄÏÔÊ¾
+    /// æ ¹æ®CardDataåˆå§‹åŒ–å¡ç‰Œçš„æ˜¾ç¤º
     /// </summary>
     public void SetupCard()
     {
@@ -51,91 +51,91 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             type.text = "Type:" + cardData.cardType.ToString();
         }
 
-        //PrintAllAttributes(); // ´òÓ¡ËùÓĞÊôĞÔĞÅÏ¢
+        //PrintAllAttributes(); // æ‰“å°æ‰€æœ‰å±æ€§ä¿¡æ¯
     }
 
     /// <summary>
-    /// ¿ªÊ¼ÍÏ×§
+    /// å¼€å§‹æ‹–æ‹½
     /// </summary>
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // Èç¹ûµ±Ç°¿¨ÅÆ±»ÉèÖÃÎª²»¿ÉÍÏ×§£¬ÔòÁ¢¿ÌÖĞÖ¹ÍÏ×§²Ù×÷
+        // å¦‚æœå½“å‰å¡ç‰Œè¢«è®¾ç½®ä¸ºä¸å¯æ‹–æ‹½ï¼Œåˆ™ç«‹åˆ»ä¸­æ­¢æ‹–æ‹½æ“ä½œ
         if (!isDraggable)
         {
-            eventData.pointerDrag = null; // È¡ÏûÍÏ×§
+            eventData.pointerDrag = null; // å–æ¶ˆæ‹–æ‹½
             return;
         }
 
-        // 1. ¼ÇÂ¼Ô­Ê¼¸¸ÎïÌå£¬ÓÃÓÚÍÏ×§Ê§°ÜÊ±·µ»Ø
+        // 1. è®°å½•åŸå§‹çˆ¶ç‰©ä½“ï¼Œç”¨äºæ‹–æ‹½å¤±è´¥æ—¶è¿”å›
         originalParent = transform.parent;
 
-        // 2. ½«¿¨ÅÆµÄ¸¸ÎïÌåÉèÖÃÎªCanvasµÄ¸ù½Úµã£¬Ê¹ÆääÖÈ¾ÔÚ×îÉÏ²ã
+        // 2. å°†å¡ç‰Œçš„çˆ¶ç‰©ä½“è®¾ç½®ä¸ºCanvasçš„æ ¹èŠ‚ç‚¹ï¼Œä½¿å…¶æ¸²æŸ“åœ¨æœ€ä¸Šå±‚
         transform.SetParent(transform.root);
-        transform.SetAsLastSibling(); // È·±£ÔÚ×îÉÏ²ãäÖÈ¾
+        transform.SetAsLastSibling(); // ç¡®ä¿åœ¨æœ€ä¸Šå±‚æ¸²æŸ“
 
-        // 3. ÉèÖÃCanvasGroup£¬ÈÃ¿¨ÅÆÔÚÍÏ×§Ê±¿ÉÒÔ´©Í¸ÉäÏß¼ì²â
-        // ÕâÑùÏÂ·½µÄ¿¨ÅÆ²Û²ÅÄÜ½ÓÊÕµ½OnDropÊÂ¼ş
+        // 3. è®¾ç½®CanvasGroupï¼Œè®©å¡ç‰Œåœ¨æ‹–æ‹½æ—¶å¯ä»¥ç©¿é€å°„çº¿æ£€æµ‹
+        // è¿™æ ·ä¸‹æ–¹çš„å¡ç‰Œæ§½æ‰èƒ½æ¥æ”¶åˆ°OnDropäº‹ä»¶
         canvasGroup.blocksRaycasts = false;
-        canvasGroup.alpha = 0.7f; // °ëÍ¸Ã÷Ğ§¹û£¬¸øÓÃ»§ÍÏ×§µÄÊÓ¾õ·´À¡
+        canvasGroup.alpha = 0.7f; // åŠé€æ˜æ•ˆæœï¼Œç»™ç”¨æˆ·æ‹–æ‹½çš„è§†è§‰åé¦ˆ
     }
 
     /// <summary>
-    /// ÍÏ×§¹ı³ÌÖĞ
+    /// æ‹–æ‹½è¿‡ç¨‹ä¸­
     /// </summary>
     /// <param name="eventData"></param>
     public void OnDrag(PointerEventData eventData)
     {
-        // ¸üĞÂ¿¨ÅÆµÄÎ»ÖÃ¸úËæÊó±ê/ÊÖÖ¸
+        // æ›´æ–°å¡ç‰Œçš„ä½ç½®è·Ÿéšé¼ æ ‡/æ‰‹æŒ‡
         transform.position = eventData.position;
     }
 
     /// <summary>
-    /// ½áÊøÍÏ×§
+    /// ç»“æŸæ‹–æ‹½
     /// </summary>
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
-        // »Ö¸´¿¨ÅÆµÄÉäÏß¼ì²âºÍÍ¸Ã÷¶È
+        // æ¢å¤å¡ç‰Œçš„å°„çº¿æ£€æµ‹å’Œé€æ˜åº¦
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1.0f;
 
-        // ¼ì²é¿¨ÅÆÊÇ·ñ±»·ÅÖÃµ½ÁËĞÂµÄ¸¸ÎïÌå£¨¼´Ò»¸öÓĞĞ§µÄ¿¨ÅÆ²Û£©ÏÂ
-        // Èç¹û¸¸ÎïÌåÃ»ÓĞ¸Ä±ä£¬ËµÃ÷Ã»ÓĞÕÒµ½ºÏÊÊµÄ¿¨ÅÆ²Û
+        // æ£€æŸ¥å¡ç‰Œæ˜¯å¦è¢«æ”¾ç½®åˆ°äº†æ–°çš„çˆ¶ç‰©ä½“ï¼ˆå³ä¸€ä¸ªæœ‰æ•ˆçš„å¡ç‰Œæ§½ï¼‰ä¸‹
+        // å¦‚æœçˆ¶ç‰©ä½“æ²¡æœ‰æ”¹å˜ï¼Œè¯´æ˜æ²¡æœ‰æ‰¾åˆ°åˆé€‚çš„å¡ç‰Œæ§½
         if (transform.parent == transform.root || transform.parent == originalParent)
         {
-            // Ã»ÓĞ·ÅÖÃµ½ÓĞĞ§¿¨²Û£¬·µ»ØÔ­Î»
+            // æ²¡æœ‰æ”¾ç½®åˆ°æœ‰æ•ˆå¡æ§½ï¼Œè¿”å›åŸä½
             SetCardPos();
         }
     }
 
     /// <summary>
-    /// ÓÒ¼üµã»÷Ê±µ¯³ö¿¨ÅÆÏêÇé
+    /// å³é”®ç‚¹å‡»æ—¶å¼¹å‡ºå¡ç‰Œè¯¦æƒ…
     /// </summary>
-    /// <param name="eventData">¿¨ÅÆÊı¾İ</param>
+    /// <param name="eventData">å¡ç‰Œæ•°æ®</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        //ÏÔÊ¾¿¨ÅÆÏêÇéÃæ°å
+        //æ˜¾ç¤ºå¡ç‰Œè¯¦æƒ…é¢æ¿
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             CardDetailPanel.Instance.Show(cardData, Input.mousePosition);
         }
 
-        //ÈËÎï¿¨×°±¸¿¨ÅÆ
+        //äººç‰©å¡è£…å¤‡å¡ç‰Œ
         Inventory_ZXH.Instance.Backpack.SelectCard(cardData);
     }
 
     /// <summary>
-    /// ¼ÇÂ¼µ±Ç°¸¸ÎïÌå¡ª¡ªÉèÖÃµ±±»¿¨²Û³É¹¦Îü¸½ºó£¬ÓÉ¿¨²Ûµ÷ÓÃ
+    /// è®°å½•å½“å‰çˆ¶ç‰©ä½“â€”â€”è®¾ç½®å½“è¢«å¡æ§½æˆåŠŸå¸é™„åï¼Œç”±å¡æ§½è°ƒç”¨
     /// </summary>
-    /// <param name="newParent">ÉèÖÃ¿¨ÅÆµÄÔ­Ê¼¸¸ÎïÌå</param>
+    /// <param name="newParent">è®¾ç½®å¡ç‰Œçš„åŸå§‹çˆ¶ç‰©ä½“</param>
     public void SetNewParent(Transform newParent)
     {
         originalParent = newParent;
     }
 
     /// <summary>
-    /// ÉèÖÃ¿¨ÅÆµÄÎ»ÖÃÎªÔ­Ê¼¸¸ÎïÌåµÄÎ»ÖÃ
+    /// è®¾ç½®å¡ç‰Œçš„ä½ç½®ä¸ºåŸå§‹çˆ¶ç‰©ä½“çš„ä½ç½®
     /// </summary>
     public void SetCardPos()
     {
@@ -144,13 +144,13 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     }
 
     /// <summary>
-    /// ´òÓ¡¿¨ÅÆµÄËùÓĞÊôĞÔĞÅÏ¢µ½¿ØÖÆÌ¨
+    /// æ‰“å°å¡ç‰Œçš„æ‰€æœ‰å±æ€§ä¿¡æ¯åˆ°æ§åˆ¶å°
     /// </summary>
     public void PrintAllAttributes()
     {
         if (cardData == null)
         {
-            Debug.LogWarning("CardData Îª¿Õ£¬ÎŞ·¨´òÓ¡ÊôĞÔ¡£");
+            Debug.LogWarning("CardData ä¸ºç©ºï¼Œæ— æ³•æ‰“å°å±æ€§ã€‚");
             return;
         }
 
@@ -159,7 +159,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         "physique", "social", "survival", "intelligence", "charm", "combat", "support"
         };
 
-        string info = $"¿¨ÅÆ [{cardData.cardName}] ÊôĞÔ£º";
+        string info = $"å¡ç‰Œ [{cardData.cardName}] å±æ€§ï¼š";
         foreach (var attrName in attrNames)
         {
             int value = cardData.GetAttributeValue(attrName);

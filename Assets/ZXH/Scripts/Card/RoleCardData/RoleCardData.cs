@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New RoleCardData", menuName = "Card/Role Card Data")]
 public class RoleCardData : CardData
 {
-    public List<EquipCardData> equipments = new List<EquipCardData>(); // ½ÇÉ«×°±¸ÁĞ±í
-    public Dictionary<EquipmentType, EquipCardData> equipmentDictionary = new Dictionary<EquipmentType, EquipCardData>() ;// ×°±¸×Öµä£¬¿ìËÙ²éÕÒ
+    public List<EquipCardData> equipments = new List<EquipCardData>(); // è§’è‰²è£…å¤‡åˆ—è¡¨
+    public Dictionary<EquipmentType, EquipCardData> equipmentDictionary = new Dictionary<EquipmentType, EquipCardData>() ;// è£…å¤‡å­—å…¸ï¼Œå¿«é€ŸæŸ¥æ‰¾
 
 
     private void OnEnable()
@@ -14,7 +14,7 @@ public class RoleCardData : CardData
     }
 
     /// <summary>
-    /// Ìí¼Ó\Ìæ»»×°±¸
+    /// æ·»åŠ \æ›¿æ¢è£…å¤‡
     /// </summary>
     /// <param name="equip"></param>
     public void Equip(EquipCardData equip)
@@ -32,29 +32,29 @@ public class RoleCardData : CardData
             }
         }
 
-        // ½«¾É×°±¸·Å»Ø¿â´æ
+        // å°†æ—§è£…å¤‡æ”¾å›åº“å­˜
         if (oldEquip != null)
         {
             Inventory_ZXH.Instance.Backpack.AddCard(oldEquip); 
             equipments.Remove(oldEquip);
             equipmentDictionary.Remove(oldEquip.equipmentType);
 
-            // ¼õÉÙÊôĞÔ
+            // å‡å°‘å±æ€§
             RemoveAttributes(oldEquip.attributes);
         }
 
-        // Ìí¼ÓĞÂ×°±¸
-        Inventory_ZXH.Instance.Backpack.RemoveCard(equip);//Ë¢ĞÂ¹ıÁË
+        // æ·»åŠ æ–°è£…å¤‡
+        Inventory_ZXH.Instance.Backpack.RemoveCard(equip);//åˆ·æ–°è¿‡äº†
         equipments.Add(equip);
         equipmentDictionary[equip.equipmentType] = equip;
 
-        //Ôö¼ÓÊôĞÔ
+        //å¢åŠ å±æ€§
         AddAttributes(equip.attributes);
 
     }
 
     /// <summary>
-    /// ÒÆ³ı×°±¸
+    /// ç§»é™¤è£…å¤‡
     /// </summary>
     /// <param name="equip"></param>
     public void UnEquip(EquipCardData equip)
@@ -64,10 +64,10 @@ public class RoleCardData : CardData
             equipments.Remove(equip);
             equipmentDictionary.Remove(equip.equipmentType);
 
-            // ½«×°±¸·Å»Ø¿â´æ
+            // å°†è£…å¤‡æ”¾å›åº“å­˜
             Inventory_ZXH.Instance.Backpack.AddCard(equip);
 
-            // ¼õÉÙÊôĞÔ
+            // å‡å°‘å±æ€§
             RemoveAttributes(equip.attributes);
         }
     }

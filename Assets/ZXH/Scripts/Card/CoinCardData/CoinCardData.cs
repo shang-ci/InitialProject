@@ -1,14 +1,14 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New CoinCardData", menuName = "Card/Coin Card Data")]
 public class CoinCardData : CardData
 {
-    [Header("½ğ±ÒÊıÁ¿")]
+    [Header("é‡‘å¸æ•°é‡")]
     public int amount;
 
 
     private void Awake()
     {
-        cardType = CardType.Coin; // ÉèÖÃ¿¨Æ¬ÀàĞÍÎª Coin
+        cardType = CardType.Coin; // è®¾ç½®å¡ç‰‡ç±»å‹ä¸º Coin
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -6,50 +6,50 @@ using UnityEngine;
 
 public class Event_ZXH : MonoBehaviour
 {
-    [Header("¸¨Öú×Ö¶Î")] 
-    [SerializeField]private int currentDay = 0; // µ¹¼ÆÊ±£¬³õÊ¼Îª1
-    private EventData eventData; // ÓÃÓÚ´æ´¢µ±Ç°ÊÂ¼şÊı¾İ
-    public bool isEventActive = false; // ÊÇ·ñÓĞÊÂ¼şÔÚ½øĞĞÖĞ
-    public bool isBock;//ÊÇ·ñËø×¡
+    [Header("è¾…åŠ©å­—æ®µ")] 
+    [SerializeField]private int currentDay = 0; // å€’è®¡æ—¶ï¼Œåˆå§‹ä¸º1
+    private EventData eventData; // ç”¨äºå­˜å‚¨å½“å‰äº‹ä»¶æ•°æ®
+    public bool isEventActive = false; // æ˜¯å¦æœ‰äº‹ä»¶åœ¨è¿›è¡Œä¸­
+    public bool isBock;//æ˜¯å¦é”ä½
 
-    [Header("ÍÏ×§ÒıÓÃ")]
+    [Header("æ‹–æ‹½å¼•ç”¨")]
     public GameObject One;
     public GameObject Two;
     public GameObject Three;
 
-    [Header("One¾²Ì¬ÊÂ¼şUI_ÍÏ×§")]
-    [SerializeField] private TextMeshProUGUI EventName; // ÊÂ¼şÃû³Æ
-    [SerializeField] private TextMeshProUGUI EventTime; // ÊÂ¼şÊ±¼ä
+    [Header("Oneé™æ€äº‹ä»¶UI_æ‹–æ‹½")]
+    [SerializeField] private TextMeshProUGUI EventName; // äº‹ä»¶åç§°
+    [SerializeField] private TextMeshProUGUI EventTime; // äº‹ä»¶æ—¶é—´
 
-    // ÊÂ¼şUIµÄÒıÓÃ¡ª¡ªÃ¿¸öUI¶¼ÊÇºÍÄ£°åÀïµÄÔ¤ÖÆÌåÃû×ÖÏàÍ¬µÄ£¬ÎÒÃÇÖ±½ÓÍ¨¹ıÃû×Ö»ñÈ¡×é¼şÒıÓÃ¼´¿É£¬²»È»Ã¿¸öUI¶¼Òªµ¥¶ÀĞ´Ò»¸ö½Å±¾À´»ñÈ¡×é¼şÒıÓÃ£¬Ì«Âé·³ÁË
-    [Header("Two¾²Ì¬ÊÂ¼şUI")]
+    // äº‹ä»¶UIçš„å¼•ç”¨â€”â€”æ¯ä¸ªUIéƒ½æ˜¯å’Œæ¨¡æ¿é‡Œçš„é¢„åˆ¶ä½“åå­—ç›¸åŒçš„ï¼Œæˆ‘ä»¬ç›´æ¥é€šè¿‡åå­—è·å–ç»„ä»¶å¼•ç”¨å³å¯ï¼Œä¸ç„¶æ¯ä¸ªUIéƒ½è¦å•ç‹¬å†™ä¸€ä¸ªè„šæœ¬æ¥è·å–ç»„ä»¶å¼•ç”¨ï¼Œå¤ªéº»çƒ¦äº†
+    [Header("Twoé™æ€äº‹ä»¶UI")]
     [SerializeField] private TextMeshProUGUI Story;
     [SerializeField] private TextMeshProUGUI Tips;
-    [SerializeField] private TextMeshProUGUI DurationDays;// ÊÂ¼ş³ÖĞøÌìÊı
+    [SerializeField] private TextMeshProUGUI DurationDays;// äº‹ä»¶æŒç»­å¤©æ•°
     [SerializeField] private TextMeshProUGUI SuccessThreshold;
-    [SerializeField]private float successProbability = 1f;//³É¹¦¸ÅÂÊ
-    [SerializeField]private int t= 0;//³É¹¦´ÎÊı
+    [SerializeField]private float successProbability = 1f;//æˆåŠŸæ¦‚ç‡
+    [SerializeField]private int t= 0;//æˆåŠŸæ¬¡æ•°
     [SerializeField]private bool isSuccess;
 
-    [Header("Two¶¯Ì¬Éú³ÉÒıÓÃ")]
-    [SerializeField] private CardSlot[] CardSlots; // ¿¨ÅÆ²ÛÊı×é£¬ÓÃÓÚ»ñÈ¡ÊôĞÔÖµ¡ª¡ªÍ¨¹ıCardSlotÀ´ÄÃµ½¿¨ÅÆ²Û
-    [Tooltip("ÓÃÓÚÏÔÊ¾ÊôĞÔĞèÇóµÄ'ÁĞ±íÏî'Ô¤ÖÆÌå")]
-    [SerializeField] private GameObject attributeRequirementItemPrefab;//ÊôĞÔĞèÇóÏîÔ¤ÖÆÌå£¬ÓÃÓÚ¶¯Ì¬Éú³ÉÊôĞÔĞèÇóÁĞ±í
-    [Tooltip("ÓÃÓÚ·ÅÖÃÊôĞÔĞèÇóÁĞ±íÏîµÄÈİÆ÷")]
-    [SerializeField] private Transform attributesContainer; //³¡¾°Ö±½ÓÍÏÈë
-    [SerializeField] private List<GameObject> spawnedAttributeItems = new List<GameObject>(); // ´æ´¢µ±Ç°Éú³ÉµÄÁĞ±íÏî¡ª¡ªÊôĞÔÖµ
+    [Header("TwoåŠ¨æ€ç”Ÿæˆå¼•ç”¨")]
+    [SerializeField] private CardSlot[] CardSlots; // å¡ç‰Œæ§½æ•°ç»„ï¼Œç”¨äºè·å–å±æ€§å€¼â€”â€”é€šè¿‡CardSlotæ¥æ‹¿åˆ°å¡ç‰Œæ§½
+    [Tooltip("ç”¨äºæ˜¾ç¤ºå±æ€§éœ€æ±‚çš„'åˆ—è¡¨é¡¹'é¢„åˆ¶ä½“")]
+    [SerializeField] private GameObject attributeRequirementItemPrefab;//å±æ€§éœ€æ±‚é¡¹é¢„åˆ¶ä½“ï¼Œç”¨äºåŠ¨æ€ç”Ÿæˆå±æ€§éœ€æ±‚åˆ—è¡¨
+    [Tooltip("ç”¨äºæ”¾ç½®å±æ€§éœ€æ±‚åˆ—è¡¨é¡¹çš„å®¹å™¨")]
+    [SerializeField] private Transform attributesContainer; //åœºæ™¯ç›´æ¥æ‹–å…¥
+    [SerializeField] private List<GameObject> spawnedAttributeItems = new List<GameObject>(); // å­˜å‚¨å½“å‰ç”Ÿæˆçš„åˆ—è¡¨é¡¹â€”â€”å±æ€§å€¼
 
 
-    [Header("Three¾²Ì¬ÊÂ¼şUI_ÍÏ×§")]
-    [SerializeField] private TextMeshProUGUI Result_Story; // ÊÂ¼ş½á¹ûÎÄ°¸
-    [SerializeField] private TextMeshProUGUI Reward_Card; // ÊÂ¼ş½±Àø¡ª¡ª¿¨ÅÆ¡ª¡ªÖ±½Ó°Ñ½±ÀøµÄ¿¨ÅÆÃû×Ö´òÓ¡³öÀ´£¬¿¨ÅÆÖ±½Ó¼ÓÈëµ½ÊÖÅÆ¿âÀï
-    [SerializeField] private TextMeshProUGUI Result_Dice; // ÷»×ÓµÄ½á¹û
-    [SerializeField] private TextMeshProUGUI Name; // ÊÂ¼şÃû×Ö
+    [Header("Threeé™æ€äº‹ä»¶UI_æ‹–æ‹½")]
+    [SerializeField] private TextMeshProUGUI Result_Story; // äº‹ä»¶ç»“æœæ–‡æ¡ˆ
+    [SerializeField] private TextMeshProUGUI Reward_Card; // äº‹ä»¶å¥–åŠ±â€”â€”å¡ç‰Œâ€”â€”ç›´æ¥æŠŠå¥–åŠ±çš„å¡ç‰Œåå­—æ‰“å°å‡ºæ¥ï¼Œå¡ç‰Œç›´æ¥åŠ å…¥åˆ°æ‰‹ç‰Œåº“é‡Œ
+    [SerializeField] private TextMeshProUGUI Result_Dice; // éª°å­çš„ç»“æœ
+    [SerializeField] private TextMeshProUGUI Name; // äº‹ä»¶åå­—
 
 
     private void Awake()
     {
-        // »ñÈ¡ËùÓĞĞèÒªµÄ×é¼ş
+        // è·å–æ‰€æœ‰éœ€è¦çš„ç»„ä»¶
         Story = FindTMPDeep("Story");
         Tips = FindTMPDeep("Tips");
         DurationDays = FindTMPDeep("DurationDays");
@@ -60,12 +60,12 @@ public class Event_ZXH : MonoBehaviour
 
     private void Start()
     {
-        AddTime(); //µÚÒ»Ìì
+        AddTime(); //ç¬¬ä¸€å¤©
     }
 
     private void Update()
     {
-        // ÊµÊ±Ë¢ĞÂÃ¿¸öÊôĞÔĞèÇóÏîµÄÊôĞÔ×ÜÖµ
+        // å®æ—¶åˆ·æ–°æ¯ä¸ªå±æ€§éœ€æ±‚é¡¹çš„å±æ€§æ€»å€¼
         foreach (var item in spawnedAttributeItems)
         {
             var nameText = item.transform.Find("AttributeNameText").GetComponent<TextMeshProUGUI>();
@@ -80,25 +80,25 @@ public class Event_ZXH : MonoBehaviour
         }
     }
 
-    #region ¸¨Öú
+    #region è¾…åŠ©
     /// <summary>
-    /// ½øĞĞµ¹¼ÆÊ±¡ª¡ªÌìÊıÔö¼ÓÊ±µ÷ÓÃ
+    /// è¿›è¡Œå€’è®¡æ—¶â€”â€”å¤©æ•°å¢åŠ æ—¶è°ƒç”¨
     /// </summary>
     public void AddTime()
     {
         currentDay++;
         if(eventData.DurationDays <= currentDay && !isEventActive)
         {
-            ExecutionEvent(eventData); // Ö´ĞĞÊÂ¼şÂß¼­
+            ExecutionEvent(eventData); // æ‰§è¡Œäº‹ä»¶é€»è¾‘
 
         }
         EventTime.text = (eventData.DurationDays - currentDay).ToString();
-        DurationDays.text = $"Ê£Óà: {eventData.DurationDays - currentDay} Ìì"; // ¸üĞÂUIÏÔÊ¾Ê£ÓàÌìÊı
+        DurationDays.text = $"å‰©ä½™: {eventData.DurationDays - currentDay} å¤©"; // æ›´æ–°UIæ˜¾ç¤ºå‰©ä½™å¤©æ•°
 
     }
 
     /// <summary>
-    /// Ê¹ÓÃÊÂ¼şÊı¾İÀ´³õÊ¼»¯ºÍÌî³äÕû¸öUIÃæ°å
+    /// ä½¿ç”¨äº‹ä»¶æ•°æ®æ¥åˆå§‹åŒ–å’Œå¡«å……æ•´ä¸ªUIé¢æ¿
     /// </summary>
     public void Initialize(EventData eventData)
     {
@@ -109,48 +109,48 @@ public class Event_ZXH : MonoBehaviour
         EventTime.text = eventData.DurationDays.ToString();
 
         //Two
-        // 1. Ìî³ä¾²Ì¬Êı¾İ
+        // 1. å¡«å……é™æ€æ•°æ®
         Story.text = eventData.Story;
         Tips.text = eventData.Tips;
-        DurationDays.text = $"³ÖĞøÊ±¼ä: {eventData.DurationDays} Ìì";
-        //SuccessThreshold.text = $"³É¹¦ãĞÖµ: {eventData.SuccessThreshold}";
+        DurationDays.text = $"æŒç»­æ—¶é—´: {eventData.DurationDays} å¤©";
+        //SuccessThreshold.text = $"æˆåŠŸé˜ˆå€¼: {eventData.SuccessThreshold}";
 
-        // 2. ÇåÀíÉÏÒ»´ÎÉú³ÉµÄ¶¯Ì¬ÁĞ±í
+        // 2. æ¸…ç†ä¸Šä¸€æ¬¡ç”Ÿæˆçš„åŠ¨æ€åˆ—è¡¨
         foreach (var item in spawnedAttributeItems)
         {
             Destroy(item);
         }
         spawnedAttributeItems.Clear();
 
-        // 3. ¶¯Ì¬Éú³ÉÊôĞÔĞèÇóÁĞ±í
+        // 3. åŠ¨æ€ç”Ÿæˆå±æ€§éœ€æ±‚åˆ—è¡¨
         foreach (string attributeName in eventData.RequiredAttributes)
         {
-            Debug.Log($"Event_ZXH:Ìí¼ÓÊôĞÔ{attributeName}");
-            // ÊµÀı»¯ÁĞ±íÏîÔ¤ÖÆÌå
+            Debug.Log($"Event_ZXH:æ·»åŠ å±æ€§{attributeName}");
+            // å®ä¾‹åŒ–åˆ—è¡¨é¡¹é¢„åˆ¶ä½“
             GameObject itemInstance = Instantiate(attributeRequirementItemPrefab, attributesContainer);
 
-            // »ñÈ¡×ÓÔ¤ÖÆÌåÉÏµÄÎÄ±¾×é¼ş
-            // ÕâÀïÎÒÃÇ¼ÙÉè×ÓÔ¤ÖÆÌåÉÏµÄ×é¼şÒ²½Ğ "AttributeNameText" ºÍ "AttributeValueText"
+            // è·å–å­é¢„åˆ¶ä½“ä¸Šçš„æ–‡æœ¬ç»„ä»¶
+            // è¿™é‡Œæˆ‘ä»¬å‡è®¾å­é¢„åˆ¶ä½“ä¸Šçš„ç»„ä»¶ä¹Ÿå« "AttributeNameText" å’Œ "AttributeValueText"
             TextMeshProUGUI nameText = itemInstance.transform.Find("AttributeNameText").GetComponent<TextMeshProUGUI>();
             TextMeshProUGUI valueText = itemInstance.transform.Find("AttributeValueText").GetComponent<TextMeshProUGUI>();
 
-            // Ìî³äÊı¾İ
+            // å¡«å……æ•°æ®
             nameText.text = attributeName;
 
-            // ¿¨ÅÆ²Ûµ±Ç°µÄ×ÜÊôĞÔÖµ
+            // å¡ç‰Œæ§½å½“å‰çš„æ€»å±æ€§å€¼
 
             valueText.text = "0";
 
-            // Èç¹ûÍæ¼ÒÊôĞÔ²»×ã£¬¿ÉÒÔ¸Ä±äÊıÖµÑÕÉ«ÒÔ×÷ÌáÊ¾
+            // å¦‚æœç©å®¶å±æ€§ä¸è¶³ï¼Œå¯ä»¥æ”¹å˜æ•°å€¼é¢œè‰²ä»¥ä½œæç¤º
             // if (playerValue < some_threshold) valueText.color = Color.red;
 
-            // ½«Éú³ÉµÄÊµÀıÌí¼Óµ½ÁĞ±íÖĞ£¬ÒÔ±ãÏÂ´ÎÇåÀí
+            // å°†ç”Ÿæˆçš„å®ä¾‹æ·»åŠ åˆ°åˆ—è¡¨ä¸­ï¼Œä»¥ä¾¿ä¸‹æ¬¡æ¸…ç†
             spawnedAttributeItems.Add(itemInstance);
 
 
             //Three
             Name.text = eventData.EventName;
-            //Ê£ÏÂµÄÒªÍ¶Íê÷»×Ó²ÅÄÜÓÃ
+            //å‰©ä¸‹çš„è¦æŠ•å®Œéª°å­æ‰èƒ½ç”¨
 
         }
     }
@@ -167,7 +167,7 @@ public class Event_ZXH : MonoBehaviour
     #region Two
 
     /// <summary>
-    /// »ñÈ¡ËùÓĞ¿¨²ÛÖĞÖ¸¶¨ÊôĞÔµÄ×ÜºÍ
+    /// è·å–æ‰€æœ‰å¡æ§½ä¸­æŒ‡å®šå±æ€§çš„æ€»å’Œ
     /// </summary>
     private int GetTotalAttributeValue(string attrName)
     {
@@ -181,13 +181,13 @@ public class Event_ZXH : MonoBehaviour
                 total += card.cardData.GetAttributeValue(attrName);
             }
         }
-        //Debug.Log($"Event_ZXH: ÊôĞÔ {attrName} µÄ×ÜÖµÎª {total}");
+        //Debug.Log($"Event_ZXH: å±æ€§ {attrName} çš„æ€»å€¼ä¸º {total}");
         return total;
     }
 
 
     /// <summary>
-    /// Éî¶È²éÕÒ×ÓÎïÌåÖĞµÄ TextMeshProUGUI ×é¼ş
+    /// æ·±åº¦æŸ¥æ‰¾å­ç‰©ä½“ä¸­çš„ TextMeshProUGUI ç»„ä»¶
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
@@ -199,12 +199,12 @@ public class Event_ZXH : MonoBehaviour
             if (tmp.name == name)
                 return tmp;
         }
-        Debug.LogError($"Event_ZXH: Î´ÕÒµ½ÃûÎª {name} µÄ TextMeshProUGUI ×é¼ş£¡");
+        Debug.LogError($"Event_ZXH: æœªæ‰¾åˆ°åä¸º {name} çš„ TextMeshProUGUI ç»„ä»¶ï¼");
         return null;
     }
 
     /// <summary>
-    /// »ñÈ¡ËùÓĞÊôĞÔvalueTextµÄÖµÖ®ºÍ
+    /// è·å–æ‰€æœ‰å±æ€§valueTextçš„å€¼ä¹‹å’Œ
     /// </summary>
     private int GetAllValueTextSum()
     {
@@ -222,27 +222,27 @@ public class Event_ZXH : MonoBehaviour
 
 
     /// <summary>
-    /// right°´Å¥µã»÷
+    /// rightæŒ‰é’®ç‚¹å‡»
     /// </summary>
     public void SetRight()
     {
-        LockingEvent(); // Ëø×¡ÊÂ¼şÃæ°å
+        LockingEvent(); // é”ä½äº‹ä»¶é¢æ¿
     }
 
     /// <summary>
-    /// Ëø¶¨ÊÂ¼ş
+    /// é”å®šäº‹ä»¶
     /// </summary>
     public void LockingEvent ()
     {
-        isBock = true; // Ëø×¡ÊÂ¼şÃæ°å£¬·ÀÖ¹ÖØ¸´²Ù×÷
-        Debug.Log("È·ÈÏÑ¡Ôñ£¬ÕıÔÚËø¶¨ÊÂ¼ş¿¨²Û...");
+        isBock = true; // é”ä½äº‹ä»¶é¢æ¿ï¼Œé˜²æ­¢é‡å¤æ“ä½œ
+        Debug.Log("ç¡®è®¤é€‰æ‹©ï¼Œæ­£åœ¨é”å®šäº‹ä»¶å¡æ§½...");
 
-        // ±éÀúËùÓĞÖ¸¶¨µÄ¿¨²Û
+        // éå†æ‰€æœ‰æŒ‡å®šçš„å¡æ§½
         foreach (CardSlot slot in CardSlots)
         {
             if (slot != null)
             {
-                // µ÷ÓÃÎÒÃÇ¸Õ¸ÕÔÚCardSlotÖĞ´´½¨µÄ·½·¨À´½ûÓÃËü
+                // è°ƒç”¨æˆ‘ä»¬åˆšåˆšåœ¨CardSlotä¸­åˆ›å»ºçš„æ–¹æ³•æ¥ç¦ç”¨å®ƒ
                 slot.SetInteractable(false);
             }
         }
@@ -253,7 +253,7 @@ public class Event_ZXH : MonoBehaviour
         #region Three
 
         /// <summary>
-        /// Ö´ĞĞÊÂ¼şÂß¼­£¬¸ù¾İÊÂ¼şÊı¾İºÍ³É¹¦¸ÅÂÊÀ´¾ö¶¨ÊÂ¼ş½á¹û
+        /// æ‰§è¡Œäº‹ä»¶é€»è¾‘ï¼Œæ ¹æ®äº‹ä»¶æ•°æ®å’ŒæˆåŠŸæ¦‚ç‡æ¥å†³å®šäº‹ä»¶ç»“æœ
         /// </summary>
         /// <param name="eventData"></param>
     public void ExecutionEvent(EventData eventData)
@@ -262,25 +262,25 @@ public class Event_ZXH : MonoBehaviour
 
         if (RollTheDice(eventData,successProbability))
         {
-            // ³É¹¦Âß¼­
+            // æˆåŠŸé€»è¾‘
             Result_Story.text = eventData.SuccessfulResults;
-            Result_Dice.text = $"³É¹¦÷»×ÓµÄ¸öÊı£º{t}";
-            Reward_Card.text = $"»ñµÃ£º{eventData.RewardItemIDs}"; // ÕâÀï¿ÉÒÔÌæ»»ÎªÊµ¼ÊµÄ½±ÀøÂß¼­
+            Result_Dice.text = $"æˆåŠŸéª°å­çš„ä¸ªæ•°ï¼š{t}";
+            Reward_Card.text = $"è·å¾—ï¼š{eventData.RewardItemIDs}"; // è¿™é‡Œå¯ä»¥æ›¿æ¢ä¸ºå®é™…çš„å¥–åŠ±é€»è¾‘
             
-            GiveRewards(eventData); // ·¢·Å½±Àø¿¨ÅÆ
+            GiveRewards(eventData); // å‘æ”¾å¥–åŠ±å¡ç‰Œ
         }
         else
         {
-            // Ê§°ÜÂß¼­
+            // å¤±è´¥é€»è¾‘
             Result_Story.text = eventData.FailedResults;
-            Result_Dice.text = $"³É¹¦÷»×ÓµÄ¸öÊı£º{t}";
-            Reward_Card.text = "Ã»ÓĞ½±Àø";
+            Result_Dice.text = $"æˆåŠŸéª°å­çš„ä¸ªæ•°ï¼š{t}";
+            Reward_Card.text = "æ²¡æœ‰å¥–åŠ±";
         }
 
-        // Õ¹¿ªThreeÃæ°å
+        // å±•å¼€Threeé¢æ¿
         ExpandThree();
 
-        //ÏûºÄµôËùÓĞ¿¨²ÛÖĞµÄ¿¨ÅÆ
+        //æ¶ˆè€—æ‰æ‰€æœ‰å¡æ§½ä¸­çš„å¡ç‰Œ
         foreach (var cardSlot in CardSlots)
         {
             var card = cardSlot.GetComponentInChildren<Card>();
@@ -293,54 +293,54 @@ public class Event_ZXH : MonoBehaviour
     }
 
     /// <summary>
-    /// ¸ù¾İÊÂ¼ş½±ÀøIDÁĞ±í£¬´ÓCardManager.cardDatabase²éÕÒ²¢ÊµÀı»¯½±Àø¿¨ÅÆµ½ÊÖÅÆ
+    /// æ ¹æ®äº‹ä»¶å¥–åŠ±IDåˆ—è¡¨ï¼Œä»CardManager.cardDatabaseæŸ¥æ‰¾å¹¶å®ä¾‹åŒ–å¥–åŠ±å¡ç‰Œåˆ°æ‰‹ç‰Œ
     /// </summary>
     public void GiveRewards(EventData eventData)
     {
         if (eventData == null || eventData.RewardItemIDs == null || eventData.RewardItemIDs.Count == 0)
             return;
 
-        // »ñÈ¡CardManagerÊµÀı£¨¼ÙÉè³¡¾°ÖĞÖ»ÓĞÒ»¸öCardManager£©
+        // è·å–CardManagerå®ä¾‹ï¼ˆå‡è®¾åœºæ™¯ä¸­åªæœ‰ä¸€ä¸ªCardManagerï¼‰
         CardManager cardManager = FindObjectOfType<CardManager>();
         if (cardManager == null)
         {
-            Debug.LogError("CardManager Î´ÕÒµ½£¡");
+            Debug.LogError("CardManager æœªæ‰¾åˆ°ï¼");
             return;
         }
 
-        // ±éÀú½±ÀøIDÁĞ±í£¬²éÕÒ¶ÔÓ¦µÄ¿¨ÅÆÊı¾İ²¢Ìí¼Óµ½ÊÖÅÆºÍ±³°ü
+        // éå†å¥–åŠ±IDåˆ—è¡¨ï¼ŒæŸ¥æ‰¾å¯¹åº”çš„å¡ç‰Œæ•°æ®å¹¶æ·»åŠ åˆ°æ‰‹ç‰Œå’ŒèƒŒåŒ…
         foreach (string rewardName in eventData.RewardItemIDs)
         {
-            // ²éÕÒcardDatabaseÖĞÃû×ÖÆ¥ÅäµÄCardData
+            // æŸ¥æ‰¾cardDatabaseä¸­åå­—åŒ¹é…çš„CardData
             CardData rewardCard = cardManager.cardDatabase.FirstOrDefault(cd => cd.cardName == rewardName);
             if (rewardCard != null)
             {
-                UIManager.Instance.Backpack.AddCard(rewardCard); //¼ÓÈë±³°ü¡¢ÊÖÅÆ¶Ñ
-                Debug.Log($"½±Àø¿¨ÅÆ£º{rewardCard.cardName} ÒÑ¼ÓÈëÊÖÅÆ");
+                UIManager.Instance.Backpack.AddCard(rewardCard); //åŠ å…¥èƒŒåŒ…ã€æ‰‹ç‰Œå †
+                Debug.Log($"å¥–åŠ±å¡ç‰Œï¼š{rewardCard.cardName} å·²åŠ å…¥æ‰‹ç‰Œ");
             }
             else
             {
-                Debug.LogWarning($"Î´ÔÚcardDatabaseÖĞÕÒµ½ÃûÎª {rewardName} µÄ¿¨ÅÆ£¬ÎŞ·¨·¢·Å½±Àø¡£");
+                Debug.LogWarning($"æœªåœ¨cardDatabaseä¸­æ‰¾åˆ°åä¸º {rewardName} çš„å¡ç‰Œï¼Œæ— æ³•å‘æ”¾å¥–åŠ±ã€‚");
             }
         }
     }
 
     /// <summary>
-    /// ÖÀ÷»×Ó£¬·µ»ØÊÇ·ñ³É¹¦,successProbability=0.5±íÊ¾50%¸ÅÂÊ³É¹¦
+    /// æ·éª°å­ï¼Œè¿”å›æ˜¯å¦æˆåŠŸ,successProbability=0.5è¡¨ç¤º50%æ¦‚ç‡æˆåŠŸ
     /// </summary>
     public bool RollTheDice(EventData eventData, float successProbability)
     {
-        Debug.Log($"Event_ZXH: ÖÀ÷»×Ó£¬³É¹¦¸ÅÂÊÎª {successProbability * 100}%");
-        int diceSum = GetAllValueTextSum();//÷»×Ó¸öÊı
-        int threshold = eventData.SuccessThreshold;//³É¹¦ãĞÖµ
+        Debug.Log($"Event_ZXH: æ·éª°å­ï¼ŒæˆåŠŸæ¦‚ç‡ä¸º {successProbability * 100}%");
+        int diceSum = GetAllValueTextSum();//éª°å­ä¸ªæ•°
+        int threshold = eventData.SuccessThreshold;//æˆåŠŸé˜ˆå€¼
 
-        t = 0;//³É¹¦´ÎÊı
+        t = 0;//æˆåŠŸæ¬¡æ•°
 
         successProbability = Mathf.Clamp01(successProbability);
 
         for(int i = 1;i <=diceSum; i++)
         {
-            // ÖÀ÷»×Ó
+            // æ·éª°å­
             float rand = Random.value; // [0,1)
             bool isSuccess = rand < successProbability;
             if (isSuccess)
@@ -362,9 +362,9 @@ public class Event_ZXH : MonoBehaviour
     }
     #endregion
 
-    #region Èı¸öÃæ°å²¿·Ö
+    #region ä¸‰ä¸ªé¢æ¿éƒ¨åˆ†
 
-    // Õ¹¿ªOneµÄ·½·¨
+    // å±•å¼€Oneçš„æ–¹æ³•
     public void ExpandOne()
     {
         CloseAllPanels();
@@ -374,7 +374,7 @@ public class Event_ZXH : MonoBehaviour
         }
     }
 
-    //¹Ø±ÕOneµÄ·½·¨
+    //å…³é—­Oneçš„æ–¹æ³•
     public void CloseOne()
     {
         if (One != null)
@@ -384,7 +384,7 @@ public class Event_ZXH : MonoBehaviour
     }
 
 
-    // Õ¹¿ªTwoµÄ·½·¨
+    // å±•å¼€Twoçš„æ–¹æ³•
     public void ExpandTwo()
     {
         CloseAllPanels();
@@ -394,7 +394,7 @@ public class Event_ZXH : MonoBehaviour
         }
     }
 
-    //¹Ø±ÕTwoµÄ·½·¨
+    //å…³é—­Twoçš„æ–¹æ³•
     public void CloseTwo()
     {
         if (Two != null)
@@ -404,7 +404,7 @@ public class Event_ZXH : MonoBehaviour
     }
 
 
-    // Õ¹¿ªThreeµÄ·½·¨
+    // å±•å¼€Threeçš„æ–¹æ³•
     public void ExpandThree()
     {
         CloseAllPanels();
@@ -414,7 +414,7 @@ public class Event_ZXH : MonoBehaviour
         }
     }
 
-    //¹Ø±ÕThreeµÄ·½·¨
+    //å…³é—­Threeçš„æ–¹æ³•
     public void CloseThree()
     {
         if (Three != null)
@@ -423,7 +423,7 @@ public class Event_ZXH : MonoBehaviour
         }
     }
 
-    //¹Ø±ÕËùÓĞÃæ°åµÄ·½·¨
+    //å…³é—­æ‰€æœ‰é¢æ¿çš„æ–¹æ³•
     public void CloseAllPanels()
     {
         CloseOne();
@@ -435,14 +435,14 @@ public class Event_ZXH : MonoBehaviour
 
 
 
-    // Ò»¸ö¼òµ¥µÄ·­Òëº¯Êı
+    // ä¸€ä¸ªç®€å•çš„ç¿»è¯‘å‡½æ•°
     private string TranslateAttributeName(string key)
     {
         switch (key.ToLower())
         {
-            case "intelligence": return "ÖÇÁ¦";
-            case "charm": return "÷ÈÁ¦";
-            case "strength": return "Á¦Á¿";
+            case "intelligence": return "æ™ºåŠ›";
+            case "charm": return "é­…åŠ›";
+            case "strength": return "åŠ›é‡";
             default: return key;
         }
     }

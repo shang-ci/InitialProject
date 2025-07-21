@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ public class HealAction : ItemAction
     [SerializeField] protected string m_AttributeName = "HealAmount";
 
     /// <summary>
-    /// ÅĞ¶ÏÊÇ·ñ·ûºÏÖ´ĞĞÌõ¼ş
+    /// åˆ¤æ–­æ˜¯å¦ç¬¦åˆæ‰§è¡Œæ¡ä»¶
     /// </summary>
     /// <param name="itemInfo"></param>
     /// <param name="itemUser"></param>
@@ -31,7 +31,7 @@ public class HealAction : ItemAction
     }
 
     /// <summary>
-    /// Ö´ĞĞ
+    /// æ‰§è¡Œ
     /// </summary>
     /// <param name="itemInfo"></param>
     /// <param name="itemUser"></param>
@@ -41,11 +41,11 @@ public class HealAction : ItemAction
         int healAmount = itemInfo.Item.GetAttribute<Attribute<int>>(m_AttributeName).GetValue();
         character.Heal(healAmount);
 
-        // Ê¹ÓÃ ItemInfo ¹¹½¨É¾³ıÇëÇó£¬È·±£¾«È·²Ù×÷
-        var removeRequest = (ItemInfo)(1, itemInfo);     // ĞÂ½¨Ò»¸öÏàÍ¬ ItemInfo ±íÊ¾ÒÆ³ı 1 ¸ö
+        // ä½¿ç”¨ ItemInfo æ„å»ºåˆ é™¤è¯·æ±‚ï¼Œç¡®ä¿ç²¾ç¡®æ“ä½œ
+        var removeRequest = (ItemInfo)(1, itemInfo);     // æ–°å»ºä¸€ä¸ªç›¸åŒ ItemInfo è¡¨ç¤ºç§»é™¤ 1 ä¸ª
         var removed = itemInfo.Inventory.RemoveItem(removeRequest);
 
-        // ¿ÉÑ¡£ºDebug Êä³ö
-        Debug.Log($"³¢ÊÔÒÆ³ı 1 ¸ö {itemInfo.Item.name}£¬Êµ¼ÊÒÆ³ı {removed.Amount} ¸ö£¬À´Ô´¶ÑÕ»ÖĞÊ£Óà {(removed.ItemStack?.Amount ?? 0)} ¸ö¡£");
+        // å¯é€‰ï¼šDebug è¾“å‡º
+        Debug.Log($"å°è¯•ç§»é™¤ 1 ä¸ª {itemInfo.Item.name}ï¼Œå®é™…ç§»é™¤ {removed.Amount} ä¸ªï¼Œæ¥æºå †æ ˆä¸­å‰©ä½™ {(removed.ItemStack?.Amount ?? 0)} ä¸ªã€‚");
     }
 }

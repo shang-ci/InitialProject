@@ -1,0 +1,8 @@
+# .editorconfig for Unity C# projects
+root = true
+
+[*.cs]
+charset = utf-8-bom
+end_of_line = crlf
+indent_style = space
+indent_size = 4

@@ -1,26 +1,26 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ×°±¸ÀàĞÍ/²¿Î»
+/// è£…å¤‡ç±»å‹/éƒ¨ä½
 /// </summary>
 public enum EquipmentType
 {
-    Weapon,//ÎäÆ÷
-    Armor,//¿ø¼×
-    Amlet,//»¤Éí·û
+    Weapon,//æ­¦å™¨
+    Armor,//ç›”ç”²
+    Amlet,//æŠ¤èº«ç¬¦
 }
 
 /// <summary>
-/// ×°±¸¿¨ÅÆÊı¾İÀà
+/// è£…å¤‡å¡ç‰Œæ•°æ®ç±»
 /// </summary>
 [CreateAssetMenu(fileName = "New EquipCardData", menuName = "Card/Equip Card Data")]
 public class EquipCardData : CardData
 {
     public EquipmentType equipmentType;
 
-    public List<CardData> craftMaterials;// ÖÆ×÷²ÄÁÏ¡ª¡ª¾ÍÖ»ÊÇµ¥ÕÅ¿¨¾Í¿ÉÒÔºÏ³É£¬²»ÓÃ3ÕÅ½ğ½£¿¨ÕâÑùµÄ
+    public List<CardData> craftMaterials;// åˆ¶ä½œææ–™â€”â€”å°±åªæ˜¯å•å¼ å¡å°±å¯ä»¥åˆæˆï¼Œä¸ç”¨3å¼ é‡‘å‰‘å¡è¿™æ ·çš„
 
 
     private void Awake()

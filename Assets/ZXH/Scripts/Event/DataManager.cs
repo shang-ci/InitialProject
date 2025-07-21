@@ -1,32 +1,32 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 
 /// <summary>
-/// Êı¾İ¹ÜÀíÆ÷£¬¸ºÔğ¼ÓÔØºÍ´æ´¢ËùÓĞÊÂ¼şÊı¾İ
+/// æ•°æ®ç®¡ç†å™¨ï¼Œè´Ÿè´£åŠ è½½å’Œå­˜å‚¨æ‰€æœ‰äº‹ä»¶æ•°æ®
 /// </summary>
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
 
-    // Ê¹ÓÃ×Öµä´æ´¢ËùÓĞÊÂ¼ş£¬KeyÊÇEventID£¬ValueÊÇÊÂ¼şÊı¾İ£¬ÎÒÃÇ¿ÉÒÔÖªµÀÊÂ¼şµÄÃû×ÖÀ´²éÕÒIDÈ»ºóÔÙÄÃµ½Êı¾İ
-    // Í¨¹ıID²éÕÒÊÂ¼ş
+    // ä½¿ç”¨å­—å…¸å­˜å‚¨æ‰€æœ‰äº‹ä»¶ï¼ŒKeyæ˜¯EventIDï¼ŒValueæ˜¯äº‹ä»¶æ•°æ®ï¼Œæˆ‘ä»¬å¯ä»¥çŸ¥é“äº‹ä»¶çš„åå­—æ¥æŸ¥æ‰¾IDç„¶åå†æ‹¿åˆ°æ•°æ®
+    // é€šè¿‡IDæŸ¥æ‰¾äº‹ä»¶
     private Dictionary<string, EventData> eventDatabase = new Dictionary<string, EventData>();
     private Dictionary<string, string> eventNameToIdMap = new Dictionary<string, string>();
 
 
-    // CSVÎÄ¼şÃû£¬ÎÒÃÇÉÔºó»á°ÑËü·ÅÔÚ Resources ÎÄ¼ş¼ĞÏÂ
+    // CSVæ–‡ä»¶åï¼Œæˆ‘ä»¬ç¨åä¼šæŠŠå®ƒæ”¾åœ¨ Resources æ–‡ä»¶å¤¹ä¸‹
     private const string EVENT_DATA_FILE_NAME = "EventData/EventData_ZXH";
-    // Ô¼¶¨ËùÓĞÊÂ¼şUIÔ¤ÖÆÌå´æ·ÅµÄResources×ÓÂ·¾¶
+    // çº¦å®šæ‰€æœ‰äº‹ä»¶UIé¢„åˆ¶ä½“å­˜æ”¾çš„Resourceså­è·¯å¾„
     public const string EVENT_PREFAB_FOLDER_PATH = "EventPrefabs/";
 
     void Awake()
     {
-        // ÊµÏÖµ¥ÀıÄ£Ê½
+        // å®ç°å•ä¾‹æ¨¡å¼
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // È·±£ÔÚÇĞ»»³¡¾°Ê±Êı¾İ¹ÜÀíÆ÷²»±»Ïú»Ù
+            DontDestroyOnLoad(gameObject); // ç¡®ä¿åœ¨åˆ‡æ¢åœºæ™¯æ—¶æ•°æ®ç®¡ç†å™¨ä¸è¢«é”€æ¯
             LoadEventData();
         }
         else
@@ -36,11 +36,11 @@ public class DataManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ´Ó Resources ÎÄ¼ş¼Ğ¼ÓÔØ²¢½âÎöÊÂ¼şÊı¾İCSVÎÄ¼ş
+    /// ä» Resources æ–‡ä»¶å¤¹åŠ è½½å¹¶è§£æäº‹ä»¶æ•°æ®CSVæ–‡ä»¶
     /// </summary>
     private void LoadEventData()
     {
-        // ´ÓResourcesÎÄ¼ş¼Ğ¼ÓÔØÎÄ±¾ÎÄ¼ş
+        // ä»Resourcesæ–‡ä»¶å¤¹åŠ è½½æ–‡æœ¬æ–‡ä»¶
         TextAsset csvFile = Resources.Load<TextAsset>(EVENT_DATA_FILE_NAME);
         if (csvFile == null)
         {
@@ -48,17 +48,17 @@ public class DataManager : MonoBehaviour
             return;
         }
 
-        // °´ĞĞ·Ö¸îÎÄ±¾ÄÚÈİ£¬²¢Ìø¹ıµÚÒ»ĞĞ£¨±íÍ·£©
-        //Ã¿Ò»ĞĞµÄÊı¾İ
+        // æŒ‰è¡Œåˆ†å‰²æ–‡æœ¬å†…å®¹ï¼Œå¹¶è·³è¿‡ç¬¬ä¸€è¡Œï¼ˆè¡¨å¤´ï¼‰
+        //æ¯ä¸€è¡Œçš„æ•°æ®
         string[] lines = csvFile.text.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 1; i < lines.Length; i++)
         {
-            //µ¥¸öÊÂ¼şµÄÃ¿Ò»¸ö¾ßÌåÊı¾İ
-            string[] values = lines[i].Split(','); // ¼òµ¥µÄCSV½âÎö
+            //å•ä¸ªäº‹ä»¶çš„æ¯ä¸€ä¸ªå…·ä½“æ•°æ®
+            string[] values = lines[i].Split(','); // ç®€å•çš„CSVè§£æ
 
-            // ×¢Òâ£ºÕâÖÖ¼òµ¥µÄSplit·½Ê½Èç¹ûÄúµÄÎÄ±¾ÄÚÈİ£¨ÈçStory£©ÖĞ°üº¬¶ººÅ£¬»áµ¼ÖÂ½âÎö´íÎó    
-            // Éú²ú»·¾³ÖĞ½¨ÒéÊ¹ÓÃ¸ü½¡×³µÄCSV½âÎö¿â£¬µ«¶ÔÓÚÔ­ĞÍ£¬ÕâÒÑ×ã¹»   
+            // æ³¨æ„ï¼šè¿™ç§ç®€å•çš„Splitæ–¹å¼å¦‚æœæ‚¨çš„æ–‡æœ¬å†…å®¹ï¼ˆå¦‚Storyï¼‰ä¸­åŒ…å«é€—å·ï¼Œä¼šå¯¼è‡´è§£æé”™è¯¯    
+            // ç”Ÿäº§ç¯å¢ƒä¸­å»ºè®®ä½¿ç”¨æ›´å¥å£®çš„CSVè§£æåº“ï¼Œä½†å¯¹äºåŸå‹ï¼Œè¿™å·²è¶³å¤Ÿ   
 
             if (values.Length > 0 && !string.IsNullOrEmpty(values[0]))
             {
@@ -67,14 +67,14 @@ public class DataManager : MonoBehaviour
                 {
                     eventDatabase.Add(newEvent.EventID, newEvent);
 
-                    //Ìî³äÃû×Öµ½IDµÄÓ³Éä×Öµä
+                    //å¡«å……åå­—åˆ°IDçš„æ˜ å°„å­—å…¸
                     if (!eventNameToIdMap.ContainsKey(newEvent.EventName))
                     {
                         eventNameToIdMap.Add(newEvent.EventName, newEvent.EventID);
                     }
                     else
                     {
-                        // ´¦ÀíÖØÃûÊÂ¼şµÄ¾¯¸æ
+                        // å¤„ç†é‡åäº‹ä»¶çš„è­¦å‘Š
                         Debug.LogWarning($"Duplicate EventName found: '{newEvent.EventName}'. Searching by this name will only return the first loaded event with ID '{eventNameToIdMap[newEvent.EventName]}'.");
                     }
                 }
@@ -89,12 +89,12 @@ public class DataManager : MonoBehaviour
     }
 
 
-    #region ¹«¹²½Ó¿Ú
+    #region å…¬å…±æ¥å£
     /// <summary>
-    /// ¸ù¾İID»ñÈ¡ÊÂ¼şÊı¾İ
+    /// æ ¹æ®IDè·å–äº‹ä»¶æ•°æ®
     /// </summary>
-    /// <param name="eventID">ÊÂ¼şµÄÎ¨Ò»ID</param>
-    /// <returns>·µ»ØÊÂ¼şÊı¾İ£¬Èç¹ûÎ´ÕÒµ½Ôò·µ»Ønull</returns>
+    /// <param name="eventID">äº‹ä»¶çš„å”¯ä¸€ID</param>
+    /// <returns>è¿”å›äº‹ä»¶æ•°æ®ï¼Œå¦‚æœæœªæ‰¾åˆ°åˆ™è¿”å›null</returns>
     public EventData GetEventByID(string eventID)
     {
         if (eventDatabase.TryGetValue(eventID, out EventData eventData))
@@ -107,13 +107,13 @@ public class DataManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ¸ù¾İÊÂ¼şÃû³Æ»ñÈ¡ÊÂ¼şÊı¾İ
+    /// æ ¹æ®äº‹ä»¶åç§°è·å–äº‹ä»¶æ•°æ®
     /// </summary>
     public EventData GetEventByName(string eventName)
     {
         if (eventNameToIdMap.TryGetValue(eventName, out string eventID))
         {
-            // ÏÈÍ¨¹ıÃû×ÖÕÒµ½ID£¬ÔÙÍ¨¹ıID»ñÈ¡ÍêÕûÊı¾İ
+            // å…ˆé€šè¿‡åå­—æ‰¾åˆ°IDï¼Œå†é€šè¿‡IDè·å–å®Œæ•´æ•°æ®
             return GetEventByID(eventID);
         }
 
@@ -122,11 +122,11 @@ public class DataManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ¼ÓÔØ²¢ÊµÀı»¯Ò»¸öÊÂ¼şµÄUIÔ¤ÖÆÌå
+    /// åŠ è½½å¹¶å®ä¾‹åŒ–ä¸€ä¸ªäº‹ä»¶çš„UIé¢„åˆ¶ä½“
     /// </summary>
-    /// <param name="eventData">ÒªÎªÆä¼ÓÔØÔ¤ÖÆÌåµÄÊÂ¼ş</param>
-    /// <param name="parent">ÊµÀı»¯µÄÔ¤ÖÆÌåÒª¹ÒÔØµÄ¸¸½Úµã</param>
-    /// <returns>·µ»ØÊµÀı»¯µÄGameObject£¬Èç¹ûÊ§°ÜÔò·µ»Ønull</returns>
+    /// <param name="eventData">è¦ä¸ºå…¶åŠ è½½é¢„åˆ¶ä½“çš„äº‹ä»¶</param>
+    /// <param name="parent">å®ä¾‹åŒ–çš„é¢„åˆ¶ä½“è¦æŒ‚è½½çš„çˆ¶èŠ‚ç‚¹</param>
+    /// <returns>è¿”å›å®ä¾‹åŒ–çš„GameObjectï¼Œå¦‚æœå¤±è´¥åˆ™è¿”å›null</returns>
     public GameObject InstantiateEventPrefab(EventData eventData, Transform parent = null)
     {
         if (eventData == null || string.IsNullOrEmpty(eventData.EventPrefabName))
@@ -135,10 +135,10 @@ public class DataManager : MonoBehaviour
             return null;
         }
 
-        // Æ´½ÓÍêÕûµÄResourcesÂ·¾¶
+        // æ‹¼æ¥å®Œæ•´çš„Resourcesè·¯å¾„
         string prefabPath = EVENT_PREFAB_FOLDER_PATH + eventData.EventPrefabName;
 
-        // ´ÓResources¼ÓÔØÔ¤ÖÆÌå
+        // ä»ResourcesåŠ è½½é¢„åˆ¶ä½“
         GameObject prefab = Resources.Load<GameObject>(prefabPath);
 
         if (prefab == null)
@@ -147,7 +147,7 @@ public class DataManager : MonoBehaviour
             return null;
         }
 
-        // ÊµÀı»¯²¢ÉèÖÃ¸¸½Úµã
+        // å®ä¾‹åŒ–å¹¶è®¾ç½®çˆ¶èŠ‚ç‚¹
         return Instantiate(prefab, parent);
     }
     #endregion

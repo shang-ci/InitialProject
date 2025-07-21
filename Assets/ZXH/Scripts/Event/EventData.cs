@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine;
 
 /// <summary>
-/// ´æ´¢µ¥¸öÊÂ¼şËùÓĞĞÅÏ¢µÄÊı¾İÀà
-/// Ëü²»¼Ì³Ğ MonoBehaviour£¬ÊÇÒ»¸ö´¿´âµÄ C# Êı¾İÈİÆ÷
+/// å­˜å‚¨å•ä¸ªäº‹ä»¶æ‰€æœ‰ä¿¡æ¯çš„æ•°æ®ç±»
+/// å®ƒä¸ç»§æ‰¿ MonoBehaviourï¼Œæ˜¯ä¸€ä¸ªçº¯ç²¹çš„ C# æ•°æ®å®¹å™¨
 /// </summary>
 [System.Serializable]
 public class EventData
@@ -14,36 +14,36 @@ public class EventData
     public EventType EventType { get; private set; }
     public SelectType SelectType { get; private set; }
     public string EventName { get; private set; }
-    public string EventPrefabName { get; private set; } // ´æ´¢PrefabÔÚResourcesÏÂµÄÂ·¾¶
-    public string Story { get; private set; }// ÊÂ¼şµÄ¹ÊÊÂÎÄ±¾
-    public string Tips { get; private set; }// ÊÂ¼şµÄÌáÊ¾ÎÄ±¾
-    public List<string> RequiredAttributes { get; private set; } // ĞèÒªµÄÊôĞÔ£¬ÒÑ½âÎöÎªÁĞ±í
-    public int DurationDays { get; private set; }// ÊÂ¼ş³ÖĞøµÄÌìÊı
-    public int SuccessThreshold { get; private set; } // ³É¹¦µÄÌõ¼ş/ãĞÖµ£¬Í¶³öµÄ³É¹¦÷»×ÓĞèÒª´óÓÚÕâ¸öÊı
-    public string SuccessfulResults { get; private set; } // ³É¹¦µÄ½á¹ûÎÄ±¾
-    public string FailedResults { get; private set; } // Ê§°ÜµÄ½á¹ûÎÄ±¾
+    public string EventPrefabName { get; private set; } // å­˜å‚¨Prefabåœ¨Resourcesä¸‹çš„è·¯å¾„
+    public string Story { get; private set; }// äº‹ä»¶çš„æ•…äº‹æ–‡æœ¬
+    public string Tips { get; private set; }// äº‹ä»¶çš„æç¤ºæ–‡æœ¬
+    public List<string> RequiredAttributes { get; private set; } // éœ€è¦çš„å±æ€§ï¼Œå·²è§£æä¸ºåˆ—è¡¨
+    public int DurationDays { get; private set; }// äº‹ä»¶æŒç»­çš„å¤©æ•°
+    public int SuccessThreshold { get; private set; } // æˆåŠŸçš„æ¡ä»¶/é˜ˆå€¼ï¼ŒæŠ•å‡ºçš„æˆåŠŸéª°å­éœ€è¦å¤§äºè¿™ä¸ªæ•°
+    public string SuccessfulResults { get; private set; } // æˆåŠŸçš„ç»“æœæ–‡æœ¬
+    public string FailedResults { get; private set; } // å¤±è´¥çš„ç»“æœæ–‡æœ¬
 
-    public List<string> RewardItemIDs { get; private set; } // ½±ÀøÎïÆ·ID£¬ÒÑ½âÎöÎªÁĞ±í
+    public List<string> RewardItemIDs { get; private set; } // å¥–åŠ±ç‰©å“IDï¼Œå·²è§£æä¸ºåˆ—è¡¨
 
-    // ¹¹Ôìº¯Êı£º¸ºÔğ½«´ÓCSV¶ÁÈ¡µÄÔ­Ê¼×Ö·û´®Êı¾İ£¬½âÎö²¢Ìî³äµ½ÀàµÄÊôĞÔÖĞ
+    // æ„é€ å‡½æ•°ï¼šè´Ÿè´£å°†ä»CSVè¯»å–çš„åŸå§‹å­—ç¬¦ä¸²æ•°æ®ï¼Œè§£æå¹¶å¡«å……åˆ°ç±»çš„å±æ€§ä¸­
     public EventData(string[] rawData)
     {
         try
         {
             EventID = rawData[0];
 
-            // Ê¹ÓÃ Enum.Parse ½«×Ö·û´®×ª»»ÎªÃ¶¾Ù£¬true±íÊ¾ºöÂÔ´óĞ¡Ğ´
+            // ä½¿ç”¨ Enum.Parse å°†å­—ç¬¦ä¸²è½¬æ¢ä¸ºæšä¸¾ï¼Œtrueè¡¨ç¤ºå¿½ç•¥å¤§å°å†™
             EventType = (EventType)Enum.Parse(typeof(EventType), rawData[1], true);
             SelectType = (SelectType)Enum.Parse(typeof(SelectType), rawData[2], true);
 
             EventName = rawData[3];
-            EventPrefabName = rawData[4]; // ÕâÀïÖ±½Ó´æ´¢×Ö·û´®Â·¾¶
+            EventPrefabName = rawData[4]; // è¿™é‡Œç›´æ¥å­˜å‚¨å­—ç¬¦ä¸²è·¯å¾„
             Story = rawData[5];
             Tips = rawData[6];
 
-            // ½âÎö¶ººÅ·Ö¸ôµÄ×Ö·û´®ÎªÁĞ±í
-            // Trim()¿ÉÒÔÈ¥³ıÃ¿¸öÔªËØÇ°ºóµÄ¿Õ¸ñ£¬ÒÔ·À "a, b" ÕâÖÖÇé¿ö
-            RequiredAttributes = rawData[7].Split('¡¢').Select(s => s.Trim()).ToList();
+            // è§£æé€—å·åˆ†éš”çš„å­—ç¬¦ä¸²ä¸ºåˆ—è¡¨
+            // Trim()å¯ä»¥å»é™¤æ¯ä¸ªå…ƒç´ å‰åçš„ç©ºæ ¼ï¼Œä»¥é˜² "a, b" è¿™ç§æƒ…å†µ
+            RequiredAttributes = rawData[7].Split('ã€').Select(s => s.Trim()).ToList();
 
             DurationDays = int.Parse(rawData[8]);
             SuccessThreshold = int.Parse(rawData[9]);
@@ -51,11 +51,11 @@ public class EventData
             SuccessfulResults = rawData[10];
             FailedResults = rawData[11];
 
-            RewardItemIDs = rawData[12].Split('¡¢').Select(s => s.Trim()).ToList();
+            RewardItemIDs = rawData[12].Split('ã€').Select(s => s.Trim()).ToList();
         }
         catch (Exception e)
         {
-            // Èç¹ûÄ³Ò»ĞĞÊı¾İ¸ñÊ½´íÎó£¬ÕâÄÜ°ïÖúÎÒÃÇ¿ìËÙ¶¨Î»ÎÊÌâ
+            // å¦‚æœæŸä¸€è¡Œæ•°æ®æ ¼å¼é”™è¯¯ï¼Œè¿™èƒ½å¸®åŠ©æˆ‘ä»¬å¿«é€Ÿå®šä½é—®é¢˜
             Debug.LogError($"Error parsing event data for row with ID {rawData[0]}. Check your CSV format. Error: {e.Message}");
         }
     }

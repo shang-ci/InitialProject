@@ -1,43 +1,43 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ±³°üÏµÍ³ - ÒÑĞŞ¸ÄÎªÊ¹ÓÃÏÂÀ­²Ëµ¥É¸Ñ¡
+/// èƒŒåŒ…ç³»ç»Ÿ - å·²ä¿®æ”¹ä¸ºä½¿ç”¨ä¸‹æ‹‰èœå•ç­›é€‰
 /// </summary>
 public class Backpack : MonoBehaviour
 {
-    [Header("Í·²¿")]
-    public TMP_Dropdown categoryDropdown; // ·ÖÀàÏÂÀ­²Ëµ¥
-    public Button equip; // ×°±¸°´Å¥
-    public Button synthesis; // ºÏ³É°´Å¥
-    public Button system; // ÏµÍ³°´Å¥
+    [Header("å¤´éƒ¨")]
+    public TMP_Dropdown categoryDropdown; // åˆ†ç±»ä¸‹æ‹‰èœå•
+    public Button equip; // è£…å¤‡æŒ‰é’®
+    public Button synthesis; // åˆæˆæŒ‰é’®
+    public Button system; // ç³»ç»ŸæŒ‰é’®
 
-    [Header("ÄÚÈİÃæ°å")]
-    public Transform cardContentParent; // ËùÓĞ¿¨ÅÆUIµÄ¸¸ÎïÌå£¬ÕâÊÇÎ¨Ò»µÄÏÔÊ¾ÇøÓò
+    [Header("å†…å®¹é¢æ¿")]
+    public Transform cardContentParent; // æ‰€æœ‰å¡ç‰ŒUIçš„çˆ¶ç‰©ä½“ï¼Œè¿™æ˜¯å”¯ä¸€çš„æ˜¾ç¤ºåŒºåŸŸ
 
-    [Header("Ô¤ÖÆÌå (Prefabs)")]
-    public GameObject CardSlotPrafbe; // ¿¨²ÛÔ¤ÖÆÌå
-    public GameObject CardPrafbe;     // ¿¨ÅÆÔ¤ÖÆÌå
+    [Header("é¢„åˆ¶ä½“ (Prefabs)")]
+    public GameObject CardSlotPrafbe; // å¡æ§½é¢„åˆ¶ä½“
+    public GameObject CardPrafbe;     // å¡ç‰Œé¢„åˆ¶ä½“
 
-    [Header("Êı¾İ")]
-    // Ê¹ÓÃ×Öµä°´ÀàĞÍ·ÖÀà´æ´¢ËùÓĞ¿¨ÅÆÊı¾İ
+    [Header("æ•°æ®")]
+    // ä½¿ç”¨å­—å…¸æŒ‰ç±»å‹åˆ†ç±»å­˜å‚¨æ‰€æœ‰å¡ç‰Œæ•°æ®
     private Dictionary<CardType, List<CardData>> cardCollection = new Dictionary<CardType, List<CardData>>();
-    public List<CardData> cardDatabase; // ³õÊ¼ÊÇÊÖ¶¯Ìí¼ÓµÄ¿¨ÅÆ
+    public List<CardData> cardDatabase; // åˆå§‹æ˜¯æ‰‹åŠ¨æ·»åŠ çš„å¡ç‰Œ
 
-    [Header("×°±¸")]
-    // ´æ´¢µ±Ç°µÄ×´Ì¬
+    [Header("è£…å¤‡")]
+    // å­˜å‚¨å½“å‰çš„çŠ¶æ€
     [SerializeField]private EquipState currentState = EquipState.None;
-    // ÁÙÊ±´æ·ÅµÚÒ»²½Ñ¡ÖĞµÄ½ÇÉ«¿¨
+    // ä¸´æ—¶å­˜æ”¾ç¬¬ä¸€æ­¥é€‰ä¸­çš„è§’è‰²å¡
     [SerializeField]private RoleCardData selectedRole;
 
-    // ¶¨Òå×°±¸Á÷³ÌµÄ¸÷¸ö×´Ì¬
+    // å®šä¹‰è£…å¤‡æµç¨‹çš„å„ä¸ªçŠ¶æ€
     private enum EquipState
     {
-        None,               // Õı³£ä¯ÀÀ×´Ì¬
-        SelectingCharacter, // µÈ´ıÍæ¼ÒÑ¡ÔñÒ»¸ö½ÇÉ«¿¨
-        SelectingEquipment  // µÈ´ıÍæ¼ÒÑ¡ÔñÒ»¼ş×°±¸¿¨
+        None,               // æ­£å¸¸æµè§ˆçŠ¶æ€
+        SelectingCharacter, // ç­‰å¾…ç©å®¶é€‰æ‹©ä¸€ä¸ªè§’è‰²å¡
+        SelectingEquipment  // ç­‰å¾…ç©å®¶é€‰æ‹©ä¸€ä»¶è£…å¤‡å¡
     }
 
 
@@ -56,10 +56,10 @@ public class Backpack : MonoBehaviour
         InitializeBackpack();
     }
 
-    #region ¹«ÓÃ·½·¨
+    #region å…¬ç”¨æ–¹æ³•
 
     /// <summary>
-    /// Ïò±³°üÖĞÌí¼ÓÒ»ÕÅĞÂ¿¨ÅÆÊı¾İ
+    /// å‘èƒŒåŒ…ä¸­æ·»åŠ ä¸€å¼ æ–°å¡ç‰Œæ•°æ®
     /// </summary>
     public void AddCard(CardData data)
     {
@@ -67,19 +67,19 @@ public class Backpack : MonoBehaviour
         {
             cardCollection[data.cardType].Add(data);
             cardDatabase.Add(data);
-            Debug.Log($"ÒÑ½«¿¨ÅÆ '{data.cardName}' Ìí¼Óµ½±³°üÊı¾İÖĞ¡£");
+            Debug.Log($"å·²å°†å¡ç‰Œ '{data.cardName}' æ·»åŠ åˆ°èƒŒåŒ…æ•°æ®ä¸­ã€‚");
 
-            // Ë¢ĞÂÏÔÊ¾£¬ÒÔ·´Ó³Êı¾İµÄ±ä»¯
+            // åˆ·æ–°æ˜¾ç¤ºï¼Œä»¥åæ˜ æ•°æ®çš„å˜åŒ–
             OnFilterChanged(categoryDropdown.value);
         }
 
-        //¼ÓÈëÊÖÅÆ¶Ñ
+        //åŠ å…¥æ‰‹ç‰Œå †
         CardManager.Instance.cardQueue.Enqueue(data);
         CardManager.Instance.AddCardData();
     }
 
     /// <summary>
-    /// ´Ó±³°üÖĞÒÆ³ıÒ»ÕÅÖ¸¶¨µÄ¿¨ÅÆÊı¾İ
+    /// ä»èƒŒåŒ…ä¸­ç§»é™¤ä¸€å¼ æŒ‡å®šçš„å¡ç‰Œæ•°æ®
     /// </summary>
     public void RemoveCard(CardData dataToRemove)
     {
@@ -88,33 +88,33 @@ public class Backpack : MonoBehaviour
             bool removed = cardCollection[dataToRemove.cardType].Remove(dataToRemove);
             if (removed)
             {
-                cardDatabase.Remove(dataToRemove); // ´ÓÊı¾İ¿âÖĞÒÆ³ı
-                Debug.Log($"ÒÑ´ÓÊı¾İÖĞÒÆ³ı¿¨ÅÆ '{dataToRemove.cardName}'");
+                cardDatabase.Remove(dataToRemove); // ä»æ•°æ®åº“ä¸­ç§»é™¤
+                Debug.Log($"å·²ä»æ•°æ®ä¸­ç§»é™¤å¡ç‰Œ '{dataToRemove.cardName}'");
 
-                // Ë¢ĞÂÏÔÊ¾£¬ÒÔ·´Ó³Êı¾İµÄ±ä»¯
+                // åˆ·æ–°æ˜¾ç¤ºï¼Œä»¥åæ˜ æ•°æ®çš„å˜åŒ–
                 OnFilterChanged(categoryDropdown.value);
             }
         }
 
-        //´ÓÊÖÅÆ¶ÑÖĞÒÆ³ı
+        //ä»æ‰‹ç‰Œå †ä¸­ç§»é™¤
         CardManager.Instance.RemoveCard(dataToRemove);
     }
     #endregion
 
-    #region  ÏÂÀ­¿ò
+    #region  ä¸‹æ‹‰æ¡†
     /// <summary>
-    /// ³õÊ¼»¯±³°ü£ºÊı¾İºÍUIºÍÏÂÀ­¿ò
+    /// åˆå§‹åŒ–èƒŒåŒ…ï¼šæ•°æ®å’ŒUIå’Œä¸‹æ‹‰æ¡†
     /// </summary>
     private void InitializeBackpack()
     {
-        // ³õÊ¼»¯Êı¾İ´æ´¢½á¹¹
+        // åˆå§‹åŒ–æ•°æ®å­˜å‚¨ç»“æ„
         cardCollection.Clear();
         foreach (CardType type in System.Enum.GetValues(typeof(CardType)))
         {
             cardCollection.Add(type, new List<CardData>());
         }
 
-        // ¼ÓÔØ³õÊ¼Êı¾İ
+        // åŠ è½½åˆå§‹æ•°æ®
         //cardDatabase = CardManager.Instance.cardDatabase;
         foreach (CardData card in cardDatabase)
         {
@@ -124,33 +124,33 @@ public class Backpack : MonoBehaviour
             }
         }
 
-        // ÉèÖÃÏÂÀ­²Ëµ¥µÄÑ¡Ïî
+        // è®¾ç½®ä¸‹æ‹‰èœå•çš„é€‰é¡¹
         SetupFilterDropdown();
 
-        // °ó¶¨ÏÂÀ­²Ëµ¥µÄÖµ±ä»¯ÊÂ¼ş
+        // ç»‘å®šä¸‹æ‹‰èœå•çš„å€¼å˜åŒ–äº‹ä»¶
         categoryDropdown.onValueChanged.AddListener(OnFilterChanged);
 
-        // ÓÎÏ·¿ªÊ¼Ê±£¬Ä¬ÈÏÏÔÊ¾
+        // æ¸¸æˆå¼€å§‹æ—¶ï¼Œé»˜è®¤æ˜¾ç¤º
         OnFilterChanged(0);
     }
 
     /// <summary>
-    /// ÏÔÊ¾¶ÔÓ¦µÄ¿¨ÅÆ¡ª¡ªµ±ÏÂÀ­²Ëµ¥Ñ¡Ïî¸Ä±äÊ±µ÷ÓÃ
+    /// æ˜¾ç¤ºå¯¹åº”çš„å¡ç‰Œâ€”â€”å½“ä¸‹æ‹‰èœå•é€‰é¡¹æ”¹å˜æ—¶è°ƒç”¨
     /// </summary>
-    /// <param name="index">Ñ¡ÖĞÏîµÄË÷Òı</param>
+    /// <param name="index">é€‰ä¸­é¡¹çš„ç´¢å¼•</param>
     private void OnFilterChanged(int index)
     {
-        ResetEquipProcess();//´ò¶Ï×°±¸¹ı³Ì
+        ResetEquipProcess();//æ‰“æ–­è£…å¤‡è¿‡ç¨‹
 
-        // Èç¹ûÑ¡ÔñµÄÊÇµÚÒ»Ïî¡°È«²¿¡±
+        // å¦‚æœé€‰æ‹©çš„æ˜¯ç¬¬ä¸€é¡¹â€œå…¨éƒ¨â€
         if (index == 0)
         {
-            PopulateDisplay(null); // ´«Èënull´ú±íÏÔÊ¾È«²¿
+            PopulateDisplay(null); // ä¼ å…¥nullä»£è¡¨æ˜¾ç¤ºå…¨éƒ¨
         }
-        // ÄÃµ½ÆäÓàÑ¡Ïî
+        // æ‹¿åˆ°å…¶ä½™é€‰é¡¹
         else
         {
-            // ÎÒÃÇµÄÑ¡ÏîÁĞ±íindex=1¶ÔÓ¦Ã¶¾ÙµÄindex=0£¬ËùÒÔÒª¼õ1
+            // æˆ‘ä»¬çš„é€‰é¡¹åˆ—è¡¨index=1å¯¹åº”æšä¸¾çš„index=0ï¼Œæ‰€ä»¥è¦å‡1
             string typeName = categoryDropdown.options[index].text;
             CardType selectedType = (CardType)System.Enum.Parse(typeof(CardType), typeName);
             PopulateDisplay(selectedType);
@@ -158,21 +158,21 @@ public class Backpack : MonoBehaviour
     }
 
     /// <summary>
-    /// ÔÚÄÚÈİÃæ°åÖĞÌî³ä¿¨ÅÆ
+    /// åœ¨å†…å®¹é¢æ¿ä¸­å¡«å……å¡ç‰Œ
     /// </summary>
-    /// <param name="filterType">ÒªÉ¸Ñ¡µÄÀàĞÍ¡£Èç¹ûÎªnull£¬ÔòÏÔÊ¾ËùÓĞÀàĞÍµÄ¿¨ÅÆ¡£</param>
+    /// <param name="filterType">è¦ç­›é€‰çš„ç±»å‹ã€‚å¦‚æœä¸ºnullï¼Œåˆ™æ˜¾ç¤ºæ‰€æœ‰ç±»å‹çš„å¡ç‰Œã€‚</param>
     private void PopulateDisplay(CardType? filterType)
     {
-        // Çå¿ÕÃæ°åÖĞËùÓĞ¾ÉµÄ¿¨ÅÆ/¿¨²Û
+        // æ¸…ç©ºé¢æ¿ä¸­æ‰€æœ‰æ—§çš„å¡ç‰Œ/å¡æ§½
         foreach (Transform child in cardContentParent)
         {
             Destroy(child.gameObject);
         }
 
-        // ¸ù¾İÉ¸Ñ¡Ìõ¼ş¾ö¶¨ÒªÏÔÊ¾ÄÄĞ©¿¨ÅÆ
+        // æ ¹æ®ç­›é€‰æ¡ä»¶å†³å®šè¦æ˜¾ç¤ºå“ªäº›å¡ç‰Œ
         if (filterType.HasValue)
         {
-            // ÏÔÊ¾ÌØ¶¨ÀàĞÍµÄ¿¨ÅÆ 
+            // æ˜¾ç¤ºç‰¹å®šç±»å‹çš„å¡ç‰Œ 
             if (cardCollection.ContainsKey(filterType.Value))
             {
                 List<CardData> cardsToDisplay = cardCollection[filterType.Value];
@@ -181,7 +181,7 @@ public class Backpack : MonoBehaviour
         }
         else
         {
-            // ÏÔÊ¾È«²¿¿¨ÅÆ 
+            // æ˜¾ç¤ºå…¨éƒ¨å¡ç‰Œ 
             foreach (var categoryList in cardCollection.Values)
             {
                 CreateCardUI(categoryList);
@@ -190,14 +190,14 @@ public class Backpack : MonoBehaviour
     }
 
     /// <summary>
-    /// ¸ù¾İ¸ø¶¨µÄÊı¾İÁĞ±í´´½¨UIÔªËØ
+    /// æ ¹æ®ç»™å®šçš„æ•°æ®åˆ—è¡¨åˆ›å»ºUIå…ƒç´ 
     /// </summary>
-    /// <param name="dataList">¿¨ÅÆÊı¾İÁĞ±í</param>
+    /// <param name="dataList">å¡ç‰Œæ•°æ®åˆ—è¡¨</param>
     private void CreateCardUI(List<CardData> dataList)
     {
         foreach (CardData data in dataList)
         {
-            // ÊµÀı»¯¿¨²ÛºÍ¿¨ÅÆ
+            // å®ä¾‹åŒ–å¡æ§½å’Œå¡ç‰Œ
             GameObject slotObj = Instantiate(CardSlotPrafbe, cardContentParent);
             CardSlot slot = slotObj.GetComponent<CardSlot>();
             slot.acceptedCardType = data.cardType;
@@ -208,20 +208,20 @@ public class Backpack : MonoBehaviour
             card.cardData = data;
             card.SetupCard();
 
-            // ½«¿¨ÅÆ·ÅÈë¿¨²Û
+            // å°†å¡ç‰Œæ”¾å…¥å¡æ§½
             slot.SetChild(card);
         }
     }
 
     /// <summary>
-    /// ÉèÖÃÉ¸Ñ¡ÏÂÀ­²Ëµ¥µÄÑ¡Ïî¡ª¡ª³õÊ¼»¯Ê±µ÷ÓÃ
+    /// è®¾ç½®ç­›é€‰ä¸‹æ‹‰èœå•çš„é€‰é¡¹â€”â€”åˆå§‹åŒ–æ—¶è°ƒç”¨
     /// </summary>
     private void SetupFilterDropdown()
     {
         categoryDropdown.ClearOptions();
-        List<string> options = new List<string> { "È«²¿" };
+        List<string> options = new List<string> { "å…¨éƒ¨" };
 
-        // Ã¶¾ÙÖĞ»ñÈ¡ËùÓĞÀàĞÍÃû³Æ²¢Ìí¼Óµ½Ñ¡ÏîÖĞ
+        // æšä¸¾ä¸­è·å–æ‰€æœ‰ç±»å‹åç§°å¹¶æ·»åŠ åˆ°é€‰é¡¹ä¸­
         options.AddRange(System.Enum.GetNames(typeof(CardType)));
 
         categoryDropdown.AddOptions(options);
@@ -229,84 +229,84 @@ public class Backpack : MonoBehaviour
 
     #endregion
 
-    #region ×°±¸
+    #region è£…å¤‡
 
     /// <summary>
-    /// ¿ªÊ¼×°±¸Á÷³Ì£¬Èë¿Ú
+    /// å¼€å§‹è£…å¤‡æµç¨‹ï¼Œå…¥å£
     /// </summary>
     private void StartEquipProcess()
     {
-        Debug.Log("¿ªÊ¼×°±¸Á÷³Ì£ºÇëÑ¡ÔñÒ»¸ö½ÇÉ«");
+        Debug.Log("å¼€å§‹è£…å¤‡æµç¨‹ï¼šè¯·é€‰æ‹©ä¸€ä¸ªè§’è‰²");
         currentState = EquipState.SelectingCharacter;
 
-        // É¸Ñ¡²¢Ö»ÏÔÊ¾½ÇÉ«¿¨ÅÆ
+        // ç­›é€‰å¹¶åªæ˜¾ç¤ºè§’è‰²å¡ç‰Œ
         PopulateDisplay(CardType.Role);
     }
 
     /// <summary>
-    /// ÖØÖÃ/È¡Ïû×°±¸Á÷³Ì£¬ ³ö¿Ú
+    /// é‡ç½®/å–æ¶ˆè£…å¤‡æµç¨‹ï¼Œ å‡ºå£
     /// </summary>
     private void ResetEquipProcess()
     {
         currentState = EquipState.None;
         selectedRole = null;
-        Debug.Log("×°±¸Á÷³ÌÒÑÈ¡Ïû»òÍê³É");
+        Debug.Log("è£…å¤‡æµç¨‹å·²å–æ¶ˆæˆ–å®Œæˆ");
     }
 
     /// <summary>
-    /// µ±¿¨ÅÆ±»µã»÷Ê±
+    /// å½“å¡ç‰Œè¢«ç‚¹å‡»æ—¶
     /// </summary>
-    /// <param name="cardData">±»µã»÷µÄ¿¨ÅÆ</param>
+    /// <param name="cardData">è¢«ç‚¹å‡»çš„å¡ç‰Œ</param>
     public void SelectCard(CardData cardData)
     {
-        // ¸ù¾İµ±Ç°µÄ×°±¸×´Ì¬£¬¾ö¶¨ÈçºÎÏìÓ¦Õâ´Îµã»÷
+        // æ ¹æ®å½“å‰çš„è£…å¤‡çŠ¶æ€ï¼Œå†³å®šå¦‚ä½•å“åº”è¿™æ¬¡ç‚¹å‡»
         switch (currentState)
         {
-            // ÕıÔÚµÈ´ıÑ¡Ôñ½ÇÉ«
+            // æ­£åœ¨ç­‰å¾…é€‰æ‹©è§’è‰²
             case EquipState.SelectingCharacter:
                 if (cardData.cardType == CardType.Role)
                 {
-                    // Íæ¼Òµã»÷ÁËÒ»ÕÅ½ÇÉ«¿¨
-                    selectedRole = cardData as RoleCardData; // ´æ´¢Ñ¡ÖĞµÄ½ÇÉ«
-                    Debug.Log($"ÒÑÑ¡Ôñ½ÇÉ«: {selectedRole.cardName}£¬ÇëÑ¡ÔñÒ»¼ş×°±¸");
+                    // ç©å®¶ç‚¹å‡»äº†ä¸€å¼ è§’è‰²å¡
+                    selectedRole = cardData as RoleCardData; // å­˜å‚¨é€‰ä¸­çš„è§’è‰²
+                    Debug.Log($"å·²é€‰æ‹©è§’è‰²: {selectedRole.cardName}ï¼Œè¯·é€‰æ‹©ä¸€ä»¶è£…å¤‡");
 
-                    // Ñ¡Ôñ×°±¸
+                    // é€‰æ‹©è£…å¤‡
                     currentState = EquipState.SelectingEquipment;
-                    PopulateDisplay(CardType.Equip); // É¸Ñ¡²¢Ö»ÏÔÊ¾×°±¸¿¨
+                    PopulateDisplay(CardType.Equip); // ç­›é€‰å¹¶åªæ˜¾ç¤ºè£…å¤‡å¡
                 }
                 break;
 
-            // ÕıÔÚµÈ´ıÑ¡Ôñ×°±¸
+            // æ­£åœ¨ç­‰å¾…é€‰æ‹©è£…å¤‡
             case EquipState.SelectingEquipment:
                 if (cardData.cardType == CardType.Equip)
                 {
-                    // Íæ¼Òµã»÷ÁËÒ»ÕÅ×°±¸¿¨
+                    // ç©å®¶ç‚¹å‡»äº†ä¸€å¼ è£…å¤‡å¡
                     EquipCardData selectedEquip = cardData as EquipCardData;
-                    Debug.Log($"×¼±¸Îª {selectedRole.cardName} ×°±¸ {selectedEquip.cardName}");
+                    Debug.Log($"å‡†å¤‡ä¸º {selectedRole.cardName} è£…å¤‡ {selectedEquip.cardName}");
 
-                    // µ÷ÓÃÄãÒÑ¾­Ğ´ºÃµÄ×°±¸Âß¼­
+                    // è°ƒç”¨ä½ å·²ç»å†™å¥½çš„è£…å¤‡é€»è¾‘
                     Equip(selectedEquip, selectedRole);
 
-                    // ×°±¸Íê³É£¬ÖØÖÃÕû¸öÁ÷³Ì
+                    // è£…å¤‡å®Œæˆï¼Œé‡ç½®æ•´ä¸ªæµç¨‹
                     ResetEquipProcess();
 
-                    // Ë¢ĞÂUI»Øµ½Ä¬ÈÏµÄÈ«²¿×´Ì¬
+                    // åˆ·æ–°UIå›åˆ°é»˜è®¤çš„å…¨éƒ¨çŠ¶æ€
                     OnFilterChanged(0);
-                    categoryDropdown.value = 0; // ½«ÏÂÀ­²Ëµ¥µÄÏÔÊ¾Ò²ÖØÖÃÎª¡°È«²¿¡±
+                    categoryDropdown.value = 0; // å°†ä¸‹æ‹‰èœå•çš„æ˜¾ç¤ºä¹Ÿé‡ç½®ä¸ºâ€œå…¨éƒ¨â€
                 }
                 break;
 
-            // ³£ä¯ÀÀ×´Ì¬£¬Ê²Ã´¶¼²»×ö 
+            // å¸¸æµè§ˆçŠ¶æ€ï¼Œä»€ä¹ˆéƒ½ä¸åš 
             case EquipState.None:
 
             default:
-                Debug.Log($"µã»÷ÁË¿¨ÅÆ: {cardData.cardName} (µ±Ç°ÎªÆÕÍ¨ä¯ÀÀÄ£Ê½)");
+                Debug.Log($"ç‚¹å‡»äº†å¡ç‰Œ: {cardData.cardName} (å½“å‰ä¸ºæ™®é€šæµè§ˆæ¨¡å¼)");
                 break;
         }
     }
 
     /// <summary>
-    /// ×°±¸¡¢Ìæ»»¡ª¡ªÏò½ÇÉ«¿¨ÉíÉÏ¼Ó×°Ò»ÕÅ×°±¸¿¨
+    /// è£…å¤‡ã€æ›¿æ¢â€”â€”å‘è§’è‰²å¡èº«ä¸ŠåŠ è£…ä¸€å¼ è£…å¤‡å¡
     /// </summary>
     /// <param name="equipCard"></param>
     public void Equip(CardData equipCard, CardData roleCard)
@@ -318,7 +318,7 @@ public class Backpack : MonoBehaviour
     }
 
     /// <summary>
-    /// Ğ¶ÏÂ×°±¸¡ª¡ª´Ó½ÇÉ«¿¨ÉíÉÏĞ¶ÏÂ×°±¸¿¨
+    /// å¸ä¸‹è£…å¤‡â€”â€”ä»è§’è‰²å¡èº«ä¸Šå¸ä¸‹è£…å¤‡å¡
     /// </summary>
     /// <param name="equipCard"></param>
     /// <param name="roleCard"></param>
@@ -332,13 +332,13 @@ public class Backpack : MonoBehaviour
 
     #endregion
 
-    #region ºÏ³É
+    #region åˆæˆ
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="equip">Ä¿±ê×°±¸</param>
-    /// <param name="craftMaterials">ÏûºÄ²ÄÁÏ</param>
+    /// <param name="equip">ç›®æ ‡è£…å¤‡</param>
+    /// <param name="craftMaterials">æ¶ˆè€—ææ–™</param>
     public void Craft(EquipCardData equip, List<CardData> craftMaterials)
     {
         
