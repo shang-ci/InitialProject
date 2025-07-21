@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private HashSet<MapEventTrigger> triggeredEvents = new HashSet<MapEventTrigger>();
     //wonTriggeredEvents 记录当前胜利了的已触发事件
     private HashSet<MapEventTrigger> wonTriggeredEvents = new HashSet<MapEventTrigger>();
+    private HashSet<string> choiceBasedEvents = new HashSet<string>();
 
     private void Awake()
     {
@@ -83,6 +84,8 @@ public class GameManager : MonoBehaviour
         triggeredEvents.Clear();
         //清空胜利了的已触发事件集合
         wonTriggeredEvents.Clear();
+        //清空基于对话选项选择的事件集合
+        choiceBasedEvents.Clear();
 
         //更新按钮状态
         RefreshButton();
@@ -111,56 +114,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //void TestEventLoading()
-    //{
-    //    // ͨ通过ID获取时间数据
-    //    EventData testEvent = DataManager.Instance.GetEventByID("E1001");
-
-    //    if (testEvent != null)
-    //    {
-    //        Debug.Log("--- Event E1001 Loaded Successfully! ---");
-    //        Debug.Log($"时间名称: {testEvent.EventName}");
-    //        Debug.Log($"事件类型: {testEvent.EventType}");
-    //        Debug.Log($"需求属性: {string.Join(" & ", testEvent.RequiredAttributes)}");
-    //        Debug.Log($"持续天数: {testEvent.DurationDays}");
-    //        Debug.Log($"成功奖励物品: {string.Join(", ", testEvent.RewardItemIDs)}");
-    //        Debug.Log($"Prefab路径: {testEvent.EventPrefabName}");
-    //        Debug.Log($"成功结果: {testEvent.SuccessfulResults}");
-    //        Debug.Log($"失败结果: {testEvent.FailedResults}");
-
-    //        if (DataManager.Instance == null)
-    //        {
-    //            Debug.LogError("DataManager.Instance is null!");
-    //            return;
-    //        }
-
-    //        GameObject eventUIInstance = DataManager.Instance.InstantiateEventPrefab(testEvent, EventUIContainer);
-    //        if (eventUIInstance == null)
-    //        {
-    //            Debug.LogError($"Failed to instantiate event prefab for {testEvent.EventName}");
-    //            return;
-    //        }
-
-    //        Debug.Log($"Event prefab instantiated: {eventUIInstance.name}");
-
-    //        Event_ZXH eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
-
-    //        if (eventUI == null)
-    //        {
-    //            Debug.LogError($"No Event_ZXH component found in {eventUIInstance.name} or its children");
-
-    //            // 打印子对象信息用于调试
-    //            foreach (Transform child in eventUIInstance.transform)
-    //            {
-    //                Debug.Log($"Child: {child.name}");
-    //            }
-
-    //            return;
-    //        }
-    //        eventUI.Initialize(testEvent);
-    //    }
-    //}
-
     //检测事件是否触发
     public bool HasEventBeenCompleted(string eventID)
     {
@@ -170,7 +123,22 @@ public class GameManager : MonoBehaviour
     //检测触发了的事件是否胜利
     public bool HasCompletedEventSuccessfully(string eventID)
     {
-        
         return wonTriggeredEvents.Any(trigger => trigger.mapEvent.eventID == eventID);
+    }
+
+    public void RegisterChoice(string eventID)
+    {
+        choiceBasedEvents.Add(eventID);
+        Debug.Log($"{choiceBasedEvents.Add(eventID)}   检测该事件是否被加入到集合中");
+
+        //！！！重要：刷新按钮状态后即可开启后续事件！！！(针对于状态先true后false的情况)
+        RefreshButton();
+    }
+
+    public bool HasMadeChoice(string eventID)
+    {
+        choiceBasedEvents.Contains(eventID);
+        Debug.Log($"{choiceBasedEvents.Contains(eventID)}  检测集合中是否包含该事件");
+        return choiceBasedEvents.Contains(eventID);
     }
 }

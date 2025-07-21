@@ -16,7 +16,7 @@ public class MapEvent : ScriptableObject
     public string description;// 事件描述
     public Sprite icon;// 事件图标
 
-    public enum TriggerType { Always, DayBased, StatBased, PrecedingEventCompleted }
+    public enum TriggerType { Always, DayBased, StatBased, PrecedingEventCompleted, ChoiceBased }
     public TriggerType triggerType;
     // 触发类型：总是触发、基于属性触发、基于天数触发
 
@@ -58,13 +58,17 @@ public class MapEvent : ScriptableObject
                 
 
             case TriggerType.PrecedingEventCompleted:
-            if (string.IsNullOrEmpty(precedingEventID))
-            {
-                Debug.Log("PrecedingEventID is empty, event is not available");
-                return false;
-            }
-            //Debug.Log($"PrecedingEventCompleted check result: {HasCompletedEventSuccessfully(precedingEventID)}");
+                if (string.IsNullOrEmpty(precedingEventID))
+                {
+                    Debug.Log("PrecedingEventID is empty, event is not available");
+                    return false;
+                }
+                //Debug.Log($"PrecedingEventCompleted check result: {HasCompletedEventSuccessfully(precedingEventID)}");
                 return HasCompletedEventSuccessfully(precedingEventID);
+
+            case TriggerType.ChoiceBased:
+                //Debug.Log($"{GameManager.Instance.HasMadeChoice(eventID)}  事件完成清楚情况");
+                return GameManager.Instance != null && GameManager.Instance.HasMadeChoice(eventID);
 
             default:
                 return false;

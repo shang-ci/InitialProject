@@ -14,7 +14,7 @@ using Opsive.UltimateInventorySystem.Core.InventoryCollections;
 public class MapEventTrigger : MonoBehaviour
 {
     public MapEvent mapEvent;
-    public CardManager cardManager;
+    //public CardManager cardManager;
     public PlayerManager playerManager;
     public GameObject buttonObject;
     public GameManager gameManager;
@@ -27,7 +27,7 @@ public class MapEventTrigger : MonoBehaviour
         {
             // 尝试从当前对象获取
             inventory = GetComponent<Inventory>();
-            
+
             // 如果仍然为空，尝试在场景中查找
             if (inventory == null)
             {
@@ -46,7 +46,29 @@ public class MapEventTrigger : MonoBehaviour
 
     public void RefreshButton()
     {
-        // ... 保持原有逻辑不变 ...
+        int statValue = 0;
+        if (playerManager != null && !string.IsNullOrEmpty(mapEvent.statToCheck))
+        {
+            statValue = playerManager.GetStat(mapEvent.statToCheck);
+        }
+
+        bool available = mapEvent.IsAvailable(
+            gameManager.currentDay,
+            statValue,
+            gameManager.HasCompletedEventSuccessfully
+        );
+        //Debug.Log($"Event {mapEvent.eventID} is {available}");
+
+        buttonObject.SetActive(available);
+
+        if (available && gameManager.HasEventBeenCompleted(mapEvent.eventID))
+        {
+            buttonObject.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            buttonObject.GetComponent<Button>().interactable = true;
+        }
     }
 
     public void TriggerEvent()
@@ -77,7 +99,7 @@ public class MapEventTrigger : MonoBehaviour
             ApplyOutcomeEffects(mapEvent.winOutcome);
 
             // 设置胜利奖励
-            string rewardItem = mapEvent.winOutcome.itemRewards.Count > 0 ? 
+            string rewardItem = mapEvent.winOutcome.itemRewards.Count > 0 ?
                 mapEvent.winOutcome.itemRewards[0].itemName : "无";
             DialogueLua.SetVariable("RewardItemName", rewardItem);
         }
@@ -101,13 +123,13 @@ public class MapEventTrigger : MonoBehaviour
         }
 
         // 2. 处理卡牌奖励
-        if (outcome.cardRewards != null)
-        {
-            foreach (var card in outcome.cardRewards)
-            {
-                cardManager.AddCard(card);
-            }
-        }
+        // if (outcome.cardRewards != null)
+        // {
+        //     foreach (var card in outcome.cardRewards)
+        //     {
+        //         cardManager.AddCard(card);
+        //     }
+        // }
 
         // 3. 处理物品奖励 - 关键修复部分
         if (outcome.itemRewards != null && outcome.itemRewards.Count > 0)
@@ -132,13 +154,13 @@ public class MapEventTrigger : MonoBehaviour
         }
 
         // 4. 处理卡牌移除
-        if (outcome.cardRemovals != null)
-        {
-            foreach (var card in outcome.cardRemovals)
-            {
-                cardManager.RemoveCard(card);
-            }
-        }
+        // if (outcome.cardRemovals != null)
+        // {
+        //     foreach (var card in outcome.cardRemovals)
+        //     {
+        //         cardManager.RemoveCard(card);
+        //     }
+        // }
     }
 
     public void ResetEventForNewDay()

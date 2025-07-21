@@ -44,69 +44,10 @@ namespace Opsive.UltimateInventorySystem.Core.InventoryCollections
 
         protected ItemUser m_ItemUser;
 
-        //private MapEvent m_MapEvent;
+        // public int trydata;
 
-    //     private void OnEnable()
-    // {
-    //     EventSystem.OnEventTriggered += HandleEvent;
-    // }
-
-    // private void OnDisable()
-    // {
-    //     EventSystem.OnEventTriggered -= HandleEvent;
-    // }
-
-    // private void HandleEvent(MapEvent mapEvent)
-    // {
-    //     // 处理事件...
-    // }
-
-        // 假设 ItemInfo 是你库存中物品的信息类
-    //     private List<ItemInfo> m_CachedItemInfos1 = new List<ItemInfo>(); // 存储物品信息的列表
-
-    //     //     public class ItemInfo
-    //     // {
-    //     //     public Item Item { get; set; }  // 物品本身
-    //     //     public int Quantity { get; set; } // 物品的数量
-
-    //     //     public string ItemName => Item?.Name;  // 假设 Item 类有 Name 属性
-    //     // }
-
-    // // 添加物品到库存中
-    // public void AddItemToInventory(string itemName, int quantity)
-    // {
-    //     string itemName = m_MapEvent.itemReward.itemName;
-
-    //     string quantity = m_MapEvent.itemReward.quantity;
-
-    //     // 假设你有一个方法可以通过物品名称找到该物品的信息
-    //     ItemInfo itemInfo = FindItemInfoByName(itemName);
-    //     if (itemInfo == null)
-    //     {
-    //         Debug.LogWarning($"Item {itemName} not found.");
-    //         return;
-    //     }
-
-    //     // 假设你可以通过数量调整物品信息的数量
-    //     itemInfo.Quantity += quantity;
-
-    //     // 如果没有找到该物品，则添加新的物品
-    //     if (!m_CachedItemInfos1.Contains(itemInfo))
-    //     {
-    //         m_CachedItemInfos1.Add(itemInfo);
-    //     }
-
-    //     Debug.Log($"Added {quantity} {itemName} to the inventory.");
-    // }
-
-    // // 假设 FindItemInfoByName 方法是根据物品名称查找物品的实现
-    // private ItemInfo FindItemInfoByName(string itemName)
-    // {
-    //     // 这里假设每个物品的名称是唯一的
-    //     return m_CachedItemInfos1.Find(item => item.Name == itemName);
-    // }
-
-        public ItemUser ItemUser {
+        public ItemUser ItemUser
+        {
             get => m_ItemUser;
             set => m_ItemUser = value;
         }
@@ -129,6 +70,8 @@ namespace Opsive.UltimateInventorySystem.Core.InventoryCollections
         public virtual void Awake()
         {
             Initialize(true);
+
+            // Debug.Log($"展示{trydata}");
         }
 
         /// <summary>

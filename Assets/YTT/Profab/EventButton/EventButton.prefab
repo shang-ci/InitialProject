@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 1635115657088679939}
   - component: {fileID: 911249670595140027}
   m_Layer: 5
-  m_Name: SchoolButton
+  m_Name: EventButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
