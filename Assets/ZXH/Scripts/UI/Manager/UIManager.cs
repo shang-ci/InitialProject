@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +6,8 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [Header("¸÷UIÒıÓÃ")]
-    public Backpack Backpack; // ±³°üUI
+    [Header("å„UIå¼•ç”¨")]
+    public Backpack Backpack; // èƒŒåŒ…UI
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        // ÇĞ»»±³°üUIµÄÏÔÊ¾×´Ì¬
+        // åˆ‡æ¢èƒŒåŒ…UIçš„æ˜¾ç¤ºçŠ¶æ€
         if (Input.GetKeyDown(KeyCode.M))
         {
             Backpack.gameObject.SetActive(!Backpack.gameObject.activeSelf);

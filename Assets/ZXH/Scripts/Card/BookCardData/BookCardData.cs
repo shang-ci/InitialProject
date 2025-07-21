@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New BookCardData", menuName = "Card/Book Card Data")]
 public class BookCardData : CardData
@@ -7,6 +7,6 @@ public class BookCardData : CardData
 
     private void Awake()
     {
-        cardType = CardType.Book; // ÉèÖÃ¿¨Æ¬ÀàĞÍÎª Book
+        cardType = CardType.Book; // è®¾ç½®å¡ç‰‡ç±»å‹ä¸º Book
     }
 }

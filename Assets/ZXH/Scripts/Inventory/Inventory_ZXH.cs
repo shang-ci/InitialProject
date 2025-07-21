@@ -1,9 +1,9 @@
-using System.Collections;
+锘縰sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 通用的物品管理系统——存数据
+/// 閫氱敤鐨勭墿鍝佺鐞嗙郴缁熲�斺�斿瓨鏁版嵁
 /// </summary>
 public class Inventory_ZXH : MonoBehaviour
 {

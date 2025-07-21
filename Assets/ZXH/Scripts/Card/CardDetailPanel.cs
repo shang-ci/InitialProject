@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
@@ -6,7 +6,7 @@ public class CardDetailPanel : MonoBehaviour
 {
     public static CardDetailPanel Instance { get; private set; }
 
-    [Header("CardDetailPanelÒıÓÃ")]
+    [Header("CardDetailPanelå¼•ç”¨")]
     public GameObject cardDetailPanel;
     public TextMeshProUGUI cardNameText;//
     public TextMeshProUGUI idText;
@@ -23,7 +23,7 @@ public class CardDetailPanel : MonoBehaviour
 
     private void Update()
     {
-        // Ö»ÓĞÃæ°å¼¤»îÊ±²ÅÏìÓ¦
+        // åªæœ‰é¢æ¿æ¿€æ´»æ—¶æ‰å“åº”
         if (cardDetailPanel.activeSelf)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -40,15 +40,15 @@ public class CardDetailPanel : MonoBehaviour
 
         cardDetailPanel.SetActive(true);
 
-        cardNameText.text = $"Ãû³Æ: {data.cardName}";
+        cardNameText.text = $"åç§°: {data.cardName}";
         idText.text = $"ID: {data.id}";
-        //typeText.text = $"ÀàĞÍ: {data.cardType}";
-        descriptionText.text = $"ÃèÊö: {data.description}";
+        //typeText.text = $"ç±»å‹: {data.cardType}";
+        descriptionText.text = $"æè¿°: {data.description}";
         attributesText.text = GetAttributesString(data.GetAttributes());
         if (artworkImage != null && data.artwork != null)
             artworkImage.sprite = data.artwork;
 
-        // ÉèÖÃÃæ°åÎ»ÖÃ£¨¿É¸ù¾İUIĞèÇóµ÷ÕûÃªµã/Æ«ÒÆ£©
+        // è®¾ç½®é¢æ¿ä½ç½®ï¼ˆå¯æ ¹æ®UIéœ€æ±‚è°ƒæ•´é”šç‚¹/åç§»ï¼‰
         transform.position = position;
     }
 
@@ -59,6 +59,6 @@ public class CardDetailPanel : MonoBehaviour
 
     private string GetAttributesString(Attributes attr)
     {
-        return $"ÌåÆÇ:{attr.physique} Éç½»:{attr.social} Éú´æ:{attr.survival} ÖÇ»Û:{attr.intelligence} ÷ÈÁ¦:{attr.charm} Õ½¶·:{attr.combat} Ö§³Ö:{attr.support}";
+        return $"ä½“é­„:{attr.physique} ç¤¾äº¤:{attr.social} ç”Ÿå­˜:{attr.survival} æ™ºæ…§:{attr.intelligence} é­…åŠ›:{attr.charm} æˆ˜æ–—:{attr.combat} æ”¯æŒ:{attr.support}";
     }
 }
