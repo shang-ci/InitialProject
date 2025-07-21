@@ -17,7 +17,8 @@ namespace Opsive.UltimateInventorySystem.Core.InventoryCollections
     using UnityEngine;
     using EventHandler = Shared.Events.EventHandler;
     using Object = UnityEngine.Object;
-    
+    //using MapEventSpace;
+
     /// <summary>
     /// The bare bones inventory, essentially a wrapper for the Item Collections.
     /// </summary>
@@ -43,7 +44,10 @@ namespace Opsive.UltimateInventorySystem.Core.InventoryCollections
 
         protected ItemUser m_ItemUser;
 
-        public ItemUser ItemUser {
+        // public int trydata;
+
+        public ItemUser ItemUser
+        {
             get => m_ItemUser;
             set => m_ItemUser = value;
         }
@@ -66,6 +70,8 @@ namespace Opsive.UltimateInventorySystem.Core.InventoryCollections
         public virtual void Awake()
         {
             Initialize(true);
+
+            // Debug.Log($"展示{trydata}");
         }
 
         /// <summary>
@@ -458,6 +464,9 @@ namespace Opsive.UltimateInventorySystem.Core.InventoryCollections
             }
 
             return MainItemCollection.AddItem(itemInfo);
+
+            // 添加物品逻辑（可能用字典、List、ScriptableObject 等）
+            // Debug.Log($"在inventory里面获得物品：itemName xquantity");
         }
 
         /// <summary>

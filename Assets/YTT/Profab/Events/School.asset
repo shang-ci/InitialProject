@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39d554fea8fd1043b32de6d73e48d9c, type: 3}
   m_Name: School
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
   eventID: school_001
   title: "\u5B66\u6821"
   description: "\u6B22\u8FCE\u6765\u5230\u5B66\u6821\uFF01\u606D\u559C\u4F60\uFF0C\u559C\u63D0\u4E00\u5468\u4E94\u5929\u65E9\u516B\u3002"
   icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   triggerType: 0
-  precedingEventID: 
   availableFromDay: 0
   availableUntilDay: 0
+  precedingEventID: 
   statToCheck: 
   requiredStatValue: 0
   durationHours: 7.5
@@ -32,8 +31,8 @@ MonoBehaviour:
     statName: 
   winOutcome:
     itemRewards:
-    - itemName: Star
-      quantity: 1
+    - itemName: Bomb
+      quantity: 10
     statEffects:
     - statName: Hardworking
       valueChange: 100

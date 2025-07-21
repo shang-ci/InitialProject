@@ -673,7 +673,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: RegisterChoiceInLua("huanyuzhiguan_005")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
