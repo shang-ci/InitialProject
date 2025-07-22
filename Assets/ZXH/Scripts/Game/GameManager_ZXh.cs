@@ -9,14 +9,15 @@ public class GameManager_ZXh : MonoBehaviour
     [Header("时间管理")]
     public int Time = 1;
 
-    public static GameManager_ZXh Instance { get; private set; }
-    public Transform EventUIContainer; // 事件UI容器
-
-    [Header("骰子")]
+    [Header("事件")]
     [SerializeField] private float successProbability = 1f;//成功概率
     [SerializeField] private int t = 0;//成功次数
     [SerializeField] private bool isSuccess;
 
+    public static GameManager_ZXh Instance { get; private set; }
+    public Transform EventUIContainer; // 事件UI容器
+
+ 
     private void Awake()
     {
         if (Instance == null)
@@ -41,7 +42,7 @@ public class GameManager_ZXh : MonoBehaviour
     /// </summary>
     void TestEventLoading()
     {
-        // ͨ通过ID获取时间数据
+        //通过ID获取时间数据
         EventData testEvent = DataManager.Instance.GetEventByID("E1001");
 
         if (testEvent != null)
@@ -109,19 +110,14 @@ public class GameManager_ZXh : MonoBehaviour
         Debug.Log($"Game Time increased to: {Time}");
     }
 
-
     #region 事件
     /// <summary>
-    /// 掷骰子，判断事件是否成功
+    /// 掷骰子，返回是否成功,successProbability=0.5表示50%概率成功
     /// </summary>
-    /// <param name="eventData"></param>
-    /// <param name="successProbability"></param>
-    /// <returns></returns>
     public bool RollTheDice(EventData eventData, float successProbability)
     {
         Debug.Log($"Event_ZXH: 掷骰子，成功概率为 {successProbability * 100}%");
-
-        int diceSum = 3;//GetAllValueTextSum();//骰子个数
+        int diceSum = GetAllDiceCount(eventData);//骰子个数
         int threshold = eventData.SuccessThreshold;//成功阈值
 
         t = 0;//成功次数
@@ -150,5 +146,22 @@ public class GameManager_ZXh : MonoBehaviour
 
         return isSuccess;
     }
+
+    /// <summary>
+    /// 获得需要的所有属性的总和——可以用来产生骰子的个数
+    /// </summary>
+    /// <param name="eventData">事件数据</param>
+    /// <returns></returns>
+    public int GetAllDiceCount(EventData eventData)
+    {
+        int sum = 0;
+        foreach (var attribute in eventData.RequiredAttributes)
+        {
+            int attributeValue = Character.Instance.GetAttribute(attribute);
+            sum += attributeValue;
+        }
+        return sum;
+    }
+
     #endregion
 }

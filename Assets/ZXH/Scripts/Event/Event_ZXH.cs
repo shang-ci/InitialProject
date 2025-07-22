@@ -434,7 +434,6 @@ public class Event_ZXH : MonoBehaviour
     #endregion
 
 
-
     // 一个简单的翻译函数
     private string TranslateAttributeName(string key)
     {

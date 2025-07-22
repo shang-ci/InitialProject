@@ -31,7 +31,7 @@ MonoBehaviour:
     - m_ObjectType: HealAction
       m_ValueHashes: 
       m_LongValueHashes: 0d00eb254f8d1b29d7e3edd6e9d025cf
-      m_ValuePositions: 0000000000000000
-      m_Values: 4865616c416d6f756e74
+      m_ValuePositions: 0000000004000000
+      m_Values: 4865616c4865616c416d6f756e74
       m_UnityObjects: []
       m_Version: 3.4

@@ -2,53 +2,103 @@
 using Opsive.UltimateInventorySystem.Core.InventoryCollections;
 using Opsive.UltimateInventorySystem.Equipping;
 using Opsive.Shared.Events;
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct CharacterAttributes
+{
+    public int basePhysique, currentPhysique;
+    public int baseSocial, currentSocial;
+    public int baseSurvival, currentSurvival;
+    public int baseIntelligence, currentIntelligence;
+    public int baseCharm, currentCharm;
+    public int baseCombat, currentCombat;
+}
+
 public class Character : MonoBehaviour
 {
+    public static Character Instance { get; private set; }
+
     [Header("角色基础属性")]
-    protected string characterName;
+    [SerializeField]protected string characterName;
+    [SerializeField]protected CharacterAttributes attributes;
     [SerializeField]protected int currentHealth = 30;
     protected int maxHealth = 100;
-    protected int baseDamage;
-    [SerializeField]protected int currentDamage;
-    protected int armor;
 
     [Header("加装备")]
     protected IEquipper m_Equipper;
-
     public Inventory inventory;
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         inventory = GetComponent<Inventory>();
         m_Equipper = GetComponent<IEquipper>();
+
+        InitCharacterStat();
     }
 
     private void OnEnable()
     {
-        Opsive.Shared.Events.EventHandler.RegisterEvent<IEquipper>(m_Equipper, EventNames.c_Equipper_OnChange, OnEquipmentChanged);
+        Opsive.Shared.Events.EventHandler.RegisterEvent(m_Equipper, EventNames.c_Equipper_OnChange, OnEquipmentChanged);
     }
 
     private void OnDisable()
     {
-        Opsive.Shared.Events.EventHandler.UnregisterEvent<IEquipper>(m_Equipper, EventNames.c_Equipper_OnChange, OnEquipmentChanged);
+        Opsive.Shared.Events.EventHandler.UnregisterEvent(m_Equipper, EventNames.c_Equipper_OnChange, OnEquipmentChanged);
     }
 
-    private void OnEquipmentChanged(IEquipper equipper)
+    /// <summary>
+    /// 初始化当前属性为基础属性
+    /// </summary>
+    private void InitCharacterStat()
     {
-        UpdateStats();
+        attributes.currentPhysique = attributes.basePhysique;
+        attributes.currentSocial = attributes.baseSocial;
+        attributes.currentSurvival = attributes.baseSurvival;
+        attributes.currentIntelligence = attributes.baseIntelligence;
+        attributes.currentCharm = attributes.baseCharm;
+        attributes.currentCombat = attributes.baseCombat;
     }
 
-    private void UpdateStats()
+    /// <summary>
+    /// 当装备发生变化时调用
+    /// </summary>
+    /// <param name="equipper"></param>
+    private void OnEquipmentChanged()
     {
-        float bounsCombat = m_Equipper.GetEquipmentStatInt("combat");
-        currentDamage = baseDamage + Mathf.RoundToInt(bounsCombat);
-        Debug.Log($"当前伤害 = {currentDamage}");
+        UpdateAllAttributes();
+    }
+
+    /// <summary>
+    /// 重新计算所有属性：基础 + 装备加成
+    /// </summary>
+    public void UpdateAllAttributes()
+    {
+        // 从装备中获取属性加成
+        attributes.currentPhysique = attributes.basePhysique + m_Equipper.GetEquipmentStatInt("physique");
+        attributes.currentSocial = attributes.baseSocial + m_Equipper.GetEquipmentStatInt("social");
+        attributes.currentSurvival = attributes.baseSurvival + m_Equipper.GetEquipmentStatInt("survival");
+        attributes.currentIntelligence = attributes.baseIntelligence + m_Equipper.GetEquipmentStatInt("intelligence");
+        attributes.currentCharm = attributes.baseCharm + m_Equipper.GetEquipmentStatInt("charm");
+        attributes.currentCombat = attributes.baseCombat + m_Equipper.GetEquipmentStatInt("combat");
+
+        // 可在此同步 UI等
+        Debug.Log($"Updated Attributes: P{attributes.currentPhysique}, S{attributes.currentSocial}, " +
+                  $"Sur{attributes.currentSurvival}, Int{attributes.currentIntelligence}, " +
+                  $"C{attributes.currentCharm}, Combat{attributes.currentCombat}");
     }
 
 
@@ -59,10 +109,45 @@ public class Character : MonoBehaviour
         inventory.AddItem("Armor",2);
     }
 
+    #region action
     public void Heal(int amount)
     {
         if(currentHealth <= 0) return;
 
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
     }
+
+    #endregion
+
+    #region 属性操作
+
+    public int GetAttribute(string attrName)
+    {
+        return attrName switch
+        {
+            "physique" => attributes.currentPhysique,
+            "social" => attributes.currentSocial,
+            "survival" => attributes.currentSurvival,
+            "intelligence" => attributes.currentIntelligence,
+            "charm" => attributes.currentCharm,
+            "combat" => attributes.currentCombat,
+            _ => 0
+        };
+    }
+
+    public void SetBaseAttribute(string attrName, int value)
+    {
+        switch (attrName)
+        {
+            case "physique": attributes.basePhysique = value; break;
+            case "social": attributes.baseSocial = value; break;
+            case "survival": attributes.baseSurvival = value; break;
+            case "intelligence": attributes.baseIntelligence = value; break;
+            case "charm": attributes.baseCharm = value; break;
+            case "combat": attributes.baseCombat = value; break;
+        }
+        UpdateAllAttributes();
+    }
+
+    #endregion
 }
