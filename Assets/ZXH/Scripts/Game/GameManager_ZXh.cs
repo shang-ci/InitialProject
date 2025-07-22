@@ -2,7 +2,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using System.Linq;
 
 public class GameManager_ZXh : MonoBehaviour
@@ -13,7 +12,11 @@ public class GameManager_ZXh : MonoBehaviour
     public static GameManager_ZXh Instance { get; private set; }
     public Transform EventUIContainer; // 事件UI容器
 
- 
+    [Header("骰子")]
+    [SerializeField] private float successProbability = 1f;//成功概率
+    [SerializeField] private int t = 0;//成功次数
+    [SerializeField] private bool isSuccess;
+
     private void Awake()
     {
         if (Instance == null)
@@ -105,4 +108,47 @@ public class GameManager_ZXh : MonoBehaviour
         Time++;
         Debug.Log($"Game Time increased to: {Time}");
     }
+
+
+    #region 事件
+    /// <summary>
+    /// 掷骰子，判断事件是否成功
+    /// </summary>
+    /// <param name="eventData"></param>
+    /// <param name="successProbability"></param>
+    /// <returns></returns>
+    public bool RollTheDice(EventData eventData, float successProbability)
+    {
+        Debug.Log($"Event_ZXH: 掷骰子，成功概率为 {successProbability * 100}%");
+
+        int diceSum = 3;//GetAllValueTextSum();//骰子个数
+        int threshold = eventData.SuccessThreshold;//成功阈值
+
+        t = 0;//成功次数
+
+        successProbability = Mathf.Clamp01(successProbability);
+
+        for (int i = 1; i <= diceSum; i++)
+        {
+            // 掷骰子
+            float rand = Random.value; // [0,1)
+            bool isSuccess = rand < successProbability;
+            if (isSuccess)
+            {
+                t++;
+            }
+        }
+
+        if (t >= threshold)
+        {
+            isSuccess = true;
+        }
+        else
+        {
+            isSuccess = false;
+        }
+
+        return isSuccess;
+    }
+    #endregion
 }
