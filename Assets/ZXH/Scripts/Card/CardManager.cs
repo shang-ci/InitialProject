@@ -29,7 +29,7 @@ public class CardManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        foreach (var data in Inventory_ZXH.Instance.Backpack.cardDatabase)
+        foreach (var data in UIManager.Instance.Backpack.cardDatabase)
         {
             cardQueue.Enqueue(data);
         }
