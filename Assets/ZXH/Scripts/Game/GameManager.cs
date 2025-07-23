@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private HashSet<MapEventTrigger> triggeredEvents = new HashSet<MapEventTrigger>();
     //wonTriggeredEvents 记录当前胜利了的已触发事件
     private HashSet<MapEventTrigger> wonTriggeredEvents = new HashSet<MapEventTrigger>();
-    private HashSet<string> choiceBasedEvents = new HashSet<string>();
+    private Dictionary<string, int> choiceBasedEvents = new Dictionary<string, int>();
 
 
     [Header("事件")]
@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
         //清空胜利了的已触发事件集合
         wonTriggeredEvents.Clear();
         //清空基于对话选项选择的事件集合
-        choiceBasedEvents.Clear();
+        //choiceBasedEvents.Clear();
 
         //更新按钮状态
         RefreshButton();
@@ -269,17 +269,36 @@ public class GameManager : MonoBehaviour
 
     public void RegisterChoice(string eventID)
     {
-        choiceBasedEvents.Add(eventID);
-        Debug.Log($"{choiceBasedEvents.Add(eventID)}   检测该事件是否被加入到集合中");
+        // choiceBasedEvents.Add(eventID);
+        // Debug.Log($"{choiceBasedEvents.Add(eventID)}   检测该事件是否被加入到集合中");
+
+        if (!choiceBasedEvents.ContainsKey(eventID))
+        {
+            choiceBasedEvents.Add(eventID, currentDay);
+            Debug.Log($"事件 {eventID} 已在第 {currentDay} 天被选择");
+        }
+        else
+        {
+            Debug.Log($"事件 {eventID} 已被选择过");
+        }
 
         //！！！重要：刷新按钮状态后即可开启后续事件！！！(针对于状态先true后false的情况)
         RefreshButton();
     }
 
-    public bool HasMadeChoice(string eventID)
+    public bool HasMadeChoice(string eventID, int activeAfterDays = 0)
     {
-        choiceBasedEvents.Contains(eventID);
-        Debug.Log($"{choiceBasedEvents.Contains(eventID)}  检测集合中是否包含该事件");
-        return choiceBasedEvents.Contains(eventID);
+        // choiceBasedEvents.Contains(eventID);
+        // Debug.Log($"{choiceBasedEvents.Contains(eventID)}  检测集合中是否包含该事件");
+        // return choiceBasedEvents.Contains(eventID);
+        if (choiceBasedEvents.TryGetValue(eventID, out int choiceDay))
+        {
+            bool isActiveDayResult = currentDay >= choiceDay + activeAfterDays;
+            //Debug.Log($"事件 {eventID} 在第 {choiceDay} 天被选择，当前第 {currentDay} 天，结果: {isActiveDayResult}");
+            return isActiveDayResult;
+        }
+
+        Debug.Log($"事件 {eventID} 未被选择");
+        return false;
     }
 }

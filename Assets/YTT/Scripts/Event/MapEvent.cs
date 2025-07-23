@@ -26,6 +26,7 @@ public class MapEvent : ScriptableObject
 
     public string statToCheck;// 触发事件所需检查的属性（仅在StatBased时有效）
     public int requiredStatValue;// 触发事件所需的属性值（仅在StatBased时有效）
+    public int activeAfterDays;// 做出选择后的第几天才能触发事件（仅在ChoiceBased时有效）
 
     [Header("行为信息")]
     public float durationHours;// 事件持续的小时数
@@ -68,7 +69,7 @@ public class MapEvent : ScriptableObject
 
             case TriggerType.ChoiceBased:
                 //Debug.Log($"{GameManager.Instance.HasMadeChoice(eventID)}  事件完成清楚情况");
-                return GameManager.Instance != null && GameManager.Instance.HasMadeChoice(eventID);
+                return GameManager.Instance != null && GameManager.Instance.HasMadeChoice(eventID, activeAfterDays);
 
             default:
                 return false;

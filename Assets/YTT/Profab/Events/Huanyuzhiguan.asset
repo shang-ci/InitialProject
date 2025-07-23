@@ -22,6 +22,7 @@ MonoBehaviour:
   precedingEventID: 
   statToCheck: 
   requiredStatValue: 0
+  activeAfterDays: 2
   durationHours: 0
   conversationStartNode: 
   winCondition:
