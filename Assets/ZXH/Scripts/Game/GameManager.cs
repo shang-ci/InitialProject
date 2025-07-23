@@ -126,10 +126,6 @@ public class GameManager : MonoBehaviour
                 eventPanel.AddTime();
             }
         }
-
-        // currentDay++;
-        // Debug.Log($"Game Time increased to: {currentDay}");
-        NextDay();
     }
 
     /// <summary>
@@ -216,7 +212,7 @@ public class GameManager : MonoBehaviour
         currentDay++;
         UpdateDayUI();
 
-        //EventTake();
+        EventTake();
 
         //重置事件
         ResetEvents();
