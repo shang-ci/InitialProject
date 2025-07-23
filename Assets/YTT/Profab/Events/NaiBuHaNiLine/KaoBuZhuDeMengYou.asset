@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c39d554fea8fd1043b32de6d73e48d9c, type: 3}
-  m_Name: KaiQiYinPa
+  m_Name: KaoBuZhuDeMengYou
   m_EditorClassIdentifier: 
-  eventID: kaiqiyinpa_006
+  eventID: kaobuzhudemengyou_009
   title: 
   description: 
   icon: {fileID: 0}
@@ -22,7 +22,7 @@ MonoBehaviour:
   precedingEventID: 
   statToCheck: 
   requiredStatValue: 0
-  activeAfterDays: 3
+  activeAfterDays: 0
   durationHours: 0
   conversationStartNode: 
   winCondition:
