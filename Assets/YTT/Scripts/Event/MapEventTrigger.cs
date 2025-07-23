@@ -29,11 +29,11 @@ public class MapEventTrigger : MonoBehaviour
             inventory = GetComponent<Inventory>();
 
             // 如果仍然为空，尝试在场景中查找
-            if (inventory == null)
-            {
-                inventory = FindObjectOfType<Inventory>();
-                Debug.LogWarning("背包系统未直接绑定，已尝试在场景中查找");
-            }
+            // if (inventory == null)
+            // {
+            //     inventory = FindObjectOfType<Inventory>();
+            //     Debug.LogWarning("背包系统未直接绑定，已尝试在场景中查找");
+            // }
         }
 
         if (gameManager == null)
