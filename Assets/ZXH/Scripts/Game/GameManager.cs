@@ -26,11 +26,11 @@ public class GameManager : MonoBehaviour
 
     [Header("事件")]
     [SerializeField] private float successProbability = 1f;//成功概率
-    [SerializeField] private int t = 0;//成功次数
+    [SerializeField] private int numberOfSuccesses = 0;//成功次数
     [SerializeField] private bool isSuccess;
 
     [Header("事件容器")]
-    public Transform EventUIContainer_ZXH; // 事件UI容器
+    public Transform EventUIContainer_Card; // 卡牌事件UI容器
 
     private void Awake()
     {
@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
         int diceSum = GetAllDiceCount(eventData);//骰子个数
         int threshold = eventData.SuccessThreshold;//成功阈值
 
-        t = 0;//成功次数
+        numberOfSuccesses = 0;//成功次数
 
         successProbability = Mathf.Clamp01(successProbability);
 
@@ -151,11 +151,11 @@ public class GameManager : MonoBehaviour
             bool isSuccess = rand < successProbability;
             if (isSuccess)
             {
-                t++;
+                numberOfSuccesses++;
             }
         }
 
-        if (t >= threshold)
+        if (numberOfSuccesses >= threshold)
         {
             isSuccess = true;
         }
