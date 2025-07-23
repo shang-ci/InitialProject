@@ -127,8 +127,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        currentDay++;
-        Debug.Log($"Game Time increased to: {currentDay}");
+        // currentDay++;
+        // Debug.Log($"Game Time increased to: {currentDay}");
+        NextDay();
     }
 
     /// <summary>
@@ -215,7 +216,7 @@ public class GameManager : MonoBehaviour
         currentDay++;
         UpdateDayUI();
 
-        EventTake();
+        //EventTake();
 
         //重置事件
         ResetEvents();
@@ -293,8 +294,8 @@ public class GameManager : MonoBehaviour
         // return choiceBasedEvents.Contains(eventID);
         if (choiceBasedEvents.TryGetValue(eventID, out int choiceDay))
         {
-            bool isActiveDayResult = currentDay >= choiceDay + activeAfterDays;
-            //Debug.Log($"事件 {eventID} 在第 {choiceDay} 天被选择，当前第 {currentDay} 天，结果: {isActiveDayResult}");
+            bool isActiveDayResult = currentDay == choiceDay + activeAfterDays;
+            Debug.Log($"事件 {eventID} 在第 {choiceDay} 天被选择，当前第 {currentDay} 天，结果: {isActiveDayResult}");
             return isActiveDayResult;
         }
 

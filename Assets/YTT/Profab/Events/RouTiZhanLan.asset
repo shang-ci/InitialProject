@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c39d554fea8fd1043b32de6d73e48d9c, type: 3}
-  m_Name: Huanyuzhiguan
+  m_Name: RouTiZhanLan
   m_EditorClassIdentifier: 
-  eventID: huanyuzhiguan_005
-  title: "\u6B22\u6109\u4E4B\u9986"
+  eventID: routizhanlan_007
+  title: 
   description: 
   icon: {fileID: 0}
-  triggerType: 1
-  availableFromDay: 1
-  availableUntilDay: 100
+  triggerType: 4
+  availableFromDay: 0
+  availableUntilDay: 0
   precedingEventID: 
   statToCheck: 
   requiredStatValue: 0
   activeAfterDays: 3
   durationHours: 0
-  conversationStartNode: HuanYuZhiGuan
+  conversationStartNode: 
   winCondition:
     statToCheck: 
     minValueRequired: 0

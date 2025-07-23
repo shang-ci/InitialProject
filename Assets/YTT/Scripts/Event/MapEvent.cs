@@ -57,7 +57,6 @@ public class MapEvent : ScriptableObject
             case TriggerType.StatBased:
                 return currentStat >= requiredStatValue;
                 
-
             case TriggerType.PrecedingEventCompleted:
                 if (string.IsNullOrEmpty(precedingEventID))
                 {
