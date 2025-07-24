@@ -1421,7 +1421,6 @@ MonoBehaviour:
   - {fileID: 2050194292}
   - {fileID: 1061635557}
   - {fileID: 2129612640}
-  - {fileID: 0}
   successProbability: 1
   numberOfSuccesses: 0
   isSuccess: 0

@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     //wonTriggeredEvents 记录当前胜利了的已触发事件
     private HashSet<MapEventTrigger> wonTriggeredEvents = new HashSet<MapEventTrigger>();
     private Dictionary<string, int> choiceBasedEvents = new Dictionary<string, int>();
-
+    private Dictionary<string, int> eventFirstAvailableDay = new Dictionary<string, int>();
 
     [Header("事件")]
     [SerializeField] private float successProbability = 1f;//成功概率
@@ -54,6 +54,20 @@ public class GameManager : MonoBehaviour
         nextDayButton.gameObject.SetActive(true);
 
         Invoke("TestEventLoading", 1f);
+    }
+
+
+    public int GetFirstAvailableDay(string eventID)
+    {
+        if (eventFirstAvailableDay.TryGetValue(eventID, out int day))
+            return day;
+        return -1;
+    }
+
+    public void SetFirstAvailableDay(string eventID, int day)
+    {
+        if (!eventFirstAvailableDay.ContainsKey(eventID))
+            eventFirstAvailableDay[eventID] = day;
     }
 
     #region ZXH
