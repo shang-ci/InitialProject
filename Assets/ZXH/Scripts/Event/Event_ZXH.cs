@@ -28,7 +28,7 @@ public class Event_ZXH : MonoBehaviour
     [SerializeField] private TextMeshProUGUI DurationDays;// 事件持续天数
     [SerializeField] private TextMeshProUGUI SuccessThreshold;
     [SerializeField]private float successProbability = 1f;//成功概率
-    [SerializeField]private int t= 0;//成功次数
+    [SerializeField]private int numberOfSuccesses= 0;//成功次数
     [SerializeField]private bool isSuccess;
 
     [Header("Two动态生成引用")]
@@ -63,7 +63,8 @@ public class Event_ZXH : MonoBehaviour
         AddTime(); //第一天
     }
 
-    private void Update()
+
+    public void UpdateAttributeRequirementValues()
     {
         // 实时刷新每个属性需求项的属性总值
         foreach (var item in spawnedAttributeItems)
@@ -73,9 +74,9 @@ public class Event_ZXH : MonoBehaviour
             if (nameText != null && valueText != null)
             {
                 string attrName = nameText.text;
-                
-                valueText.text = GetTotalAttributeValue(attrName).ToString();
-                
+
+                valueText.text = Character.Instance.GetAttribute(attrName).ToString();
+
             }
         }
     }
@@ -260,20 +261,20 @@ public class Event_ZXH : MonoBehaviour
     {
         isEventActive = true; 
 
-        if (RollTheDice(eventData,successProbability))
+        if (RollTheDice_CharacterStat(eventData,successProbability))
         {
             // 成功逻辑
             Result_Story.text = eventData.SuccessfulResults;
-            Result_Dice.text = $"成功骰子的个数：{t}";
+            Result_Dice.text = $"成功骰子的个数：{numberOfSuccesses}";
             Reward_Card.text = $"获得：{eventData.RewardItemIDs}"; // 这里可以替换为实际的奖励逻辑
-            
-            GiveRewards(eventData); // 发放奖励卡牌
+
+            GiveRewards_CharacterStat(eventData); // 发放奖励
         }
         else
         {
             // 失败逻辑
             Result_Story.text = eventData.FailedResults;
-            Result_Dice.text = $"成功骰子的个数：{t}";
+            Result_Dice.text = $"成功骰子的个数：{numberOfSuccesses}";
             Reward_Card.text = "没有奖励";
         }
 
@@ -289,6 +290,29 @@ public class Event_ZXH : MonoBehaviour
                 Inventory_ZXH.Instance.Backpack.RemoveCard(card.cardData);
             }
             
+        }
+    }
+
+    /// <summary>
+    /// 加入库存中
+    /// </summary>
+    public void GiveRewards_CharacterStat(EventData eventData)
+    {
+        if (eventData == null || eventData.RewardItemIDs == null || eventData.RewardItemIDs.Count == 0)
+            return;
+
+        foreach(string rewardName in eventData.RewardItemIDs)
+        {
+            var addedItemInfo = Character.Instance.inventory.AddItem(rewardName, 1);
+
+            if (addedItemInfo.ItemStack != null)
+            {
+                Debug.Log($"成功将 {addedItemInfo.ItemStack.Amount} 个 '{rewardName}' 添加到了库存中");
+            }
+            else
+            {
+                Debug.LogWarning($"添加物品 '{rewardName}' 失败! 请检查物品名称是否正确，以及背包是否有足够空间");
+            }
         }
     }
 
@@ -328,13 +352,65 @@ public class Event_ZXH : MonoBehaviour
     /// <summary>
     /// 掷骰子，返回是否成功,successProbability=0.5表示50%概率成功
     /// </summary>
+    public bool RollTheDice_CharacterStat(EventData eventData, float successProbability)
+    {
+        Debug.Log($"Event_ZXH: 掷骰子，成功概率为 {successProbability * 100}%");
+        int diceSum = GetAllDiceCount(eventData);//骰子个数
+        int threshold = eventData.SuccessThreshold;//成功阈值
+
+        numberOfSuccesses = 0;//成功次数
+
+        successProbability = Mathf.Clamp01(successProbability);
+
+        for (int i = 1; i <= diceSum; i++)
+        {
+            // 掷骰子
+            float rand = Random.value; // [0,1)
+            bool isSuccess = rand < successProbability;
+            if (isSuccess)
+            {
+                numberOfSuccesses++;
+            }
+        }
+
+        if (numberOfSuccesses >= threshold)
+        {
+            isSuccess = true;
+        }
+        else
+        {
+            isSuccess = false;
+        }
+
+        return isSuccess;
+    }
+
+    /// <summary>
+    /// 获得需要的所有属性的总和——可以用来产生骰子的个数
+    /// </summary>
+    /// <param name="eventData">事件数据</param>
+    /// <returns></returns>
+    public int GetAllDiceCount(EventData eventData)
+    {
+        int sum = 0;
+        foreach (var attribute in eventData.RequiredAttributes)
+        {
+            int attributeValue = Character.Instance.GetAttribute(attribute);
+            sum += attributeValue;
+        }
+        return sum;
+    }
+
+    /// <summary>
+    /// 掷骰子，返回是否成功,successProbability=0.5表示50%概率成功
+    /// </summary>
     public bool RollTheDice(EventData eventData, float successProbability)
     {
         Debug.Log($"Event_ZXH: 掷骰子，成功概率为 {successProbability * 100}%");
         int diceSum = GetAllValueTextSum();//骰子个数
         int threshold = eventData.SuccessThreshold;//成功阈值
 
-        t = 0;//成功次数
+        numberOfSuccesses = 0;//成功次数
 
         successProbability = Mathf.Clamp01(successProbability);
 
@@ -345,11 +421,11 @@ public class Event_ZXH : MonoBehaviour
             bool isSuccess = rand < successProbability;
             if (isSuccess)
             {
-                t++;
+                numberOfSuccesses++;
             }
         }
 
-        if(t >= threshold)
+        if(numberOfSuccesses >= threshold)
         {
             isSuccess = true;
         }

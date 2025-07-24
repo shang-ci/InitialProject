@@ -21,13 +21,4 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void Update()
-    {
-        // 切换背包UI的显示状态
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            Backpack.gameObject.SetActive(!Backpack.gameObject.activeSelf);
-        }
-    }
 }

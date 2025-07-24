@@ -31,9 +31,8 @@ MonoBehaviour:
       m_ValueHashes: 
       m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651af0255e014ce1cfaf3d4ee4cb64be1ae
       m_ValuePositions: 0000000004000000050000000500000009000000090000000d00000011000000
-      m_Values: 49636f6e0100000000425fb89fffffffff00000000
-      m_UnityObjects:
-      - {fileID: 21300000, guid: 44e171b922942054cbb1ecede3b7c6a5, type: 3}
+      m_Values: 49636f6e0100000000425fb89fffffffffffffffff
+      m_UnityObjects: []
       m_Version: 3.4
     - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[System.String,
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
@@ -64,9 +63,8 @@ MonoBehaviour:
       m_ValueHashes: 
       m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651af0255e014ce1cfaf3d4ee4cb64be1ae
       m_ValuePositions: 00000000090000000a0000000a0000000e0000000e0000001200000016000000
-      m_Values: 536861706549636f6e0100000000b5e94453ffffffff00000000
-      m_UnityObjects:
-      - {fileID: 21300000, guid: 44e171b922942054cbb1ecede3b7c6a5, type: 3}
+      m_Values: 536861706549636f6e0100000000b5e94453ffffffffffffffff
+      m_UnityObjects: []
       m_Version: 3.4
     - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[System.Int32,
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
@@ -98,9 +96,9 @@ MonoBehaviour:
     - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[Opsive.UltimateInventorySystem.Exchange.CurrencyAmounts,
         Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
       m_ValueHashes: 
-      m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa65100874d327c4198d94459e79e1dbf5c8ef550e43b00e55a60a1bfe96b966c58b7ea49dfe918db394e7c5ef5abc81341ab
-      m_ValuePositions: 00000000090000000a0000000a0000000e0000000e00000012000000120000001200000016000000160000001a000000
-      m_Values: 53656c6c50726963650100000000d31c00c1010000000f00000000000000
+      m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa65100874d327c4198d981651b55750893d44459e79e1dbf5c8ef550e43b00e55a60a1bfe96b966c58b7ea49dfe918db394e7c5ef5abc81341ab
+      m_ValuePositions: 00000000090000000a0000000a0000000e0000000e000000120000001200000016000000160000001a0000001a0000001e000000
+      m_Values: 53656c6c50726963650100000000d31c00c100000000010000000200000000000000
       m_UnityObjects:
       - {fileID: 11400000, guid: eb0a94e44340aab499427bd7c4799373, type: 2}
       m_Version: 3.4

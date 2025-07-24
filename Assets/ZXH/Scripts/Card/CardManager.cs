@@ -5,13 +5,13 @@ public class CardManager : MonoBehaviour
 {
     public static CardManager Instance { get; private set; }
 
-    [Header("�������ݿ�")]
+    [Header("数据")]
     public List<CardData> cardDatabase;
 
-    [Header("��������")]
-    public GameObject cardPrefab;// ����Ԥ�Ƽ����������ɿ���ʵ��
-    public GameObject cardSlotPrefab;// ���Ʋ�Ԥ�Ƽ������ڷ��ÿ��Ƶ�����
-    public Transform handParent;// ���Ʋ۵ĸ����壬ͨ������������
+    [Header("引用")]
+    public GameObject cardPrefab;
+    public GameObject cardSlotPrefab;
+    public Transform handParent;
 
     public CardDataQueue cardQueue = new CardDataQueue();//所有手牌
     public List<CardData> handCards = new List<CardData>();//当前手牌——invent库
@@ -28,19 +28,8 @@ public class CardManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        foreach (var data in UIManager.Instance.Backpack.cardDatabase)
-        {
-            cardQueue.Enqueue(data);
-        }
-        Debug.Log($"{cardQueue.Count}");
     }
 
-    void Start()
-    {
-        //填充手牌队列
-        InitHandCard();
-    }
 
     /// <summary>
     /// 初始化手牌

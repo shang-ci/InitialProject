@@ -99,6 +99,9 @@ public class Character : MonoBehaviour
         Debug.Log($"Updated Attributes: P{attributes.currentPhysique}, S{attributes.currentSocial}, " +
                   $"Sur{attributes.currentSurvival}, Int{attributes.currentIntelligence}, " +
                   $"C{attributes.currentCharm}, Combat{attributes.currentCombat}");
+
+        // 这里可以添加事件通知系统，通知其他系统属性已更新
+        GameManager.Instance.eventUI.UpdateAttributeRequirementValues();
     }
 
 
@@ -119,7 +122,7 @@ public class Character : MonoBehaviour
 
     #endregion
 
-    #region 属性操作
+    #region 属性操作——装备属于加成的，剧情的属性属于基础的
 
     public int GetAttribute(string attrName)
     {
@@ -147,6 +150,28 @@ public class Character : MonoBehaviour
             case "combat": attributes.baseCombat = value; break;
         }
         UpdateAllAttributes();
+    }
+
+
+    /// <summary>
+    /// 为一个基础属性增加指定的值
+    /// </summary>
+    /// <param name="attrName">属性名称</param>
+    /// <param name="valueToAdd">要增加的值</param>
+    public void AddToBaseAttribute(string attrName, int valueToAdd)
+    {
+        // 这个函数会先获取当前基础值，加上增量，然后再设置回去
+        // 这样可以复用你已经写好的SetBaseAttribute逻辑，非常方便
+        switch (attrName)
+        {
+            case "physique": SetBaseAttribute("physique", attributes.basePhysique + valueToAdd); break;
+            case "social": SetBaseAttribute("social", attributes.baseSocial + valueToAdd); break;
+            case "survival": SetBaseAttribute("survival", attributes.baseSurvival + valueToAdd); break;
+            case "intelligence": SetBaseAttribute("intelligence", attributes.baseIntelligence + valueToAdd); break;
+            case "charm": SetBaseAttribute("charm", attributes.baseCharm + valueToAdd); break;
+            case "combat": SetBaseAttribute("combat", attributes.baseCombat + valueToAdd); break;
+        }
+        Debug.Log($"属性 {attrName} 的基础值增加了 {valueToAdd}!");
     }
 
     #endregion

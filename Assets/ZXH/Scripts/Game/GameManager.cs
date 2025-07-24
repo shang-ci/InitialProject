@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Opsive.UltimateInventorySystem.Core.InventoryCollections;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,14 +24,19 @@ public class GameManager : MonoBehaviour
     private HashSet<MapEventTrigger> wonTriggeredEvents = new HashSet<MapEventTrigger>();
     private Dictionary<string, int> choiceBasedEvents = new Dictionary<string, int>();
 
+    [Header("事件数据")]
+    public Event_ZXH eventUI;
 
-    [Header("事件")]
+    [Header("事件参数")]
     [SerializeField] private float successProbability = 1f;//成功概率
     [SerializeField] private int numberOfSuccesses = 0;//成功次数
     [SerializeField] private bool isSuccess;
 
     [Header("事件容器")]
     public Transform EventUIContainer_Card; // 卡牌事件UI容器
+
+    [Header("库存")]
+    public Inventory Inventory; // 背包系统引用
 
     private void Awake()
     {
@@ -56,7 +62,7 @@ public class GameManager : MonoBehaviour
         Invoke("TestEventLoading", 1f);
     }
 
-    #region ZXH
+    #region ZXH_CardEvent
     /// <summary>
     /// 测试事件加载功能
     /// </summary>
@@ -83,7 +89,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
 
-            GameObject eventUIInstance = DataManager.Instance.InstantiateEventPrefab(testEvent, EventUIContainer);
+            GameObject eventUIInstance = DataManager.Instance.InstantiateEventPrefab(testEvent, EventUIContainer_Card);
             if (eventUIInstance == null)
             {
                 Debug.LogError($"Failed to instantiate event prefab for {testEvent.EventName}");
@@ -92,7 +98,7 @@ public class GameManager : MonoBehaviour
 
             Debug.Log($"Event prefab instantiated: {eventUIInstance.name}");
 
-            Event_ZXH eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
+            eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
 
             if (eventUI == null)
             {
