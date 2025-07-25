@@ -63,7 +63,6 @@ public class GameManager : MonoBehaviour
         Invoke("TestEventLoading", 1f);
     }
 
-    #region ZXH_CardEvent
 
     public int GetFirstAvailableDay(string eventID)
     {
@@ -78,7 +77,7 @@ public class GameManager : MonoBehaviour
             eventFirstAvailableDay[eventID] = day;
     }
 
-    #region ZXH
+    #region ZXH_CardEvent
     /// <summary>
     /// 测试事件加载功能
     /// </summary>
