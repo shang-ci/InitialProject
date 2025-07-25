@@ -14,6 +14,12 @@ public class DialogueLuaBridge : MonoBehaviour
             Lua.RegisterFunction("GetAttribute", Character.Instance, typeof(Character).GetMethod("GetAttribute"));
             Lua.RegisterFunction("AddToBaseAttribute", Character.Instance, typeof(Character).GetMethod("AddToBaseAttribute"));
         }
+
+        if(QuestConditionChecker.Instance != null)
+        {
+            Lua.RegisterFunction("CanTriggerNabuhaniVisit", QuestConditionChecker.Instance, 
+                typeof(QuestConditionChecker).GetMethod("CanTriggerNabuhaniVisit"));
+        }
     }
 
     // 要暴露给 Lua 的方法

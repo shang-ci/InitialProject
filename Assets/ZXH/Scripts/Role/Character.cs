@@ -101,7 +101,8 @@ public class Character : MonoBehaviour
                   $"C{attributes.currentCharm}, Combat{attributes.currentCombat}");
 
         // 这里可以添加事件通知系统，通知其他系统属性已更新
-        GameManager.Instance.eventUI.UpdateAttributeRequirementValues();
+        GameManager.Instance?.eventUI?.UpdateAttributeRequirementValues();
+        GameManager_InZXHScene.Instance?.eventUI.UpdateAttributeRequirementValues();
     }
 
 

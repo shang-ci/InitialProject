@@ -30,6 +30,11 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        
+    }
+
 
     /// <summary>
     /// 初始化手牌
