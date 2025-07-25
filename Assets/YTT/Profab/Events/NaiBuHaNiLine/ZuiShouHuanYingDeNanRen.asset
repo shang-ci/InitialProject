@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c39d554fea8fd1043b32de6d73e48d9c, type: 3}
-  m_Name: Library
+  m_Name: ZuiShouHuanYingDeNanRen
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
-  eventID: library_002
-  title: "\u56FE\u4E66\u9986"
-  description: "\u56FE\u4E66\u9986\u662F\u81EA\u4E60\u7684\u597D\u5730\u65B9\uFF0C\u5E73\u65F6\u7684\u4F60\u9C9C\u5C11\u8E0F\u8DB3\uFF0C\u4F46\u671F\u672B\u5468\u5B83\u5374\u6210\u4E86\u4F60\u7684\u5E38\u9A7B\u5730\u3002"
-  icon: {fileID: 21300000, guid: 7d3a920c42c6a734fb25908d06ea4728, type: 3}
-  triggerType: 1
+  eventID: zuishouhuanyingdenanren_008
+  title: 
+  description: 
+  icon: {fileID: 0}
+  triggerType: 4
+  availableFromDay: 0
+  availableUntilDay: 0
   precedingEventID: 
-  availableFromDay: 2
-  availableUntilDay: 6
   statToCheck: 
   requiredStatValue: 0
+  activeAfterDays: 0
   durationHours: 0
-  conversationStartNode: LibraryEvent
+  conversationStartNode: 
   winCondition:
     statToCheck: 
     minValueRequired: 0

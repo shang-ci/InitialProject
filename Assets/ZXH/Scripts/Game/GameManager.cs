@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     [Header("事件数据")]
     public Event_ZXH eventUI;
+    private Dictionary<string, int> eventFirstAvailableDay = new Dictionary<string, int>();
 
     [Header("事件参数")]
     [SerializeField] private float successProbability = 1f;//成功概率
@@ -63,6 +64,21 @@ public class GameManager : MonoBehaviour
     }
 
     #region ZXH_CardEvent
+
+    public int GetFirstAvailableDay(string eventID)
+    {
+        if (eventFirstAvailableDay.TryGetValue(eventID, out int day))
+            return day;
+        return -1;
+    }
+
+    public void SetFirstAvailableDay(string eventID, int day)
+    {
+        if (!eventFirstAvailableDay.ContainsKey(eventID))
+            eventFirstAvailableDay[eventID] = day;
+    }
+
+    #region ZXH
     /// <summary>
     /// 测试事件加载功能
     /// </summary>
@@ -272,17 +288,14 @@ public class GameManager : MonoBehaviour
 
     public void RegisterChoice(string eventID)
     {
-        // choiceBasedEvents.Add(eventID);
-        // Debug.Log($"{choiceBasedEvents.Add(eventID)}   检测该事件是否被加入到集合中");
-
         if (!choiceBasedEvents.ContainsKey(eventID))
         {
             choiceBasedEvents.Add(eventID, currentDay);
-            Debug.Log($"事件 {eventID} 已在第 {currentDay} 天被选择");
+            //Debug.Log($"事件 {eventID} 已在第 {currentDay} 天被选择");
         }
         else
         {
-            Debug.Log($"事件 {eventID} 已被选择过");
+            //Debug.Log($"事件 {eventID} 已被选择过");
         }
 
         //！！！重要：刷新按钮状态后即可开启后续事件！！！(针对于状态先true后false的情况)
@@ -291,17 +304,14 @@ public class GameManager : MonoBehaviour
 
     public bool HasMadeChoice(string eventID, int activeAfterDays = 0)
     {
-        // choiceBasedEvents.Contains(eventID);
-        // Debug.Log($"{choiceBasedEvents.Contains(eventID)}  检测集合中是否包含该事件");
-        // return choiceBasedEvents.Contains(eventID);
         if (choiceBasedEvents.TryGetValue(eventID, out int choiceDay))
         {
             bool isActiveDayResult = currentDay == choiceDay + activeAfterDays;
-            Debug.Log($"事件 {eventID} 在第 {choiceDay} 天被选择，当前第 {currentDay} 天，结果: {isActiveDayResult}");
+            //Debug.Log($"事件 {eventID} 在第 {choiceDay} 天被选择，当前第 {currentDay} 天，结果: {isActiveDayResult}");
             return isActiveDayResult;
         }
 
-        Debug.Log($"事件 {eventID} 未被选择");
+        //Debug.Log($"事件 {eventID} 未被选择");
         return false;
     }
 }

@@ -27,6 +27,9 @@ public class MapEvent : ScriptableObject
     public string statToCheck;// 触发事件所需检查的属性（仅在StatBased时有效）
     public int requiredStatValue;// 触发事件所需的属性值（仅在StatBased时有效）
     public int activeAfterDays;// 做出选择后的第几天才能触发事件（仅在ChoiceBased时有效）
+    //public int firstAvailableDay;
+    public int availableLastingDays;
+
 
     [Header("行为信息")]
     public float durationHours;// 事件持续的小时数
@@ -44,6 +47,7 @@ public class MapEvent : ScriptableObject
     // 判断当前事件是否可用（在地图上显示）
     public bool IsAvailable(int currentDay, int currentStat, System.Func<string, bool> HasCompletedEventSuccessfully)
     {
+        bool baseAvailable = false;
         //Debug.Log($"RefreshButton method called for event {eventID}");
 
         switch (triggerType)
@@ -55,24 +59,47 @@ public class MapEvent : ScriptableObject
                 return currentDay >= availableFromDay && currentDay <= availableUntilDay;
 
             case TriggerType.StatBased:
-                return currentStat >= requiredStatValue;
-                
+                //return currentStat >= requiredStatValue;
+                baseAvailable = currentStat >= requiredStatValue;
+                break;
+
             case TriggerType.PrecedingEventCompleted:
-                if (string.IsNullOrEmpty(precedingEventID))
-                {
-                    Debug.Log("PrecedingEventID is empty, event is not available");
-                    return false;
-                }
-                //Debug.Log($"PrecedingEventCompleted check result: {HasCompletedEventSuccessfully(precedingEventID)}");
-                return HasCompletedEventSuccessfully(precedingEventID);
+                // if (string.IsNullOrEmpty(precedingEventID))
+                // {
+                //     Debug.Log("PrecedingEventID is empty, event is not available");
+                //     return false;
+                // }
+                // //Debug.Log($"PrecedingEventCompleted check result: {HasCompletedEventSuccessfully(precedingEventID)}");
+                // return HasCompletedEventSuccessfully(precedingEventID);
+                baseAvailable = !string.IsNullOrEmpty(precedingEventID) && HasCompletedEventSuccessfully(precedingEventID);
+                break;
 
             case TriggerType.ChoiceBased:
-                //Debug.Log($"{GameManager.Instance.HasMadeChoice(eventID)}  事件完成清楚情况");
-                return GameManager.Instance != null && GameManager.Instance.HasMadeChoice(eventID, activeAfterDays);
+                // Debug.Log($"{GameManager.Instance.HasMadeChoice(eventID)}  事件完成清楚情况");
+                // return GameManager.Instance != null && GameManager.Instance.HasMadeChoice(eventID, activeAfterDays);
+                baseAvailable = GameManager.Instance != null && GameManager.Instance.HasMadeChoice(eventID, activeAfterDays);
+                break;
 
             default:
-                return false;
+                baseAvailable = false;
+                break;
         }
+        // 只要曾经满足条件，记录首次可用天数（只记录一次）
+        int firstDay = GameManager.Instance.GetFirstAvailableDay(eventID);
+        if (baseAvailable)
+        {
+            if (firstDay == -1)
+            {
+                GameManager.Instance.SetFirstAvailableDay(eventID, currentDay);
+                firstDay = currentDay;
+            }
+        }
+
+        // 如果已经满足过条件，则在首次可用天数后 availableLastingDays 天内都显示
+        if (firstDay != -1 && currentDay < firstDay + availableLastingDays)
+            return true;
+
+        return false;
     }
 }
 
