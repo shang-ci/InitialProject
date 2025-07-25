@@ -23,6 +23,7 @@ MonoBehaviour:
   statToCheck: 
   requiredStatValue: 0
   activeAfterDays: 3
+  availableLastingDays: 1
   durationHours: 0
   conversationStartNode: 
   winCondition:

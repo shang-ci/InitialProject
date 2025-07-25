@@ -18,11 +18,12 @@ MonoBehaviour:
   icon: {fileID: 0}
   triggerType: 1
   availableFromDay: 1
-  availableUntilDay: 100
+  availableUntilDay: 1
   precedingEventID: 
   statToCheck: 
   requiredStatValue: 0
-  activeAfterDays: 3
+  activeAfterDays: 0
+  availableLastingDays: 0
   durationHours: 0
   conversationStartNode: HuanYuZhiGuan
   winCondition:
