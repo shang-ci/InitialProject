@@ -3724,13 +3724,16 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: RegisterChoiceInLua("kaiqiyinpa_006")
+      userScript: 'RegisterChoiceInLua("kaiqiyinpa_006");
+
+        Variable["Wisdom"]
+        = Variable["Wisdom"] +100;'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 77
+        x: 77.5
         y: 219.5
         width: 160
         height: 30
@@ -3789,7 +3792,10 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: RegisterChoiceInLua("routizhanlan_007")
+      userScript: 'RegisterChoiceInLua("routizhanlan_007");
+
+        Variable["Wisdom"]
+        = Variable["Wisdom"] +100;'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -4463,8 +4469,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 496
-        y: 218
+        x: 493.15906
+        y: 219.70456
         width: 160
         height: 30
     - id: 4
@@ -4598,15 +4604,14 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: 
-      userScript: Variable["Wisdom"] - Variable["Hardworking"] - Variable["Anger"]
-        >= 10
+      conditionsString: GetAttribute("charm") >= 0
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
+        x: 81.2195
         y: 386
         width: 160
         height: 30
@@ -4664,20 +4669,20 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: 
+      conditionsString: GetAttribute("charm") < 0
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 288
-        y: 386
+        x: 286.2539
+        y: 385.4318
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.8800001
+    canvasZoom: 0.8200002
   syncInfo:
     syncActors: 0
     syncItems: 0

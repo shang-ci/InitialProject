@@ -4604,15 +4604,14 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: Variable["Wisdom"] - Variable["Hardworking"] - Variable["Anger"]
-        >= 10
+      conditionsString: GetAttribute("charm") >= 0
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 80
+        x: 81.2195
         y: 386
         width: 160
         height: 30
@@ -4670,21 +4669,20 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: Variable["Wisdom"] - Variable["Hardworking"] - Variable["Anger"]
-        < 10
+      conditionsString: GetAttribute("charm") < 0
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 286.86365
+        x: 286.2539
         y: 385.4318
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.8800001
+    canvasZoom: 0.8200002
   syncInfo:
     syncActors: 0
     syncItems: 0
