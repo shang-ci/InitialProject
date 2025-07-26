@@ -31,6 +31,7 @@ public class Character : MonoBehaviour
     [Header("加装备")]
     protected IEquipper m_Equipper;
     public Inventory inventory;
+    //private Dictionary<string, ItemDefinition> m_DefinitionCache;
 
     private void Awake()
     {
@@ -48,6 +49,7 @@ public class Character : MonoBehaviour
         m_Equipper = GetComponent<IEquipper>();
 
         InitCharacterStat();
+        //m_DefinitionCache = new Dictionary<string, ItemDefinition>();
     }
 
     private void OnEnable()
@@ -94,15 +96,17 @@ public class Character : MonoBehaviour
         attributes.currentIntelligence = attributes.baseIntelligence + m_Equipper.GetEquipmentStatInt("intelligence");
         attributes.currentCharm = attributes.baseCharm + m_Equipper.GetEquipmentStatInt("charm");
         attributes.currentCombat = attributes.baseCombat + m_Equipper.GetEquipmentStatInt("combat");
-
+   
         // 可在此同步 UI等
         Debug.Log($"Updated Attributes: P{attributes.currentPhysique}, S{attributes.currentSocial}, " +
                   $"Sur{attributes.currentSurvival}, Int{attributes.currentIntelligence}, " +
                   $"C{attributes.currentCharm}, Combat{attributes.currentCombat}");
 
         // 这里可以添加事件通知系统，通知其他系统属性已更新
-        GameManager.Instance?.eventUI?.UpdateAttributeRequirementValues();
-        GameManager_InZXHScene.Instance?.eventUI.UpdateAttributeRequirementValues();
+        foreach( var baseEvent in CharacterEventManager.Instance?.activeEvents)
+        {
+            baseEvent.UpdateAttributeRequirementValues();
+        }
     }
 
 
@@ -176,4 +180,66 @@ public class Character : MonoBehaviour
     }
 
     #endregion
+
+    #region 装备相关
+    /// <summary>
+    /// 判断角色是否装备了指定物品（通过物品定义名称）
+    /// </summary>
+    /// <param name="itemDefinitionName">物品定义名称</param>
+    /// <returns>是否已装备该物品</returns>
+    public bool IsEquippedByDefinitionName(string itemDefinitionName)
+    {
+        if (string.IsNullOrEmpty(itemDefinitionName))
+        {
+            Debug.LogWarning("物品定义名称为空！");
+            return false;
+        }
+
+        if (m_Equipper == null)
+        {
+            Debug.LogWarning("角色未绑定 IEquipper 组件，无法判断装备。");
+            return false;
+        }
+
+        var itemDef = InventorySystemManager.GetItemDefinition(itemDefinitionName);
+        if (itemDef == null)
+        {
+            Debug.LogError($"未找到物品定义: {itemDefinitionName}");
+            return false;
+        }
+
+        // 遍历所有装备槽
+        // 推荐用 GetEquippedItem(index) 或 GetEquippedItems()，具体看你的 Equipper 实现
+        int slotCount = 3; // 可根据实际装备槽数量调整
+        for (int i = 0; i < slotCount; i++)
+        {
+            var equippedItem = m_Equipper.GetEquippedItem(i);
+            if (equippedItem != null && equippedItem.ItemDefinition == itemDef)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 判断角色装备是否拥有列表中的所有装备
+    /// </summary>
+    /// <param name="itemDefinitionNames"></param>
+    /// <returns></returns>
+    public bool HasAllEquipByDefinitionNames(List<string> itemDefinitionNames)
+    {
+        if (itemDefinitionNames == null || itemDefinitionNames.Count == 0)
+            return false;
+
+        foreach (var name in itemDefinitionNames)
+        {
+            if (!IsEquippedByDefinitionName(name))
+                return false;
+        }
+        return true;
+    }
+    #endregion
+
+
 }

@@ -25,6 +25,16 @@ public class QuestConditionChecker: MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        Lua.RegisterFunction("CanTriggerNabuhaniVisit", this, GetType().GetMethod("CanTriggerNabuhaniVisit"));
+    }
+
+    private void OnDisable()
+    {
+        Lua.UnregisterFunction("CanTriggerNabuhaniVisit");
+    }
+
     #region 接口
 
 

@@ -18,6 +18,8 @@ public class EventData
     public string Story { get; private set; }// 事件的故事文本
     public string Tips { get; private set; }// 事件的提示文本
     public List<string> RequiredAttributes { get; private set; } // 需要的属性，已解析为列表
+    public List<string> RequiredItems { get; private set; } // 需要的物品
+    public int RequiredCoin { get; private set; } //需要的金币
     public int DurationDays { get; private set; }// 事件持续的天数
     public int SuccessThreshold { get; private set; } // 成功的条件/阈值，投出的成功骰子需要大于这个数
     public string SuccessfulResults { get; private set; } // 成功的结果文本
@@ -44,14 +46,16 @@ public class EventData
             // 解析逗号分隔的字符串为列表
             // Trim()可以去除每个元素前后的空格，以防 "a, b" 这种情况
             RequiredAttributes = rawData[7].Split('、').Select(s => s.Trim()).ToList();
+            RequiredItems = rawData[8].Split('、').Select(s  => s.Trim()).ToList();
+            RequiredCoin = int .Parse(rawData[9]);
 
-            DurationDays = int.Parse(rawData[8]);
-            SuccessThreshold = int.Parse(rawData[9]);
+            DurationDays = int.Parse(rawData[10]);
+            SuccessThreshold = int.Parse(rawData[11]);
 
-            SuccessfulResults = rawData[10];
-            FailedResults = rawData[11];
+            SuccessfulResults = rawData[12];
+            FailedResults = rawData[13];
 
-            RewardItemIDs = rawData[12].Split('、').Select(s => s.Trim()).ToList();
+            RewardItemIDs = rawData[14].Split('、').Select(s => s.Trim()).ToList();
         }
         catch (Exception e)
         {

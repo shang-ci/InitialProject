@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using PixelCrushers.DialogueSystem;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +7,14 @@ public class CharacterEventManager : MonoBehaviour
 {
     public static CharacterEventManager Instance { get; private set; }
 
+
+    [Header("事件数据")]
     // 所有事件数据
     public List<EventData> allEventData = new List<EventData>();
-
     // 当前激活的事件实例
-    private List<EventBase> activeEvents = new List<EventBase>();
+    [SerializeField] public List<EventBase> activeEvents = new List<EventBase>();
+
+    public Transform EventUIContainer; // 事件UI容器
 
     private void Awake()
     {
@@ -23,6 +27,16 @@ public class CharacterEventManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnEnable()
+    {
+        Lua.RegisterFunction("CreateEventByID", this, GetType().GetMethod("CreateEventByID"));
+    }
+
+    private void OnDisable()
+    {
+        Lua.UnregisterFunction("CreateEventByID");
     }
 
     /// <summary>
@@ -89,12 +103,12 @@ public class CharacterEventManager : MonoBehaviour
     /// <param name="eventID"></param>
     /// <param name="parent"></param>
     /// <returns></returns>
-    public EventBase CreateEvent(string eventID, Transform parent)
+    public EventBase CreateEventByID(string eventID )
     {
         var eventData = DataManager.Instance.GetEventByID(eventID);
         if (eventData == null) return null;
 
-        GameObject eventObj = DataManager.Instance.InstantiateEventPrefab(eventData, parent);
+        GameObject eventObj = DataManager.Instance.InstantiateEventPrefab(eventData, EventUIContainer);
         EventBase evt = eventObj.GetComponentInChildren<EventBase>();
         if (evt != null)
         {

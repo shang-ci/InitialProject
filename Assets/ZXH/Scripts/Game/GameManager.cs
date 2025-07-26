@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<string, int> choiceBasedEvents = new Dictionary<string, int>();
 
     [Header("事件数据")]
-    public Event_ZXH eventUI;
+    public Event_Item eventUI;
     private Dictionary<string, int> eventFirstAvailableDay = new Dictionary<string, int>();
 
     [Header("事件参数")]
@@ -113,11 +113,11 @@ public class GameManager : MonoBehaviour
 
             Debug.Log($"Event prefab instantiated: {eventUIInstance.name}");
 
-            eventUI = eventUIInstance.GetComponentInChildren<Event_ZXH>();
+            eventUI = eventUIInstance.GetComponentInChildren<Event_Item>();
 
             if (eventUI == null)
             {
-                Debug.LogError($"No Event_ZXH component found in {eventUIInstance.name} or its children");
+                Debug.LogError($"No Event_Item component found in {eventUIInstance.name} or its children");
 
                 // 打印子对象信息用于调试
                 foreach (Transform child in eventUIInstance.transform)
@@ -137,8 +137,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void EventTake()
     {
-        // 查找所有激活的 Event_ZXH 并调用 AddTime
-        var eventPanels = GameObject.FindObjectsOfType<Event_ZXH>(true);
+        // 查找所有激活的 Event_Item 并调用 AddTime
+        var eventPanels = GameObject.FindObjectsOfType<Event_Item>(true);
         foreach (var eventPanel in eventPanels)
         {
             // 只对激活的事件面板调用
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public bool RollTheDice(EventData eventData, float successProbability)
     {
-        Debug.Log($"Event_ZXH: 掷骰子，成功概率为 {successProbability * 100}%");
+        Debug.Log($"Event_Item: 掷骰子，成功概率为 {successProbability * 100}%");
         int diceSum = GetAllDiceCount(eventData);//骰子个数
         int threshold = eventData.SuccessThreshold;//成功阈值
 

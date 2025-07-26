@@ -17,8 +17,12 @@ public class DialogueLuaBridge : MonoBehaviour
 
         if(QuestConditionChecker.Instance != null)
         {
-            Lua.RegisterFunction("CanTriggerNabuhaniVisit", QuestConditionChecker.Instance, 
-                typeof(QuestConditionChecker).GetMethod("CanTriggerNabuhaniVisit"));
+            Debug.Log("QuestConditionChecker.Instance is not null, registering methods...");
+            // 注册检查奈布哈尼拜访条件的方法
+            Lua.RegisterFunction("CanTriggerNabuhaniVisit", QuestConditionChecker.Instance, typeof(QuestConditionChecker).GetMethod("CanTriggerNabuhaniVisit"));
+
+            //创建事件方法
+            Lua.RegisterFunction("CreateEventByID", CharacterEventManager.Instance, typeof(CharacterEventManager).GetMethod("CreateEventByID"));
         }
     }
 

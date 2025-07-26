@@ -1,3 +1,2 @@
-﻿EventID,EventType,SelectType,EventName,EventPrefab,Story,Tips,Attributes,DurationDays ,SuccessConditions,SuccessfulResults,FailedResults,RewardItemID
-E1001,Fixed,Card,暗影神殿,EventPrefab1,一个恶灵守护着传说中的......,献祭能避开战斗......,intelligence、charm,3,3,啊，你完成了暗影神殿事件,啊，暗影神殿事件失败,Armor
-E1002,Fixed,Card,奈布哈尼来访,EventPrefab2,,,,,,,,
+﻿EventID,EventType,SelectType,EventName,EventPrefab,Story,Tips,Attributes,Items,Coin,DurationDays ,SuccessConditions,SuccessfulResults,FailedResults,RewardItemID
+E1001,Fixed,Card,暗影神殿,Event_Item,一个恶灵守护着传说中的......,献祭能避开战斗......,intelligence、charm,Armor,,3,3,啊，你完成了暗影神殿事件,啊，暗影神殿事件失败,Armor

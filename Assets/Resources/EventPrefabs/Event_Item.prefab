@@ -673,8 +673,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9053798640011392780}
-        m_TargetAssemblyTypeName: Event_ZXH, Assembly-CSharp
+      - m_Target: {fileID: 325081989729132845}
+        m_TargetAssemblyTypeName: EventBase, Assembly-CSharp
         m_MethodName: SetRight
         m_Mode: 1
         m_Arguments:
@@ -1376,8 +1376,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9053798640011392780}
-        m_TargetAssemblyTypeName: Event_ZXH, Assembly-CSharp
+      - m_Target: {fileID: 325081989729132845}
+        m_TargetAssemblyTypeName: EventBase, Assembly-CSharp
         m_MethodName: ExpandTwo
         m_Mode: 1
         m_Arguments:
@@ -1609,9 +1609,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7969220714177260910}
-  - component: {fileID: 9053798640011392780}
+  - component: {fileID: 325081989729132845}
   m_Layer: 5
-  m_Name: EventPrefab1
+  m_Name: Event_Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1639,7 +1639,7 @@ RectTransform:
   m_AnchoredPosition: {x: -68, y: 155}
   m_SizeDelta: {x: 1300, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9053798640011392780
+--- !u!114 &325081989729132845
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1648,7 +1648,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2788579759704914838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de1177ff2d704124ca9e503ba7a65990, type: 3}
+  m_Script: {fileID: 11500000, guid: c5899c5cf5a00154c9b0335533da8c47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentDay: 0
@@ -1662,10 +1662,10 @@ MonoBehaviour:
   Story: {fileID: 0}
   Tips: {fileID: 0}
   DurationDays: {fileID: 0}
-  SuccessThreshold: {fileID: 0}
-  successProbability: 0.5
-  t: 0
-  isSuccess: 0
+  successProbability: 1
+  numberOfSuccesses: 0
+  isSuccess_Dice: 0
+  isSuccess_Event: 0
   CardSlots: []
   attributeRequirementItemPrefab: {fileID: 5072627080818119159, guid: d2d0120648128ae499d0c16551c830f8, type: 3}
   attributesContainer: {fileID: 5563882210513247385}
@@ -1674,6 +1674,7 @@ MonoBehaviour:
   Reward_Card: {fileID: 7948667412710870357}
   Result_Dice: {fileID: 2378722959496846546}
   Name: {fileID: 4042738605980370941}
+  RequiredItems: []
 --- !u!1 &2890876674968556067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2895,9 +2896,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9053798640011392780}
-        m_TargetAssemblyTypeName: Event_ZXH, Assembly-CSharp
-        m_MethodName: ExpandOne
+      - m_Target: {fileID: 325081989729132845}
+        m_TargetAssemblyTypeName: EventBase, Assembly-CSharp
+        m_MethodName: SetCloseEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3443,7 +3444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8893993335242433984
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3988,8 +3989,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9053798640011392780}
-        m_TargetAssemblyTypeName: Event_ZXH, Assembly-CSharp
+      - m_Target: {fileID: 325081989729132845}
+        m_TargetAssemblyTypeName: EventBase, Assembly-CSharp
         m_MethodName: ExpandOne
         m_Mode: 1
         m_Arguments:
