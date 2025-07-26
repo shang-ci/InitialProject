@@ -3724,16 +3724,13 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'RegisterChoiceInLua("kaiqiyinpa_006");
-
-        Variable["Wisdom"]
-        = Variable["Wisdom"] +100;'
+      userScript: RegisterChoiceInLua("kaiqiyinpa_006")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 77.5
+        x: 76.5
         y: 219.5
         width: 160
         height: 30
