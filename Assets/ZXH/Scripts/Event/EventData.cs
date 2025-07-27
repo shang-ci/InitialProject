@@ -5,7 +5,6 @@ using UnityEngine;
 
 /// <summary>
 /// 存储单个事件所有信息的数据类
-/// 它不继承 MonoBehaviour，是一个纯粹的 C# 数据容器
 /// </summary>
 [System.Serializable]
 public class EventData
@@ -20,6 +19,7 @@ public class EventData
     public List<string> RequiredAttributes { get; private set; } // 需要的属性，已解析为列表
     public List<string> RequiredItems { get; private set; } // 需要的物品
     public int RequiredCoin { get; private set; } //需要的金币
+    public Role RequiredRole { get; private set; } //需要的角色 
     public int DurationDays { get; private set; }// 事件持续的天数
     public int SuccessThreshold { get; private set; } // 成功的条件/阈值，投出的成功骰子需要大于这个数
     public string SuccessfulResults { get; private set; } // 成功的结果文本
@@ -49,17 +49,18 @@ public class EventData
             // Trim()可以去除每个元素前后的空格，以防 "a, b" 这种情况
             RequiredAttributes = rawData[7].Split('、').Select(s => s.Trim()).ToList();
             RequiredItems = rawData[8].Split('、').Select(s  => s.Trim()).ToList();
-            RequiredCoin = int .Parse(rawData[9]);
+            RequiredCoin = int.Parse(rawData[9]);
+            RequiredRole = (Role)Enum.Parse(typeof(Role), rawData[10], true);
 
-            DurationDays = int.Parse(rawData[10]);
-            SuccessThreshold = int.Parse(rawData[11]);
+            DurationDays = int.Parse(rawData[11]);
+            SuccessThreshold = int.Parse(rawData[12]);
 
-            SuccessfulResults = rawData[12];
-            FailedResults = rawData[13];
+            SuccessfulResults = rawData[13];
+            FailedResults = rawData[14];
 
-            RewardItemIDs = rawData[14].Split('、').Select(s => s.Trim()).ToList();
-            SuccessEvent = rawData[15]; // 成功后续事件ID
-            FailedEvent = rawData[16]; // 失败后续事件ID
+            RewardItemIDs = rawData[15].Split('、').Select(s => s.Trim()).ToList();
+            SuccessEvent = rawData[16]; // 成功后续事件ID
+            FailedEvent = rawData[17]; // 失败后续事件ID
         }
         catch (Exception e)
         {

@@ -17211,7 +17211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2301227827579682073
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23261,20 +23261,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: 
   attributes:
-    basePhysique: 0
+    basePhysique: 3
     currentPhysique: 0
-    baseSocial: 0
+    baseSocial: 2
     currentSocial: 0
-    baseSurvival: 0
+    baseSurvival: 1
     currentSurvival: 0
-    baseIntelligence: 0
+    baseIntelligence: 2
     currentIntelligence: 0
-    baseCharm: 0
+    baseCharm: 4
     currentCharm: 0
-    baseCombat: 0
+    baseCombat: 6
     currentCombat: 0
   currentHealth: 30
   inventory: {fileID: 0}
+  roleList: 
 --- !u!224 &3253267228767583329
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41122,7 +41123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5963776882111425683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61902,7 +61903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_GridID: -1
-  m_Canvas: {fileID: 0}
+  m_Canvas: {fileID: 1438168807}
   m_GridSize: {x: 4, y: 4}
   m_SetRealElementCountAsMax: 1
   m_MaxElementCount: 100
