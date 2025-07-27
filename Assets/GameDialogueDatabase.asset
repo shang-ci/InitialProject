@@ -3724,7 +3724,10 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: RegisterChoiceInLua("kaiqiyinpa_006")
+      userScript: 'RegisterChoiceInLua("kaiqiyinpa_006");
+
+        Variable["Wisdom"]
+        = Variable["Wisdom"] + 100'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -4601,14 +4604,14 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: GetAttribute("charm") >= 0
+      conditionsString: Variable["currentCharm"] >= 0
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 81.2195
+        x: 80.43825
         y: 386
         width: 160
         height: 30
@@ -4666,7 +4669,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: GetAttribute("charm") < 0
+      conditionsString: Variable["currentCharm"] < 0
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -4678,8 +4681,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.8200002
+    canvasScrollPosition: {x: 0, y: 164.06242}
+    canvasZoom: 0.64000034
   syncInfo:
     syncActors: 0
     syncItems: 0
