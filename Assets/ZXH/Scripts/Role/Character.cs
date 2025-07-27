@@ -35,9 +35,6 @@ public class Character : MonoBehaviour
     protected CurrencyOwner m_CurrencyOwner; // 货币拥有者组件
     //private Dictionary<string, ItemDefinition> m_DefinitionCache;
 
-    [Header("角色")]
-    [SerializeField] public List<Role> roleList; //暂存的角色
-
     private void Awake()
     {
         if (Instance == null)

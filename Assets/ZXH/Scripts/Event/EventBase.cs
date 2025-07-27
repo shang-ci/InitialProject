@@ -63,7 +63,7 @@ public abstract class EventBase : MonoBehaviour
     }
 
 
-    protected virtual void Start()
+    private void Start()
     {
         AddTime(); //第一天
     }

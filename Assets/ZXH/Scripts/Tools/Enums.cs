@@ -1,34 +1,27 @@
-ï»¿
+
 public enum CardType
 {
-    Role,   // è§’è‰²
-    Intel,  // æƒ…æŠ¥
-    Book,   // ä¹¦ç±
-    Coin,    // é‡‘å¸
-    Equip,   // è£…å¤‡
+    Role,   // ½ÇÉ«
+    Intel,  // Çé±¨
+    Book,   // Êé¼®
+    Coin,    // ½ğ±Ò
+    Equip,   // ×°±¸
 }
 
 /// <summary>
-/// äº‹ä»¶ç±»å‹â€”â€”ç”¨äºåŒºåˆ†äº‹ä»¶çš„è§¦å‘æ–¹å¼
+/// ÊÂ¼şÀàĞÍ¡ª¡ªÓÃÓÚÇø·ÖÊÂ¼şµÄ´¥·¢·½Ê½
 /// </summary>
 public enum EventType
 {
-    Fixed,   // å›ºå®šäº‹ä»¶
-    Timed    // æ—¶é—´äº‹ä»¶
+    Fixed,   // ¹Ì¶¨ÊÂ¼ş
+    Timed    // Ê±¼äÊÂ¼ş
 }
 
 /// <summary>
-/// é€‰æ‹©ç±»å‹â€”â€”ç”¨äºåŒºåˆ†äº‹ä»¶çš„å¤„ç†æ–¹å¼
+/// Ñ¡ÔñÀàĞÍ¡ª¡ªÓÃÓÚÇø·ÖÊÂ¼şµÄ´¦Àí·½Ê½
 /// </summary>
 public enum SelectType
 {
-    Card,    // å¡ç‰Œé€‰æ‹©
-    Option   // é€‰é¡¹é€‰æ‹©
-}
-
-public enum Role
-{
-    ZhangJiao,
-    LiBai,
-    ZhuDi
+    Card,    // ¿¨ÅÆÑ¡Ôñ
+    Option   // Ñ¡ÏîÑ¡Ôñ
 }
