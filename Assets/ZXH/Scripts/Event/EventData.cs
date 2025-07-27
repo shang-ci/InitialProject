@@ -26,6 +26,8 @@ public class EventData
     public string FailedResults { get; private set; } // 失败的结果文本
 
     public List<string> RewardItemIDs { get; private set; } // 奖励物品ID，已解析为列表
+    public string SuccessEvent { get; private set; } // 成功的后续事件ID
+    public string FailedEvent { get; private set; } // 失败的后续事件ID
 
     // 构造函数：负责将从CSV读取的原始字符串数据，解析并填充到类的属性中
     public EventData(string[] rawData)
@@ -56,6 +58,8 @@ public class EventData
             FailedResults = rawData[13];
 
             RewardItemIDs = rawData[14].Split('、').Select(s => s.Trim()).ToList();
+            SuccessEvent = rawData[15]; // 成功后续事件ID
+            FailedEvent = rawData[16]; // 失败后续事件ID
         }
         catch (Exception e)
         {

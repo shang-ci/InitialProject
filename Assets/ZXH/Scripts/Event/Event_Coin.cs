@@ -1,30 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
+using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.UI;
 
-/// <summary>
-/// 需要物品的事件类
-/// </summary>
-public class Event_Item : EventBase
+public class Event_Coin : EventBase
 {
     [Header("事件属性")]
-    [SerializeField] protected List<string> RequiredItems; // 需要的物品列表
+    [SerializeField] private int requiredCoin; // 需要的金币数量
+    [SerializeField] private string currencyName = "Bronze"; // 需要的金币类型名称
+
+    [SerializeField] private TMP_InputField coinInput;// 输入
+    [SerializeField] private int amount; // 玩家消耗的金币数量
+
+
+    private void OnEnable()
+    {
+        coinInput.onValueChanged.AddListener(OnCoinInputChanged);
+    }
+
+    private void OnDestroy()
+    {
+        coinInput.onValueChanged.RemoveListener(OnCoinInputChanged);
+    }
+
 
     public override void Initialize(EventData eventData)
     {
         base.Initialize(eventData);
 
-        RequiredItems = eventData.RequiredItems;
+        requiredCoin = eventData.RequiredCoin; 
     }
+
 
     protected override void ExecutionEvent(EventData eventData)
     {
         isEventActive = true;
 
-        //属性和文本都过关
-        if (RollTheDice_CharacterStat(eventData, successProbability) && Character.Instance.HasAllEquipByDefinitionNames(RequiredItems))
+        //属性和金币都过关
+        if (RollTheDice_CharacterStat(eventData, successProbability) && Character.Instance.SpendCurrency(currencyName, amount))
         {
             // 成功逻辑
             Result_Story.text = eventData.SuccessfulResults;
@@ -35,22 +50,22 @@ public class Event_Item : EventBase
             GameManager.Instance.RegisterChoice(eventData.SuccessEvent); // 注册成功事件
             GiveRewards_CharacterStat(eventData); // 发放奖励
         }
-        //属性过关但物品不满足要求
+        //属性过关但金币不满足要求
         else if (RollTheDice_CharacterStat(eventData, successProbability))
         {
-            // 成功但没有满足物品要求
-            Result_Story.text = eventData.FailedResults + "骰子成功，但没有满足所有物品要求。";
+            // 成功但没有满足金币要求
+            Result_Story.text = eventData.FailedResults + "骰子成功，但没有满足金币要求";
             Result_Dice.text = $"成功骰子的个数：{numberOfSuccesses}";
             Reward_Card.text = "没有奖励";
 
-            GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册成功事件
+            GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册失败事件
             isSuccess_Event = false;
         }
-        //物品满足但属性不满足
-        else if (Character.Instance.HasAllEquipByDefinitionNames(RequiredItems))
+        //金币满足但属性不满足
+        else if (Character.Instance.SpendCurrency(currencyName, amount))
         {
             // 失败逻辑
-            Result_Story.text = eventData.FailedResults + "装备满足，但骰子不满足要求。";
+            Result_Story.text = eventData.FailedResults + "金币满足，但骰子不满足要求";
             Result_Dice.text = $"成功骰子的个数：{numberOfSuccesses}";
             Reward_Card.text = "没有奖励";
 
@@ -61,7 +76,7 @@ public class Event_Item : EventBase
         else
         {
             // 失败逻辑
-            Result_Story.text = eventData.FailedResults + "骰子和装备都不满足";
+            Result_Story.text = eventData.FailedResults + "骰子和金币都不满足";
             Result_Dice.text = $"成功骰子的个数：{numberOfSuccesses}";
             Reward_Card.text = "没有奖励";
 
@@ -82,5 +97,18 @@ public class Event_Item : EventBase
             }
 
         }
+    }
+
+    private void OnCoinInputChanged(string value)
+    {
+        if (int.TryParse(value, out int v))
+        {
+            amount = v;
+        }
+        else
+        {
+            amount = 0;
+        }
+        Debug.Log($"输入框变更，amount = {amount}");
     }
 }

@@ -46,6 +46,9 @@ public abstract class EventBase : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI Result_Dice; // 骰子的结果
     [SerializeField] protected TextMeshProUGUI Name; // 事件名字
 
+    [Header("后续事件")]
+    [SerializeField] protected string SuccessEvent; // 成功的后续事件ID
+    [SerializeField] protected string FailedEvent; // 失败的后续事件ID
 
     protected virtual void Awake()
     {
@@ -135,6 +138,8 @@ public abstract class EventBase : MonoBehaviour
 
             //Three
             Name.text = eventData.EventName;
+            SuccessEvent = eventData.SuccessEvent; // 成功后续事件ID
+            FailedEvent = eventData.FailedEvent; // 失败后续事件ID
             //剩下的要投完骰子才能用
 
         }
