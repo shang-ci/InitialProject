@@ -3733,7 +3733,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 77.5
+        x: 78
         y: 219.5
         width: 160
         height: 30
@@ -3802,7 +3802,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 288
-        y: 218
+        y: 218.5
         width: 160
         height: 30
     entryGroups: []
@@ -4682,7 +4682,7 @@ MonoBehaviour:
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.8200002
+    canvasZoom: 0.73000026
   syncInfo:
     syncActors: 0
     syncItems: 0

@@ -1421,10 +1421,8 @@ MonoBehaviour:
   - {fileID: 2050194292}
   - {fileID: 1061635557}
   - {fileID: 2129612640}
-  successProbability: 1
-  numberOfSuccesses: 0
-  isSuccess: 0
-  EventUIContainer_Card: {fileID: 0}
+  eventUI: {fileID: 0}
+  Inventory: {fileID: 0}
 --- !u!4 &579542369
 Transform:
   m_ObjectHideFlags: 0
@@ -1763,7 +1761,7 @@ PrefabInstance:
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: initialDatabase
       value: 
-      objectReference: {fileID: 11400000, guid: 8a915cbeb2d04fd4288943aa55b6f76c, type: 2}
+      objectReference: {fileID: 11400000, guid: 650a4c1d34bfeb94986709d1e7879bc3, type: 2}
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: displaySettings.dialogueUI
       value: 

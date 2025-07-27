@@ -3134,10 +3134,6 @@ MonoBehaviour:
   - {fileID: 897055914}
   - {fileID: 1394077645}
   eventUI: {fileID: 0}
-  successProbability: 1
-  numberOfSuccesses: 0
-  isSuccess: 0
-  EventUIContainer_Card: {fileID: 9090554198861416929}
   Inventory: {fileID: 0}
 --- !u!1 &5700554080381254623
 GameObject:
