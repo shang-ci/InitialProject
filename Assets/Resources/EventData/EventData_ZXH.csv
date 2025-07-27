@@ -1,3 +1,4 @@
-﻿EventID,EventType,SelectType,EventName,EventPrefab,Story,Tips,Attributes,Items,Coin,DurationDays ,SuccessConditions,SuccessfulResults,FailedResults,RewardItemID,SuccessEvent,FailedEvent
-E1001,Fixed,Card,散财童子,Event_Item,你是个大善人,请尽情挥霍吧,intelligence、charm,Armor,1,3,3,你真是个大善人呢,看来要多挣些了,Armor,ZXH,ZXH
-E1002,Fixed,Card,淫趴,Event_Coin,花钱买纵欲,当你的钱够多，魅力体力充沛时，会很受欢迎,physique、charm,Armor+1,20,2,10,哈哈，恭喜你完成淫趴,看来你的魅力/财力不太行,Armor+1,ZXH,ZXH2
+﻿EventID,EventType,SelectType,EventName,EventPrefab,Story,Tips,Attributes,Items,Coin,Role,DurationDays ,SuccessConditions,SuccessfulResults,FailedResults,RewardItemID,SuccessEvent,FailedEvent
+E1001,Fixed,Card,散财童子,Event_Item,你是个大善人,请尽情挥霍吧,intelligence、charm,Armor,1,ZhangJiao,3,9,你真是个大善人呢。,看来要多挣些了。,Armor,ZXH,ZXH
+E1002,Fixed,Card,淫趴,Event_Coin,花钱买纵欲,当你的钱够多，魅力体力充沛时，会很受欢迎,physique、charm,Armor+1,20,ZhangJiao,2,10,哈哈，恭喜你完成淫趴。,看来你的魅力/财力不太行。,Armor+1,ZXH,ZXH2
+E1003,Fixed,Card,决斗,Event_Role,请让朱棣上场收复北地吧，不然你就遭老罪了,只能允许指定人物上场哦,combat、intelligence,Armor+1,1,ZhuDi,3,10,明军威武！,皇帝你来当。,Armor+1,ZXH,ZXH2
