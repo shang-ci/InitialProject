@@ -3727,7 +3727,9 @@ MonoBehaviour:
       userScript: 'RegisterChoiceInLua("kaiqiyinpa_006");
 
         Variable["Wisdom"]
-        = Variable["Wisdom"] + 100'
+        = Variable["Wisdom"] +100;
+
+        CreateEventByID("E1002");'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -3795,7 +3797,9 @@ MonoBehaviour:
       userScript: 'RegisterChoiceInLua("routizhanlan_007");
 
         Variable["Wisdom"]
-        = Variable["Wisdom"] +100;'
+        = Variable["Wisdom"] +100;
+
+        CreateEventByID("E1001");'
       onExecute:
         m_PersistentCalls:
           m_Calls: []

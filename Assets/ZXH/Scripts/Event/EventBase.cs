@@ -28,7 +28,8 @@ public abstract class EventBase : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI DurationDays;// 事件持续天数
     [SerializeField] protected float successProbability = 1f;//成功概率
     [SerializeField] protected int numberOfSuccesses = 0;//成功次数
-    [SerializeField] protected bool isSuccess;
+    [SerializeField] protected bool isSuccess_Dice; // 是否成功骰子
+    [SerializeField] protected bool isSuccess_Event; // 是否成功事件
 
     [Header("Two动态生成引用")]
     [SerializeField] protected CardSlot[] CardSlots; // 卡牌槽数组，用于获取属性值——通过CardSlot来拿到卡牌槽
@@ -45,6 +46,9 @@ public abstract class EventBase : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI Result_Dice; // 骰子的结果
     [SerializeField] protected TextMeshProUGUI Name; // 事件名字
 
+    [Header("后续事件")]
+    [SerializeField] protected string SuccessEvent; // 成功的后续事件ID
+    [SerializeField] protected string FailedEvent; // 失败的后续事件ID
 
     protected virtual void Awake()
     {
@@ -58,10 +62,6 @@ public abstract class EventBase : MonoBehaviour
         CharacterEventManager.Instance?.RegisterEvent(this);
     }
 
-    protected virtual void OnDisable()
-    {
-        CharacterEventManager.Instance?.UnregisterEvent(this);
-    }
 
     private void Start()
     {
@@ -113,7 +113,7 @@ public abstract class EventBase : MonoBehaviour
         // 3. 动态生成属性需求列表
         foreach (string attributeName in eventData.RequiredAttributes)
         {
-            Debug.Log($"Event_ZXH:添加属性{attributeName}");
+            Debug.Log($"Event_Item:添加属性{attributeName}");
             // 实例化列表项预制体
             GameObject itemInstance = Instantiate(attributeRequirementItemPrefab, attributesContainer);
 
@@ -138,6 +138,8 @@ public abstract class EventBase : MonoBehaviour
 
             //Three
             Name.text = eventData.EventName;
+            SuccessEvent = eventData.SuccessEvent; // 成功后续事件ID
+            FailedEvent = eventData.FailedEvent; // 失败后续事件ID
             //剩下的要投完骰子才能用
 
         }
@@ -180,7 +182,7 @@ public abstract class EventBase : MonoBehaviour
             if (tmp.name == name)
                 return tmp;
         }
-        Debug.LogError($"Event_ZXH: 未找到名为 {name} 的 TextMeshProUGUI 组件！");
+        Debug.LogError($"Event_Item: 未找到名为 {name} 的 TextMeshProUGUI 组件！");
         return null;
     }
 
@@ -250,11 +252,13 @@ public abstract class EventBase : MonoBehaviour
             Result_Dice.text = $"成功骰子的个数：{numberOfSuccesses}";
             Reward_Card.text = $"获得：{eventData.RewardItemIDs}"; // 这里可以替换为实际的奖励逻辑
 
+            isSuccess_Event = true; // 设置事件成功标志
             GiveRewards_CharacterStat(eventData); // 发放奖励
         }
         else
         {
             // 失败逻辑
+            isSuccess_Event = false; // 设置事件失败标志
             Result_Story.text = eventData.FailedResults;
             Result_Dice.text = $"成功骰子的个数：{numberOfSuccesses}";
             Reward_Card.text = "没有奖励";
@@ -304,7 +308,7 @@ public abstract class EventBase : MonoBehaviour
     /// </summary>
     protected virtual bool RollTheDice_CharacterStat(EventData eventData, float successProbability)
     {
-        Debug.Log($"Event_ZXH: 掷骰子，成功概率为 {successProbability * 100}%");
+        Debug.Log($"Event_Item: 掷骰子，成功概率为 {successProbability * 100}%");
         int diceSum = GetAllDiceCount(eventData);//骰子个数
         int threshold = eventData.SuccessThreshold;//成功阈值
 
@@ -325,14 +329,14 @@ public abstract class EventBase : MonoBehaviour
 
         if (numberOfSuccesses >= threshold)
         {
-            isSuccess = true;
+            isSuccess_Dice = true;
         }
         else
         {
-            isSuccess = false;
+            isSuccess_Dice = false;
         }
 
-        return isSuccess;
+        return isSuccess_Dice;
     }
 
     /// <summary>
@@ -349,6 +353,14 @@ public abstract class EventBase : MonoBehaviour
             sum += attributeValue;
         }
         return sum;
+    }
+
+    /// <summary>
+    /// 按钮关闭事件
+    /// </summary>
+    public virtual void SetCloseEvent()
+    {
+        CloseEvent();
     }
 
     #endregion

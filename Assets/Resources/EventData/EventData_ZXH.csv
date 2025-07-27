@@ -1,2 +1,3 @@
-﻿EventID,EventType,SelectType,EventName,EventPrefab,Story,Tips,Attributes,DurationDays ,SuccessConditions,SuccessfulResults,FailedResults,RewardItemID
-E1001,Fixed,Card,暗影神殿,EventPrefab1,一个恶灵守护着传说中的......,献祭能避开战斗......,intelligence、charm,3,3,啊，你完成了暗影神殿事件,啊，暗影神殿事件失败,Armor
+﻿EventID,EventType,SelectType,EventName,EventPrefab,Story,Tips,Attributes,Items,Coin,DurationDays ,SuccessConditions,SuccessfulResults,FailedResults,RewardItemID,SuccessEvent,FailedEvent
+E1001,Fixed,Card,散财童子,Event_Item,你是个大善人,请尽情挥霍吧,intelligence、charm,Armor,1,3,3,你真是个大善人呢,看来要多挣些了,Armor,ZXH,ZXH
+E1002,Fixed,Card,淫趴,Event_Coin,花钱买纵欲,当你的钱够多，魅力体力充沛时，会很受欢迎,physique、charm,Armor+1,20,2,10,哈哈，恭喜你完成淫趴,看来你的魅力/财力不太行,Armor+1,ZXH,ZXH2

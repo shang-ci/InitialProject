@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: 32
+  trigger: 16
   delayOneFrame: 0
   condition:
     luaConditions: []
@@ -2831,7 +2831,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5144655808377777200}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49886d0724866ac4abb6082947aa0994, type: 3}
   m_Name: 
@@ -24100,7 +24100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab8b685e62a9aeb4a9472b30ec2d86d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialDatabase: {fileID: 11400000, guid: 89cd86d6cdbe5ba4ea876f5b23009aa8, type: 2}
+  initialDatabase: {fileID: 11400000, guid: 6b453a06549f0824d9f425898b80f31a, type: 2}
   displaySettings:
     conversationOverrideSettings:
       useOverrides: 0
@@ -29809,7 +29809,7 @@ Transform:
   m_GameObject: {fileID: 4164128212367863107}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -7.84, y: 0.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -40809,6 +40809,7 @@ GameObject:
   - component: {fileID: 292569710159636650}
   - component: {fileID: 5144655808377777201}
   - component: {fileID: 5144655808377777202}
+  - component: {fileID: 5144655808377777203}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -40829,11 +40830,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDay: 1
-  eventUI: {fileID: 0}
-  successProbability: 1
-  numberOfSuccesses: 0
-  isSuccess: 0
-  EventUIContainer_Card: {fileID: 9014861863300970708}
   Inventory: {fileID: 8423041039998731530}
 --- !u!114 &5144655808377777202
 MonoBehaviour:
@@ -40848,6 +40844,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allEventData: []
+  activeEvents: []
+  EventUIContainer: {fileID: 9014861863300970708}
+--- !u!114 &5144655808377777203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144655808377777200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b3998b667b3114ea36e4dfccb5910a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerUsedLustCardInPleasureHouse: 0
+  isNabhaniSupporter: 0
+  isNabuhaniInHand: 1
 --- !u!114 &5154927942505744785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43195,6 +43208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9014861863300970708}
+  - component: {fileID: 9014861863300970709}
   m_Layer: 5
   m_Name: EventContainer
   m_TagString: Untagged
@@ -69724,9 +69738,35 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -219, y: -32}
+  m_AnchoredPosition: {x: -210, y: 246}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9014861863300970709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5489734292903824106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!222 &9014872466298539070
 CanvasRenderer:
   m_ObjectHideFlags: 0

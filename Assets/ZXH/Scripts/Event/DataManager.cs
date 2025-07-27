@@ -146,9 +146,22 @@ public class DataManager : MonoBehaviour
             Debug.LogError($"Failed to load event prefab from path: 'Resources/{prefabPath}'. Make sure the prefab exists and the name is correct.");
             return null;
         }
+        
+        return SpawnAtParentCenter(prefab, parent) ;
+    }
 
-        // 实例化并设置父节点
-        return Instantiate(prefab, parent);
+    /// <summary>
+    /// 用父节点的中心点位置实例化预制体
+    /// </summary>
+    /// <param name="prefab"></param>
+    /// <param name="parent"></param>
+    /// <returns></returns>
+    public GameObject SpawnAtParentCenter(GameObject prefab, Transform parent)
+    {
+        var instance = Instantiate(prefab, parent);
+        instance.transform.localPosition = Vector3.zero;
+        instance.transform.localRotation = Quaternion.identity;
+        return instance;
     }
     #endregion
 }
