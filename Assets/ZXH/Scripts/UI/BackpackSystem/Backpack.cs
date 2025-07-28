@@ -40,7 +40,6 @@ public class Backpack : MonoBehaviour
         SelectingEquipment  // 等待玩家选择一件装备卡
     }
 
-
     private void OnEnable()
     {
         equip.onClick.AddListener(StartEquipProcess);

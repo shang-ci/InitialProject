@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 剧情条件检查器
+/// </summary>
 public class QuestConditionChecker: MonoBehaviour
 {
     public static QuestConditionChecker Instance;

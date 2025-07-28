@@ -7,11 +7,10 @@ using UnityEngine.UI;
 
 public class Event_Role : EventBase
 {
+    [Header("事件属性")]
     [SerializeField] protected Role RequiredRole; // 需要的角色
-
-    [Header("UI 绑定")]
-    [SerializeField] private TMP_Dropdown roleDropdown;
-    [SerializeField] private Button confirmButton;
+    [SerializeField] private TMP_Dropdown roleDropdown;// 角色下拉框
+    [SerializeField] private Button confirmButton;// 确认按钮——可有可无
     [SerializeField] private TMP_Text feedbackText; // 错误或提示信息
 
     private Role? selectedRole;// 当前选中的角色

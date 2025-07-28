@@ -7,14 +7,13 @@ public class CharacterEventManager : MonoBehaviour
 {
     public static CharacterEventManager Instance { get; private set; }
 
-
     [Header("事件数据")]
-    // 所有事件数据
-    public List<EventData> allEventData = new List<EventData>();
-    // 当前激活的事件实例
-    [SerializeField] public List<EventBase> activeEvents = new List<EventBase>();
+    public List<EventData> allEventData = new List<EventData>();// 所有事件数据
+    [SerializeField] public List<EventBase> activeEvents = new List<EventBase>();// 当前激活的事件实例
 
+    [Header("UI容器")]
     public Transform EventUIContainer; // 事件UI容器
+
 
     private void Awake()
     {
@@ -39,6 +38,7 @@ public class CharacterEventManager : MonoBehaviour
         Lua.UnregisterFunction("CreateEventByID");
     }
 
+    #region 辅助
     /// <summary>
     /// 注册一个事件实例
     /// </summary>
@@ -83,6 +83,7 @@ public class CharacterEventManager : MonoBehaviour
             evt.AddTime();
         }
     }
+#endregion
 
     #region 创建、关闭事件
     /// <summary>

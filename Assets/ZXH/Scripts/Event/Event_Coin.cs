@@ -10,7 +10,6 @@ public class Event_Coin : EventBase
     [Header("事件属性")]
     [SerializeField] private int requiredCoin; // 需要的金币数量
     [SerializeField] private string currencyName = "Bronze"; // 需要的金币类型名称
-
     [SerializeField] private TMP_InputField coinInput;// 输入
     [SerializeField] private int amount; // 玩家消耗的金币数量
 
@@ -99,6 +98,10 @@ public class Event_Coin : EventBase
         }
     }
 
+    /// <summary>
+    /// 更新金币输入框的值
+    /// </summary>
+    /// <param name="value"></param>
     private void OnCoinInputChanged(string value)
     {
         if (int.TryParse(value, out int v))

@@ -95,7 +95,6 @@ public class Event_Item : EventBase
             Reward_Card.text = "没有奖励";
 
             GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册失败事件
-            CharacterEventManager.Instance.CreateEventByID("E1003");
             isSuccess_Event = false;
         }
         //都不满足

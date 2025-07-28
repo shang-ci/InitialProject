@@ -1,5 +1,4 @@
-﻿
-public enum CardType
+﻿public enum CardType
 {
     Role,   // 角色
     Intel,  // 情报
