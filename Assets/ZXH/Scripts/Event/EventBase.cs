@@ -8,9 +8,10 @@ public abstract class EventBase : MonoBehaviour
 {
     [Header("辅助字段")]
     [SerializeField] protected int currentDay = 0; // 倒计时，初始为1
-    [SerializeField] protected EventData eventData; // 用于存储当前事件数据
+    [SerializeField] public EventData eventData; // 用于存储当前事件数据
     [SerializeField] protected bool isEventActive = false; // 是否有事件在进行中
     [SerializeField] protected bool isBock;//是否锁住
+    [SerializeField] protected EventTriggerType triggerType; // 触发类型
 
     [Header("拖拽引用")]
     [SerializeField] protected GameObject One;
@@ -39,7 +40,6 @@ public abstract class EventBase : MonoBehaviour
     [SerializeField] protected Transform attributesContainer; //场景直接拖入
     [SerializeField] protected List<GameObject> spawnedAttributeItems = new List<GameObject>(); // 存储当前生成的列表项——属性值
 
-
     [Header("Three静态事件UI_拖拽")]
     [SerializeField] protected TextMeshProUGUI Result_Story; // 事件结果文案
     [SerializeField] protected TextMeshProUGUI Reward_Card; // 事件奖励——卡牌——直接把奖励的卡牌名字打印出来，卡牌直接加入到手牌库里
@@ -59,7 +59,8 @@ public abstract class EventBase : MonoBehaviour
 
         CardSlots = transform.GetComponentsInChildren<CardSlot>(true);
 
-        CharacterEventManager.Instance?.RegisterEvent(this);
+        //遵循“创建者负责注册”的原则——防止顺序问题造成的事件管理器未初始化
+        //CharacterEventManager.Instance?.RegisterEvent(this);
     }
 
 
@@ -91,6 +92,7 @@ public abstract class EventBase : MonoBehaviour
     public virtual void Initialize(EventData eventData)
     {
         this.eventData = eventData;
+        triggerType = eventData.triggerType; 
 
         //One
         EventName.text = eventData.EventName;
@@ -152,9 +154,6 @@ public abstract class EventBase : MonoBehaviour
     {
         // 关闭所有面板
         CloseAllPanels();
-
-        // 注销自己
-        CharacterEventManager.Instance?.UnregisterEvent(this);
 
         // 销毁事件UI对象
         Destroy(this.gameObject);
@@ -360,7 +359,7 @@ public abstract class EventBase : MonoBehaviour
     /// </summary>
     public virtual void SetCloseEvent()
     {
-        CloseEvent();
+        CharacterEventManager.Instance.CloseEvent(this); // 通知事件管理器关闭当前事件
     }
 
     #endregion
@@ -435,5 +434,4 @@ public abstract class EventBase : MonoBehaviour
     }
 
     #endregion
-
 }

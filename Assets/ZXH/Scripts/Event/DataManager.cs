@@ -10,10 +10,8 @@ public class DataManager : MonoBehaviour
     public static DataManager Instance { get; private set; }
 
     // 使用字典存储所有事件，Key是EventID，Value是事件数据，我们可以知道事件的名字来查找ID然后再拿到数据
-    // 通过ID查找事件
-    private Dictionary<string, EventData> eventDatabase = new Dictionary<string, EventData>();
+    public Dictionary<string, EventData> eventDatabase = new Dictionary<string, EventData>();
     private Dictionary<string, string> eventNameToIdMap = new Dictionary<string, string>();
-
 
     // CSV文件名，我们稍后会把它放在 Resources 文件夹下
     private const string EVENT_DATA_FILE_NAME = "EventData/EventData_ZXH";

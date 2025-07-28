@@ -28,6 +28,11 @@ public class EventData
     public List<string> RewardItemIDs { get; private set; } // 奖励物品ID，已解析为列表
     public string SuccessEvent { get; private set; } // 成功的后续事件ID
     public string FailedEvent { get; private set; } // 失败的后续事件ID
+    public EventTriggerType triggerType; // 触发类型
+
+    [Tooltip("该事件是否可以重复触发？如果为false，则成功完成一次后将不再触发")]
+    public bool IsRepeatable = false;
+    public List<EventTriggerConditionBase> Conditions { get; set; } // 事件触发条件列表
 
     // 构造函数：负责将从CSV读取的原始字符串数据，解析并填充到类的属性中
     public EventData(string[] rawData)
@@ -61,6 +66,35 @@ public class EventData
             RewardItemIDs = rawData[15].Split('、').Select(s => s.Trim()).ToList();
             SuccessEvent = rawData[16]; // 成功后续事件ID
             FailedEvent = rawData[17]; // 失败后续事件ID
+
+            // 事件触发条件的初始化
+            Conditions = new List<EventTriggerConditionBase>();
+
+            if (rawData.Length > 18 && !string.IsNullOrEmpty(rawData[18]))
+            {
+                string allConditionsString = rawData[18];
+
+                // 1. 用分号分割出每个单独的条件字符串
+                // "Item|GoldenKey|1;EventCompleted|EVT_001" -> ["Item|GoldenKey|1", "EventCompleted|EVT_001"]
+                string[] singleConditionStrings = allConditionsString.Split(';');
+
+                // 单个条件字符串
+                foreach (var conditionString in singleConditionStrings)
+                {
+                    // 2. 用竖线分割出条件的类型和参数
+                    // "Item|GoldenKey|1" -> ["Item", "GoldenKey", "1"]
+                    string[] parts = conditionString.Split('|');
+
+                    // 3. 使用工厂来创建具体的条件实例
+                    EventTriggerConditionBase condition = EventConditionFactory.CreateEventTriggerCondition(parts);
+
+                    if (condition != null)
+                    {
+                        // 4. 将创建好的条件添加到列表中
+                        Conditions.Add(condition);
+                    }
+                }
+            }
         }
         catch (Exception e)
         {

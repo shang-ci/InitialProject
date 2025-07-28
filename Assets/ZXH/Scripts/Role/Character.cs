@@ -58,7 +58,9 @@ public class Character : MonoBehaviour
             Debug.LogError("在游戏对象上找不到 CurrencyOwner 组件！请确保此脚本与 CurrencyOwner 附加在同一个对象上。", this);
         }
 
+        //初始化角色属性以及属性UI更新
         InitCharacterStat();
+        //UpdateAllAttributes();
     }
 
     private void OnEnable()
@@ -112,7 +114,7 @@ public class Character : MonoBehaviour
                   $"C{attributes.currentCharm}, Combat{attributes.currentCombat}");
 
         // 这里可以添加事件通知系统，通知其他系统属性已更新
-        foreach( var baseEvent in CharacterEventManager.Instance?.activeEvents)
+        foreach( var baseEvent in CharacterEventManager.Instance?.activeEventsDic.Values)
         {
             baseEvent.UpdateAttributeRequirementValues();
         }

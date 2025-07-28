@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-// 使用CreateAssetMenu特性，我们可以在Unity编辑器的 "Create" 菜单中直接创建这种资源文件。
+// 使用CreateAssetMenu特性，我们可以在Unity编辑器的 "CreateEventTriggerCondition" 菜单中直接创建这种资源文件。
 [CreateAssetMenu(fileName = "New CardData", menuName = "Card/Card Data")]
 public class CardData : ScriptableObject
 {
