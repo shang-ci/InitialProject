@@ -39,14 +39,12 @@ public class Event_Item : EventBase
         PopulateDropdown();
         itemDropdown.onValueChanged.AddListener(OnDropdownChanged);
         countInput.onValueChanged.AddListener(OnCountChanged);
-        consumeButton.onClick.AddListener(OnConsume);
     }
 
     private void OnDestroy()
     {
         countInput.onValueChanged.RemoveListener(OnCountChanged);
         itemDropdown.onValueChanged.RemoveListener(OnDropdownChanged);
-        consumeButton.onClick.RemoveListener(OnConsume);
     }
 
     public override void Initialize(EventData eventData)

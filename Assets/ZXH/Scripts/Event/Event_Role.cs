@@ -22,15 +22,12 @@ public class Event_Role : EventBase
 
         PopulateDropdown();
         roleDropdown.onValueChanged.AddListener(OnDropdownChanged);
-        confirmButton.onClick.AddListener(OnConfirm);
-        confirmButton.interactable = false;
         feedbackText.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
     {
         roleDropdown.onValueChanged.RemoveListener(OnDropdownChanged);
-        confirmButton.onClick.RemoveListener(OnConfirm);
     }
 
     protected override void ExecutionEvent(EventData eventData)
@@ -137,13 +134,11 @@ public class Event_Role : EventBase
             feedbackText.text = $"请选择正确角色（需：{RequiredRole}）";
             feedbackText.color = Color.red;
             feedbackText.gameObject.SetActive(true);
-            confirmButton.interactable = false;
             return;
         }
 
         // 匹配成功
         isRoleMatch = true;
-        confirmButton.interactable = true;
     }
 
     /// <summary>
