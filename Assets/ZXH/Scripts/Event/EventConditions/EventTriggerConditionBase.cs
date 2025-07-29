@@ -96,3 +96,11 @@ public class DirectCondition : EventTriggerConditionBase
         return true;
     }
 }
+
+public class AllDayCondition : EventTriggerConditionBase
+{
+    public override bool IsMet()
+    {
+        return true;
+    }
+}

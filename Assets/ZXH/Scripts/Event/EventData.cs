@@ -28,11 +28,11 @@ public class EventData
     public List<string> RewardItemIDs { get; private set; } // 奖励物品ID，已解析为列表
     public string SuccessEvent { get; private set; } // 成功的后续事件ID
     public string FailedEvent { get; private set; } // 失败的后续事件ID
-    public EventTriggerType triggerType; // 触发类型
 
     [Tooltip("该事件是否可以重复触发？如果为false，则成功完成一次后将不再触发")]
-    public bool IsRepeatable = false;
+    public bool IsRepeatable;
     public List<EventTriggerConditionBase> Conditions { get; set; } // 事件触发条件列表
+    public EventTriggerType triggerType; // 触发类型
 
     // 构造函数：负责将从CSV读取的原始字符串数据，解析并填充到类的属性中
     public EventData(string[] rawData)
@@ -94,6 +94,15 @@ public class EventData
                         Conditions.Add(condition);
                     }
                 }
+            }
+            
+            triggerType = (EventTriggerType)Enum.Parse(typeof(EventTriggerType), rawData[19], true);
+
+            IsRepeatable = false;
+            if (rawData.Length > 20)
+            {
+                // 使用 string.Equals 并忽略大小写
+                IsRepeatable = string.Equals(rawData[20].Trim(), "TRUE", System.StringComparison.OrdinalIgnoreCase);
             }
         }
         catch (Exception e)

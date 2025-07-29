@@ -32,7 +32,7 @@ public class GameManager_InZXHScene : MonoBehaviour
 
     public void AddTime()
     {
-        CharacterEventManager.Instance.AddTimeToAllEvents(); // 通知事件管理器所有事件增加时间
+        CharacterEventManager.Instance.ProcessActiveEventsOnNewDay(); // 通知事件管理器所有事件增加时间
         currentDay++;
     }
 

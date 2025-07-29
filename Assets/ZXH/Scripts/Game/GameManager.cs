@@ -54,7 +54,8 @@ public class GameManager : MonoBehaviour
 
         nextDayButton.gameObject.SetActive(true);
 
-        //Invoke("TestEventLoading", 1f);
+        //初始化创建事件
+        CharacterEventManager.Instance.TriggerNewEvents(); // 通知事件管理器触发新事件
     }
 
 
@@ -99,10 +100,11 @@ public class GameManager : MonoBehaviour
 
     public void NextDay()
     {
-        CharacterEventManager.Instance.AddTimeToAllEvents(); // 通知事件管理器所有事件增加时间
-
         currentDay++;
         UpdateDayUI();
+
+        CharacterEventManager.Instance.ProcessActiveEventsOnNewDay(); //处理所有激活事件的逻辑——该标记、注销的都被处理
+        CharacterEventManager.Instance.TriggerNewEvents(); // 通知事件管理器触发新事件——先让所有事件增加时间，再触发新事件
 
         //重置事件
         ResetEvents();

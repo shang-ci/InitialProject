@@ -7,11 +7,13 @@ using UnityEngine;
 public abstract class EventBase : MonoBehaviour
 {
     [Header("辅助字段")]
-    [SerializeField] protected int currentDay = 0; // 倒计时，初始为1
+    [SerializeField] protected int currentDay = 0; // 被激活的持续时间
     [SerializeField] public EventData eventData; // 用于存储当前事件数据
-    [SerializeField] protected bool isEventActive = false; // 是否有事件在进行中
+    [SerializeField] public bool isEventActive = false; // 是否有事件在进行中
     [SerializeField] protected bool isBock;//是否锁住
     [SerializeField] protected EventTriggerType triggerType; // 触发类型
+    [SerializeField] protected bool IsRepeatable; //是否可重复触发
+    [SerializeField] protected List<EventTriggerConditionBase> Conditions { get; set; } // 事件触发条件列表
 
     [Header("拖拽引用")]
     [SerializeField] protected GameObject One;
@@ -75,7 +77,6 @@ public abstract class EventBase : MonoBehaviour
     /// </summary>
     public void AddTime()
     {
-        currentDay++;
         if (eventData.DurationDays <= currentDay && !isEventActive)
         {
             ExecutionEvent(eventData); // 执行事件逻辑
@@ -83,7 +84,7 @@ public abstract class EventBase : MonoBehaviour
         }
         EventTime.text = (eventData.DurationDays - currentDay).ToString();
         DurationDays.text = $"剩余: {eventData.DurationDays - currentDay} 天"; // 更新UI显示剩余天数
-
+        currentDay++;//把当前天数加1放在判断的后面，防止事件在第一天就结束了——游戏一开始就会天数加1
     }
 
     /// <summary>
@@ -93,6 +94,8 @@ public abstract class EventBase : MonoBehaviour
     {
         this.eventData = eventData;
         triggerType = eventData.triggerType; 
+        IsRepeatable = eventData.IsRepeatable;
+        Conditions = eventData.Conditions;
 
         //One
         EventName.text = eventData.EventName;
@@ -355,11 +358,11 @@ public abstract class EventBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 按钮关闭事件
+    /// 按钮关闭事件——这里把玩家操作与事件管理分离了，当事件完成时就要被注销，而不是等玩家按下按钮
     /// </summary>
     public virtual void SetCloseEvent()
     {
-        CharacterEventManager.Instance.CloseEvent(this); // 通知事件管理器关闭当前事件
+        CloseEvent();
     }
 
     #endregion

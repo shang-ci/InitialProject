@@ -24,6 +24,8 @@ public static class EventConditionFactory
                     return new RandomCondition{ Chance = float.Parse(parts[1]) };
                 case "Direct":
                     return new DirectCondition();
+                case "AllDay":
+                    return new AllDayCondition();
                 default:
                     Debug.LogWarning($"未知的事件条件类型: '{type}'");
                     return null;

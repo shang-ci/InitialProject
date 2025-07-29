@@ -38,7 +38,11 @@ public class CharacterEventManager : MonoBehaviour
 
     private void Start()
     {
-
+        //拿到所有事件数据
+        foreach (var item in DataManager.Instance.eventDatabase.Values)
+        {
+            allEventData.Add(item);
+        }
     }
 
     private void OnEnable()
@@ -95,13 +99,29 @@ public class CharacterEventManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 批量推进所有事件一天
+    /// 处理所有激活事件的逻辑——该标记、注销的都被处理
     /// </summary>
-    public void AddTimeToAllEvents()
+    public void ProcessActiveEventsOnNewDay()
     {
+        //需要关闭的事件列表/注销
+        List<EventBase> eventsToClose = new List<EventBase>();
+
+        // 遍历当前所有激活的事件
         foreach (var evt in activeEventsDic.Values)
         {
             evt.AddTime();
+
+            // 检查事件是否已经执行
+            if (evt.isEventActive)
+            {
+                eventsToClose.Add(evt);
+            }
+        }
+
+        foreach (var evt in eventsToClose)
+        {
+            // CloseEvent 方法会处理注销、标记完成和销毁对象的所有逻辑
+            CloseEvent(evt);
         }
     }
     #endregion
@@ -150,8 +170,22 @@ public class CharacterEventManager : MonoBehaviour
     #endregion
 
     #region 创建、关闭事件
+
     /// <summary>
-    /// 关闭一个事件，将其从激活列表移除，并标记为已完成。
+    /// 遍历所有事件定义，尝试创建那些满足条件的事件
+    /// </summary>
+    public void TriggerNewEvents()
+    {
+        foreach (var eventData in allEventData)
+        {
+            //把直接创建的事件排除只能等外界调用
+            if(eventData.triggerType != EventTriggerType.DirectCondition) 
+            CreateEventByID(eventData.EventID);
+        }
+    }
+
+    /// <summary>
+    /// 关闭一个事件，将其从激活列表移除，并标记为已完成
     /// </summary>
     public void CloseEvent(EventBase evt)
     {
@@ -160,8 +194,8 @@ public class CharacterEventManager : MonoBehaviour
         UnregisterEvent(evt);
         MarkEventAsCompleted(evt.eventData.EventID);// 当关闭事件时统一将事件标记为已完成
 
-        // 调用事件自身的清理方法 (例如销毁GameObject)
-        evt.CloseEvent();
+        //// 调用事件自身的清理方法
+        //evt.CloseEvent();——这里把玩家操作与事件管理分离了，当事件完成时就要被注销，而不是等玩家按下按钮
     }
 
     /// <summary>
@@ -205,12 +239,12 @@ public class CharacterEventManager : MonoBehaviour
         if (eventData == null) return false;
 
         // 1. 通用检查：事件是否已激活
-        //if (activeEventsList.ContainsKey(eventData.EventID)) return false;
+        if (activeEventsDic.ContainsKey(eventData.EventID)) return false;
 
-        // 2. 通用检查：不可重复的事件是否已完成
-        //if (!eventData.IsRepeatable && IsEventCompleted(eventData.EventID)) return false;
+        // 2. 通用检查：不可重复的事件是否已完成——已完成的事件如果不可重复，则不能再次创建
+        if (!eventData.IsRepeatable && IsEventCompleted(eventData.EventID)) return false;
 
-        // 3. 遍历并检查所有具体条件 (这段代码和上一版完全一样，但现在它处理的是从CSV动态创建的条件)
+        // 3. 遍历并检查所有具体条件
         foreach (var condition in eventData.Conditions)
         {
             if (!condition.IsMet())

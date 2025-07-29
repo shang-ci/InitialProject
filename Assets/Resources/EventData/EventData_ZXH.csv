@@ -1,4 +1,9 @@
-﻿EventID,EventType,SelectType,EventName,EventPrefab,Story,Tips,Attributes,Items,Coin,Role,DurationDays ,SuccessConditions,SuccessfulResults,FailedResults,RewardItemID,SuccessEvent,FailedEvent,EventTriggerCondition
-E1001,Fixed,Card,散财童子,Event_Item,你是个大善人,请尽情挥霍吧,intelligence、charm,Armor,1,ZhangJiao,3,9,你真是个大善人呢。,看来要多挣些了。,Armor,ZXH,ZXH,Direct
-E1002,Fixed,Card,淫趴,Event_Coin,花钱买纵欲,当你的钱够多魅力体力充沛时会很受欢迎,physique、charm,Armor+1,20,ZhangJiao,2,10,哈哈恭喜你完成淫趴。,看来你的魅力/财力不太行。,Armor+1,ZXH,ZXH2,Direct
-E1003,Fixed,Card,决斗,Event_Role,请让朱棣上场收复北地吧不然你就遭老罪了,只能允许指定人物上场哦,combat、intelligence,Armor+1,1,ZhuDi,3,10,明军威武！,皇帝你来当。,Armor+1,ZXH,ZXH2,Direct
+﻿EventID,EventType,SelectType,EventName,EventPrefab,Story,Tips,Attributes,Items,Coin,Role,DurationDays ,SuccessConditions,SuccessfulResults,FailedResults,RewardItemID,SuccessEvent,FailedEvent,EventTriggerCondition,EventTriggerType,IsRepeatable
+E1001,Fixed,Card,散财童子,Event_Item,你是个大善人,请尽情挥霍吧,intelligence、charm,Armor,1,ZhangJiao,3,9,你真是个大善人呢。,看来要多挣些了。,Armor,ZXH,ZXH,Direct,DirectCondition,FALSE
+E1002,Fixed,Card,淫趴,Event_Coin,花钱买纵欲,当你的钱够多魅力体力充沛时会很受欢迎,physique、charm,Armor+1,20,ZhangJiao,1,10,哈哈恭喜你完成淫趴。,看来你的魅力/财力不太行。,Armor+1,ZXH,ZXH2,Direct,DirectCondition,FALSE
+E1003,Fixed,Card,决斗,Event_Role,请让朱棣上场收复北地吧不然你就遭老罪了,只能允许指定人物上场哦,combat、intelligence,Armor+1,1,ZhuDi,3,10,明军威武！,皇帝你来当。,Armor+1,ZXH,ZXH2,Direct,DirectCondition,FALSE
+E1004,Fixed,Card,上课,Event_Item,到点上课、记得带你的书,千万不要迟到,physique,DuoBaoQiBing,0,0,1,0,上完课了,看来你睡过头了,DuoBaoQiBing,ZXH,ZXH,Direct,DirectCondition,FALSE
+E1005,Fixed,Card,上课,Event_Base,上课请做好回答问题的准备,自由发挥,intelligence、charm,DuoBaoQiBing,0,0,0,2,回答问题,回答问题,Armor,回答问题,回答问题,Direct,DirectCondition,FALSE
+E1006,Fixed,Card,饿了,Event_Base,真饿了、快掉HP了,快去吃饭,physique,Armor,0,0,0,0,快去吃东西啊混蛋,快去吃东西啊混蛋,Armor,饿得受不了,饿得受不了,Direct,DirectCondition,FALSE
+E1007,Fixed,Card,图书馆,Event_Base,来到图书馆、请保持安静,这有许多剧情等着你触发,intelligence、charm,Armor,0,0,1,0,你进入了图书馆、请认真探索,无,Armor,图书馆,图书馆,AllDay,AllDay,TRUE
+E1008,Fixed,Card,图书馆学习,Event_Base,来到图书馆就是学,请尽情的学习吧、不会有任何人打扰到你,intelligence,Armor,0,0,1,2,ok啊、今天又学了不少、爽！,下次一定能学进去,Armor,图书馆学习成功,图书馆学习失败,Direct,DirectCondition,FALSE
