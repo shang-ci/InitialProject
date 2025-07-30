@@ -6,6 +6,8 @@ public class EventBaseClass : EventBase
 {
     protected override void ExecutionEvent(EventData eventData)
     {
+        if (!isBock) return; // 如果没有锁定事件,表示玩家还没有确认选择就算到期也不会执行事件逻辑
+
         isEventActive = true;
 
         if (RollTheDice_CharacterStat(eventData, successProbability))

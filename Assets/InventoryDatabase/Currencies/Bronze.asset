@@ -24,7 +24,7 @@ MonoBehaviour:
     m_Values: 0000000000000000
     m_UnityObjects: []
     m_Version: 3.4
-  m_MaxAmount: 99
+  m_MaxAmount: 10000
   m_OverflowCurrency: {fileID: 0}
   m_FractionCurrency: {fileID: 0}
   m_Icon: {fileID: 141271680697106295, guid: 12ab13dfdcd42254db7df2308b7102b1, type: 3}

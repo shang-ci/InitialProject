@@ -35,6 +35,8 @@ public class Event_Coin : EventBase
 
     protected override void ExecutionEvent(EventData eventData)
     {
+        if (!isBock) return; // 如果没有锁定事件,表示玩家还没有确认选择就算到期也不会执行事件逻辑
+
         isEventActive = true;
 
         //属性和金币都过关

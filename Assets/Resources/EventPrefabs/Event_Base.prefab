@@ -1607,6 +1607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7969220714177260910}
   - component: {fileID: 460026846489467644}
+  - component: {fileID: 3719015039890617194}
   m_Layer: 5
   m_Name: Event_Base
   m_TagString: Untagged
@@ -1659,6 +1660,7 @@ MonoBehaviour:
   One: {fileID: 7928831449105359566}
   Two: {fileID: 7905737184158548522}
   Three: {fileID: 1639055753431227215}
+  mainCanvasGroup: {fileID: 3719015039890617194}
   EventName: {fileID: 1937304644308709435}
   EventTime: {fileID: 467925384164862321}
   Story: {fileID: 0}
@@ -1678,6 +1680,18 @@ MonoBehaviour:
   Name: {fileID: 4042738605980370941}
   SuccessEvent: 
   FailedEvent: 
+--- !u!225 &3719015039890617194
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788579759704914838}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2890876674968556067
 GameObject:
   m_ObjectHideFlags: 0

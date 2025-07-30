@@ -2404,6 +2404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7969220714177260910}
   - component: {fileID: 325081989729132845}
+  - component: {fileID: 4160299410714497517}
   m_Layer: 5
   m_Name: Event_Item
   m_TagString: Untagged
@@ -2446,11 +2447,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDay: 0
+  eventData:
+    IsRepeatable: 0
+    triggerType: 0
   isEventActive: 0
   isBock: 0
+  triggerType: 0
+  IsRepeatable: 0
   One: {fileID: 7928831449105359566}
   Two: {fileID: 7905737184158548522}
   Three: {fileID: 1639055753431227215}
+  mainCanvasGroup: {fileID: 4160299410714497517}
   EventName: {fileID: 1937304644308709435}
   EventTime: {fileID: 467925384164862321}
   Story: {fileID: 0}
@@ -2476,6 +2483,18 @@ MonoBehaviour:
   consumeButton: {fileID: 3930553316829856851}
   errorText: {fileID: 7275056380354085790}
   isConsumable: 0
+--- !u!225 &4160299410714497517
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788579759704914838}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2890876674968556067
 GameObject:
   m_ObjectHideFlags: 0

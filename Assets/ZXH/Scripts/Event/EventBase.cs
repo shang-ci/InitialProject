@@ -19,6 +19,7 @@ public abstract class EventBase : MonoBehaviour
     [SerializeField] protected GameObject One;
     [SerializeField] protected GameObject Two;
     [SerializeField] protected GameObject Three;
+    [SerializeField] protected CanvasGroup mainCanvasGroup;
 
     [Header("One静态事件UI_拖拽")]
     [SerializeField] protected TextMeshProUGUI EventName; // 事件名称
@@ -61,6 +62,8 @@ public abstract class EventBase : MonoBehaviour
 
         CardSlots = transform.GetComponentsInChildren<CardSlot>(true);
 
+        //更新事件属性需求列表的值
+        UpdateAttributeRequirementValues();
         //遵循“创建者负责注册”的原则——防止顺序问题造成的事件管理器未初始化
         //CharacterEventManager.Instance?.RegisterEvent(this);
     }
@@ -213,6 +216,12 @@ public abstract class EventBase : MonoBehaviour
                 slot.SetInteractable(false);
             }
         }
+
+        // 用整个面板的交互
+        if (mainCanvasGroup != null)
+        {
+            mainCanvasGroup.interactable = false;
+        }
     }
 
     /// <summary>
@@ -245,6 +254,8 @@ public abstract class EventBase : MonoBehaviour
     /// <param name="eventData"></param>
     protected virtual void ExecutionEvent(EventData eventData)
     {
+        if (!isBock) return; // 如果没有锁定事件,表示玩家还没有确认选择就算到期也不会执行事件逻辑
+
         isEventActive = true;
 
         if (RollTheDice_CharacterStat(eventData, successProbability))

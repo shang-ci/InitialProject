@@ -60,7 +60,6 @@ public class Character : MonoBehaviour
 
         //初始化角色属性以及属性UI更新
         InitCharacterStat();
-        //UpdateAllAttributes();
     }
 
     private void OnEnable()
@@ -96,7 +95,7 @@ public class Character : MonoBehaviour
     }
 
     /// <summary>
-    /// 重新计算所有属性：基础 + 装备加成
+    /// 重新计算角色所有属性：基础 + 装备加成
     /// </summary>
     public void UpdateAllAttributes()
     {
