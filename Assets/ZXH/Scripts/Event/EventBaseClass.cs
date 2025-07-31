@@ -18,7 +18,11 @@ public class EventBaseClass : EventBase
             Reward_Card.text = $"获得：{eventData.RewardItemIDs}"; // 这里可以替换为实际的奖励逻辑
 
             isSuccess_Event = true; // 设置事件成功标志
-            GameManager.Instance.RegisterChoice(eventData.SuccessEvent); // 注册成功事件
+            if (SuccessEvent != null)
+            {
+                GameManager.Instance.RegisterChoice(eventData.SuccessEvent); // 注册成功事件
+            }
+            
             GiveRewards_CharacterStat(eventData); // 发放奖励
         }
         else
@@ -29,7 +33,11 @@ public class EventBaseClass : EventBase
             Reward_Card.text = "没有奖励";
 
             isSuccess_Event = false; // 设置事件失败标志
-            GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册失败事件
+            if (FailedEvent != null)
+            {
+                GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册失败事件
+            }
+            
         }
 
         // 展开Three面板
