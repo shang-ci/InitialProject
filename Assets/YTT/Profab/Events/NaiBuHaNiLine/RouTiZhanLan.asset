@@ -25,7 +25,7 @@ MonoBehaviour:
   activeAfterDays: 3
   availableLastingDays: 1
   durationHours: 0
-  conversationStartNode: 
+  conversationStartNode: RouTiZhanLan
   winCondition:
     statToCheck: 
     minValueRequired: 0

@@ -29,7 +29,8 @@ public enum Role
 {
     ZhangJiao,
     LiBai,
-    ZhuDi
+    ZhuDi,
+    Artu
 }
 
 /// <summary>
