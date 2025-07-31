@@ -81,8 +81,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c7cea0bed748b294980fe80190a11cad, type: 2}
   m_Currencies:
   - {fileID: 11400000, guid: eb0a94e44340aab499427bd7c4799373, type: 2}
-  - {fileID: 11400000, guid: d5ff848f8a041f04a926f015877fd88f, type: 2}
-  - {fileID: 11400000, guid: 44309ce71cd7c984283ed4e070503365, type: 2}
   m_CraftingRecipes:
   - {fileID: 11400000, guid: abc7a0bcb15f8044f829fc8e53343c2f, type: 2}
   - {fileID: 11400000, guid: 1539b6e127e6f77488924057332040eb, type: 2}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1775bda1c0fed14478e41147acda094e, type: 3}
-  m_Name: EquipmetItemActionSet
+  m_Name: EquipSingleItemActionSet
   m_EditorClassIdentifier: 
   m_ItemCategory:
     m_Name: EquipCard
@@ -22,7 +22,7 @@ MonoBehaviour:
     - m_ObjectType: Opsive.UltimateInventorySystem.ItemActions.EquipSingleItemAction
       m_ValueHashes: 
       m_LongValueHashes: 0d00eb254f8d1b29f7c4e5322077ddad0673b9cba1316a89bc1a83f32d58065f17b53ca18896ca466dfde8ca89d2072f0402ba8ee0f23ac6be6b80b66c9b56103dd54b065d2e534c157473823389783ed79d7a1c11423ac7
-      m_ValuePositions: 0000000005000000050000000500000005000000090000000900000009000000090000000d00000012000000
-      m_Values: 457175697001000000030000004571756970556e6571756970
+      m_ValuePositions: 000000000b0000000b0000000b0000000b0000000f0000000f0000000f0000000f0000001300000018000000
+      m_Values: 53696e676c65457175697001000000030000004571756970556e6571756970
       m_UnityObjects: []
       m_Version: 3.4

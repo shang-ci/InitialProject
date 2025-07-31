@@ -268,5 +268,22 @@ public class Event_Item : EventBase
         }
     }
 
+    protected override void SetRight()
+    {
+        base.SetRight();
+    }
+
+
+    protected override void LockingEvent()
+    {
+        base.LockingEvent();
+
+        if(itemDropdown != null)
+        {
+            itemDropdown.interactable = false;
+        }
+    }
+
+
     #endregion
 }

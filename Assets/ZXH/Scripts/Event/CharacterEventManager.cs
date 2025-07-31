@@ -104,24 +104,36 @@ public class CharacterEventManager : MonoBehaviour
     public void ProcessActiveEventsOnNewDay()
     {
         //需要关闭的事件列表/注销
-        List<EventBase> eventsToClose = new List<EventBase>();
+        List<EventBase> eventsToClose = new List<EventBase>();//存储已执行的事件，然后手动关闭它们
+        List<EventBase> eventsToCloseAuto = new List<EventBase>();//存储没有被锁定表示需要执行的事件，自动关闭它们
 
         // 遍历当前所有激活的事件
         foreach (var evt in activeEventsDic.Values)
         {
             evt.AddTime();
 
-            // 检查事件是否已经执行
+            // 检查事件是否已经执行或者事件是没有被锁定表示需要执行都加入注销列表
             if (evt.isEventActive)
             {
                 eventsToClose.Add(evt);
             }
+
+            if(evt.isTime && !evt.isBock)
+            {
+                eventsToCloseAuto.Add(evt);
+            }
+
         }
 
         foreach (var evt in eventsToClose)
         {
             // CloseEvent 方法会处理注销、标记完成和销毁对象的所有逻辑
             CloseEvent(evt);
+        }
+
+        foreach (var evt in eventsToCloseAuto)
+        {
+            CloseEventAuto(evt);
         }
     }
     #endregion
@@ -185,7 +197,7 @@ public class CharacterEventManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 关闭一个事件，将其从激活列表移除，并标记为已完成
+    /// 关闭一个事件，将其从激活列表移除，并标记为已完成，需要手动关闭UI部分
     /// </summary>
     public void CloseEvent(EventBase evt)
     {
@@ -196,6 +208,19 @@ public class CharacterEventManager : MonoBehaviour
 
         //// 调用事件自身的清理方法
         //evt.CloseEvent();——这里把玩家操作与事件管理分离了，当事件完成时就要被注销，而不是等玩家按下按钮
+    }
+
+    /// <summary>
+    /// 关闭一个事件，将其从激活列表移除，不标记为已完成，且自动关闭UI
+    /// </summary>
+    public void CloseEventAuto(EventBase evt)
+    {
+        if (evt == null) return;
+
+        UnregisterEvent(evt);
+
+        // 调用事件自身的清理方法
+        evt.CloseEvent();//这里把玩家操作与事件管理分离了，当事件完成时就要被注销，而不是等玩家按下按钮
     }
 
     /// <summary>

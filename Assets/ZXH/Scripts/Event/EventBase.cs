@@ -10,7 +10,8 @@ public abstract class EventBase : MonoBehaviour
     [SerializeField] protected int currentDay = 0; // 被激活的持续时间
     [SerializeField] public EventData eventData; // 用于存储当前事件数据
     [SerializeField] public bool isEventActive = false; // 是否有事件在进行中
-    [SerializeField] protected bool isBock;//是否锁住
+    [SerializeField] public bool isBock;//是否锁住
+    [SerializeField] public bool isTime; // 是否到了可执行的时间
     [SerializeField] protected EventTriggerType triggerType; // 触发类型
     [SerializeField] protected bool IsRepeatable; //是否可重复触发
     [SerializeField] protected List<EventTriggerConditionBase> Conditions { get; set; } // 事件触发条件列表
@@ -82,9 +83,10 @@ public abstract class EventBase : MonoBehaviour
     {
         if (eventData.DurationDays <= currentDay && !isEventActive)
         {
+            isTime = true; // 到期了
             ExecutionEvent(eventData); // 执行事件逻辑
-
         }
+
         EventTime.text = (eventData.DurationDays - currentDay).ToString();
         DurationDays.text = $"剩余: {eventData.DurationDays - currentDay} 天"; // 更新UI显示剩余天数
         currentDay++;//把当前天数加1放在判断的后面，防止事件在第一天就结束了——游戏一开始就会天数加1
@@ -194,7 +196,7 @@ public abstract class EventBase : MonoBehaviour
     /// <summary>
     /// right按钮点击
     /// </summary>
-    public void SetRight()
+    protected virtual void SetRight()
     {
         LockingEvent(); // 锁住事件面板
     }
@@ -215,12 +217,6 @@ public abstract class EventBase : MonoBehaviour
                 // 调用我们刚刚在CardSlot中创建的方法来禁用它
                 slot.SetInteractable(false);
             }
-        }
-
-        // 用整个面板的交互
-        if (mainCanvasGroup != null)
-        {
-            mainCanvasGroup.interactable = false;
         }
     }
 

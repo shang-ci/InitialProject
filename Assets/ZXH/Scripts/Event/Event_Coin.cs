@@ -116,4 +116,20 @@ public class Event_Coin : EventBase
         }
         Debug.Log($"输入框变更，amount = {amount}");
     }
+
+    protected override void SetRight()
+    {
+        base.SetRight();
+    }
+
+
+    protected override void LockingEvent()
+    {
+        base.LockingEvent();
+
+        if(coinInput != null)
+        {
+            coinInput.interactable = false; // 禁用下拉菜单
+        }
+    }
 }

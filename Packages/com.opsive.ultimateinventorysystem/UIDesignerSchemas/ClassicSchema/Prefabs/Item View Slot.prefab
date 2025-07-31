@@ -30,9 +30,9 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -61,6 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -86,15 +87,22 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 8745615967752443668}
+  m_TargetGraphic: {fileID: 0}
   m_DisabledAndSelectedSprite: {fileID: 0}
   m_DisabledAndSelectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_Text:
     m_UnityText: {fileID: 0}
     m_TextMeshProText: {fileID: 0}
+  m_OnTextChange:
+    m_PersistentCalls:
+      m_Calls: []
   m_OnClickEvent:
     m_PersistentCalls:
       m_Calls: []
+  m_OnPointerClickInputButton: 2
+  m_SelectOnPointerEnter: 1
+  m_DeselectOnPointerExit: 1
+  m_UnselectedPressSelectsAndPress: 0
   m_ItemView: {fileID: 0}
   m_Index: 0
 --- !u!114 &8745615967752443668
@@ -112,11 +120,12 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7061801754131594114, guid: 12ab13dfdcd42254db7df2308b7102b1,
-    type: 3}
+  m_Sprite: {fileID: 7061801754131594114, guid: 12ab13dfdcd42254db7df2308b7102b1, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

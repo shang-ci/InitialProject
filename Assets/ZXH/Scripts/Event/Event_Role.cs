@@ -155,5 +155,21 @@ public class Event_Role : EventBase
             return;
         }
     }
+
+    protected override void SetRight()
+    {
+        base.SetRight();
+    }
+
+    protected override void LockingEvent()
+    {
+        base.LockingEvent();
+
+        if(roleDropdown != null)
+        {
+            roleDropdown.interactable = false; // 锁定事件时禁用下拉框
+        }
+    }
+
     #endregion
 }
