@@ -72,7 +72,11 @@ public class Event_Item : EventBase
             Reward_Card.text = $"获得：{eventData.RewardItemIDs}"; // 这里可以替换为实际的奖励逻辑
 
             isSuccess_Event = true;
-            GameManager.Instance.RegisterChoice(eventData.SuccessEvent); // 注册成功事件
+            if (SuccessEvent != null)
+            {
+               GameManager.Instance.RegisterChoice(eventData.SuccessEvent); // 注册成功事件 
+            }
+            
             GiveRewards_CharacterStat(eventData); // 发放奖励
         }
         //属性过关但物品不满足要求
@@ -83,7 +87,11 @@ public class Event_Item : EventBase
             Result_Dice.text = $"成功骰子的个数：{numberOfSuccesses}";
             Reward_Card.text = "没有奖励";
 
-            GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册成功事件
+            if (FailedEvent != null)
+            {
+                GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册成功事件
+            }
+            
             isSuccess_Event = false;
         }
         //物品满足但属性不满足
@@ -94,7 +102,11 @@ public class Event_Item : EventBase
             Result_Dice.text = $"成功骰子的个数：{numberOfSuccesses}";
             Reward_Card.text = "没有奖励";
 
-            GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册失败事件
+            if (FailedEvent != null)
+            {
+                GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册失败事件
+            }
+            
             isSuccess_Event = false;
         }
         //都不满足
@@ -105,7 +117,11 @@ public class Event_Item : EventBase
             Result_Dice.text = $"成功骰子的个数：{numberOfSuccesses}";
             Reward_Card.text = "没有奖励";
 
-            GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册失败事件
+            if (FailedEvent != null)
+            {
+                GameManager.Instance.RegisterChoice(eventData.FailedEvent); // 注册失败事件
+            }
+            
             isSuccess_Event = false;
         }
 
