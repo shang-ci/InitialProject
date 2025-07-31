@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class EventBase : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public abstract class EventBase : MonoBehaviour
     [SerializeField] public bool isEventActive = false; // 是否有事件在进行中
     [SerializeField] public bool isBock;//是否锁住
     [SerializeField] public bool isTime; // 是否到了可执行的时间
-    [SerializeField] protected EventTriggerType triggerType; // 触发类型
+    [SerializeField] public EventTriggerType triggerType; // 触发类型
     [SerializeField] protected bool IsRepeatable; //是否可重复触发
     [SerializeField] protected List<EventTriggerConditionBase> Conditions { get; set; } // 事件触发条件列表
 
@@ -24,13 +25,14 @@ public abstract class EventBase : MonoBehaviour
 
     [Header("One静态事件UI_拖拽")]
     [SerializeField] protected TextMeshProUGUI EventName; // 事件名称
-    [SerializeField] protected TextMeshProUGUI EventTime; // 事件时间
+    [SerializeField] public TextMeshProUGUI EventTime; // 事件时间
 
     // 事件UI的引用——每个UI都是和模板里的预制体名字相同的，我们直接通过名字获取组件引用即可，不然每个UI都要单独写一个脚本来获取组件引用，太麻烦了
     [Header("Two静态事件UI")]
     [SerializeField] protected TextMeshProUGUI Story;
     [SerializeField] protected TextMeshProUGUI Tips;
     [SerializeField] protected TextMeshProUGUI DurationDays;// 事件持续天数
+    [SerializeField] protected Button saveButton; // 保存按钮
     [SerializeField] protected float successProbability = 1f;//成功概率
     [SerializeField] protected int numberOfSuccesses = 0;//成功次数
     [SerializeField] protected bool isSuccess_Dice; // 是否成功骰子
@@ -60,11 +62,10 @@ public abstract class EventBase : MonoBehaviour
         Story = FindTMPDeep("Story");
         Tips = FindTMPDeep("Tips");
         DurationDays = FindTMPDeep("DurationDays");
+        saveButton = FindButtonDeep("Right").GetComponent<Button>();
 
         CardSlots = transform.GetComponentsInChildren<CardSlot>(true);
 
-        //更新事件属性需求列表的值
-        UpdateAttributeRequirementValues();
         //遵循“创建者负责注册”的原则——防止顺序问题造成的事件管理器未初始化
         //CharacterEventManager.Instance?.RegisterEvent(this);
     }
@@ -153,6 +154,9 @@ public abstract class EventBase : MonoBehaviour
             //剩下的要投完骰子才能用
 
         }
+
+        //更新事件属性需求列表的值
+        UpdateAttributeRequirementValues();
     }
 
     /// <summary>
@@ -194,6 +198,23 @@ public abstract class EventBase : MonoBehaviour
     }
 
     /// <summary>
+    /// 深度查找子物体中的 TextMeshProUGUI 组件
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    private Button FindButtonDeep(string name)
+    {
+        var tmps = GetComponentsInChildren<Button>(true);
+        foreach (var tmp in tmps)
+        {
+            if (tmp.name == name)
+                return tmp;
+        }
+        Debug.LogError($"Event_Item: 未找到名为 {name} 的 Button 组件！");
+        return null;
+    }
+
+    /// <summary>
     /// right按钮点击
     /// </summary>
     protected virtual void SetRight()
@@ -217,6 +238,11 @@ public abstract class EventBase : MonoBehaviour
                 // 调用我们刚刚在CardSlot中创建的方法来禁用它
                 slot.SetInteractable(false);
             }
+        }
+
+        if(saveButton != null)
+        {
+            saveButton.interactable = false; // 禁用保存按钮
         }
     }
 

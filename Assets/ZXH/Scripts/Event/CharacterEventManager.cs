@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterEventManager : MonoBehaviour
@@ -252,6 +253,10 @@ public class CharacterEventManager : MonoBehaviour
             //遵循“创建者负责注册”的原则
             RegisterEvent(evt); 
         }
+
+        //allday类型的事件不用显示Time
+        evt.EventTime.gameObject.SetActive( !(evt.triggerType == EventTriggerType.AllDay));
+
         return evt;
     }
 

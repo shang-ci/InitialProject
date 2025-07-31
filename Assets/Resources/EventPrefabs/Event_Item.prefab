@@ -2452,6 +2452,7 @@ MonoBehaviour:
     triggerType: 0
   isEventActive: 0
   isBock: 0
+  isTime: 0
   triggerType: 0
   IsRepeatable: 0
   One: {fileID: 7928831449105359566}
@@ -2463,7 +2464,8 @@ MonoBehaviour:
   Story: {fileID: 0}
   Tips: {fileID: 0}
   DurationDays: {fileID: 0}
-  successProbability: 1
+  saveButton: {fileID: 0}
+  successProbability: 0.5
   numberOfSuccesses: 0
   isSuccess_Dice: 0
   isSuccess_Event: 0

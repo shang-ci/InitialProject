@@ -282,6 +282,16 @@ public class Event_Item : EventBase
         {
             itemDropdown.interactable = false;
         }
+
+        if (countInput != null)
+        {
+            countInput.interactable = false; // 禁用数量输入框
+        }
+
+        if(errorText != null)
+        {
+            errorText.ignoreVisibility = false;
+        }
     }
 
 

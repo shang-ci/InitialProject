@@ -150,7 +150,7 @@ MonoBehaviour:
         m_ValueHashes: 
         m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651424b280f5394b559861dc27bf4117a0e
         m_ValuePositions: 000000000500000006000000060000000a0000000a0000000e00000012000000
-        m_Values: 636861726d010000000036753aa70000000000000000
+        m_Values: 636861726d010100000036753aa70100000001000000
         m_UnityObjects: []
         m_Version: 3.4
       - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[System.Int32,
