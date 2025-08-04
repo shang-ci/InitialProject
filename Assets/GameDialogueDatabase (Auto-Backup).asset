@@ -3895,7 +3895,7 @@ MonoBehaviour:
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.8800001
+    canvasZoom: 0.7900002
   - id: 8
     fields:
     - title: Title
@@ -5859,7 +5859,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 54.606213, y: 0}
+    canvasScrollPosition: {x: 54.60623, y: 0.000015258789}
     canvasZoom: 0.5200004
   - id: 12
     fields:
@@ -6120,7 +6120,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: RegisterChoiceInLua("ruierrevenge_011")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -6185,7 +6185,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: RegisterChoiceInLua("suolaweierrevenge_012")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -6250,7 +6250,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: RegisterChoiceInLua("habunarevengr_013")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -6941,7 +6941,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: IsZhunaAlive == false;
+      conditionsString: IsZhunaAlive == true;
       userScript: CreateEventByID("E1013");
       onExecute:
         m_PersistentCalls:
@@ -7006,7 +7006,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: IsXiamaAlive == false;
+      conditionsString: IsXiamaAlive == true;
       userScript: CreateEventByID("E1014");
       onExecute:
         m_PersistentCalls:
@@ -7503,7 +7503,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: "IsZhunaFree == false\uFF1B"
+      conditionsString: "IsZhunaFree == true\uFF1B"
       userScript: CreateEventByID("E1010");
       onExecute:
         m_PersistentCalls:
@@ -7568,7 +7568,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: IsXiamaAlive == false;
+      conditionsString: IsXiamaAlive == true;
       userScript: CreateEventByID("E1011");
       onExecute:
         m_PersistentCalls:
@@ -7698,7 +7698,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: IsZhunaFree == true;
+      conditionsString: IsZhunaFree ==false;
       userScript: CreateEventByID("E1013");
       onExecute:
         m_PersistentCalls:
@@ -7763,7 +7763,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: IsXiamaAlive == false;
+      conditionsString: IsXiamaAlive == true;
       userScript: CreateEventByID("E1014");
       onExecute:
         m_PersistentCalls:
@@ -8325,7 +8325,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: IsXiamaAlive == false;
+      conditionsString: IsJialilaAlive == true;
       userScript: CreateEventByID("E1011");
       onExecute:
         m_PersistentCalls:
@@ -8390,7 +8390,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: IsJialilaAlive == true;
+      conditionsString: IsXiamaAlive == true;
       userScript: CreateEventByID("E1012");
       onExecute:
         m_PersistentCalls:
@@ -8455,7 +8455,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: IsZhunaAlive == false;
+      conditionsString: IsXiamaAlive == true;
       userScript: CreateEventByID("E1013");
       onExecute:
         m_PersistentCalls:
@@ -8520,7 +8520,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: IsXiamaAlive == false;
+      conditionsString: IsJialilaFree == false;
       userScript: CreateEventByID("E1014");
       onExecute:
         m_PersistentCalls:
