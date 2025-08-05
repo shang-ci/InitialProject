@@ -1,6 +1,9 @@
 ﻿/* 
 7.3
 定义一个类，包含事件应该有的字段
+
+8.4
+可进一步优化该方法，符合编码的几大原则
 */
 using System.Collections.Generic;
 using UnityEngine;
