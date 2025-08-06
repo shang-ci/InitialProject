@@ -296,7 +296,7 @@ MonoBehaviour:
     menuPanels:
     - {fileID: 11411294}
     defaultMenuPanel: {fileID: 11411294}
-    useFirstResponseForMenuPortrait: 0
+    useFirstResponseForMenuPortrait: 1
     waitForClose: 1
   QTEIndicatorElements:
     QTEIndicators:
@@ -651,7 +651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -8, y: -23}
+  m_AnchoredPosition: {x: 8, y: -33}
   m_SizeDelta: {x: -16, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &22253428
@@ -1724,7 +1724,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -8, y: 205}
+  m_AnchoredPosition: {x: -8, y: 257}
   m_SizeDelta: {x: -16, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &22262104
@@ -4445,14 +4445,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   panel: {fileID: 11428642}
-  pcImage: {fileID: 0}
+  pcImage: {fileID: 11405928}
   pcName:
-    m_uiText: {fileID: 0}
+    m_uiText: {fileID: 11473894}
     m_textMeshProUGUI: {fileID: 0}
-  usePortraitNativeSize: 0
+  usePortraitNativeSize: 1
   timerSlider: {fileID: 11484772}
   buttonAlignment: 0
-  showUnusedButtons: 0
+  showUnusedButtons: 1
   buttons: []
   buttonTemplate: {fileID: 11430624}
   buttonTemplateHolder: {fileID: 11495484}
@@ -4468,7 +4468,7 @@ MonoBehaviour:
     format: '{0}. {1}'
   blockInputDuration: 0
   showSelectionWhileInputBlocked: 0
-  warnOnEmptyResponseText: 0
+  warnOnEmptyResponseText: 1
   onContentChanged:
     m_PersistentCalls:
       m_Calls:

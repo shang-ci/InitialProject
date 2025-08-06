@@ -10,13 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e079e830850bbdf40a77146d79c46fd6, type: 3}
-  m_Name: NPC
+  m_Name: Jesse
   m_EditorClassIdentifier: 
-  characterName: NPC
-  defaultPortrait: {fileID: 21300000, guid: 2b6d2f98f0d56a647aee4b7517cf9fc7, type: 3}
-  blinkPortrait: {fileID: 21300000, guid: 2b6d2f98f0d56a647aee4b7517cf9fc7, type: 3}
-  emotions:
-  - emotionName: "\u5962\u9761"
-    portrait: {fileID: 21300000, guid: 2b6d2f98f0d56a647aee4b7517cf9fc7, type: 3}
-    keywords:
-    - "\u5962\u9761"
+  characterName: Jesse
+  defaultPortrait: {fileID: 21300000, guid: ea0d4c60976f7ff4580cf2e819546883, type: 3}
+  blinkPortrait: {fileID: 21300000, guid: badd273fab8896b4aae1539a2c7b1607, type: 3}
+  emotions: []
