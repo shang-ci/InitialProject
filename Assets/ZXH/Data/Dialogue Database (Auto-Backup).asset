@@ -224,6 +224,14 @@ MonoBehaviour:
       value: True
       type: 2
       typeString: CustomFieldType_Boolean
+    - title: Display Name
+      value: "\u5076\u9047"
+      type: 0
+      typeString: 
+    - title: Group
+      value: 1
+      type: 0
+      typeString: CustomFieldType_Text
   locations: []
   variables:
   - id: 1
@@ -2588,7 +2596,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 826.054
+        x: 826.73895
         y: 144.68933
         width: 160
         height: 30
@@ -2643,7 +2651,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 822.28876
+        x: 822.9737
         y: 200.33722
         width: 160
         height: 30
@@ -2704,7 +2712,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 822.28876
+        x: 822.9737
         y: 250.33722
         width: 160
         height: 30
@@ -2753,8 +2761,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1037.8079
-        y: 302.34735
+        x: 1038.4928
+        y: 303.9867
         width: 160
         height: 30
     - id: 5
@@ -3190,7 +3198,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 401.4978
-        y: 336.84296
+        y: 336.0233
         width: 160
         height: 30
     - id: 13
@@ -3238,7 +3246,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 823.40015
+        x: 824.0851
         y: 302.52814
         width: 160
         height: 30
@@ -3337,13 +3345,13 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1264.6327
-        y: 153.74045
+        x: 1269.4271
+        y: 154.56012
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 252.76823, y: 0}
-    canvasZoom: 0.70000046
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.49000064
   - id: 8
     fields:
     - title: Title
@@ -4106,7 +4114,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: "StartConversation(\u804A\u5929)"
+        value: 
         type: 0
         typeString: 
       conversationID: 8
@@ -4118,7 +4126,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: "DialogueManager.StartConversation(\"\u804A\u5929\")"
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -4129,7 +4137,7 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 74.933}
+    canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 0.7000001
   - id: 9
     fields:
@@ -4876,8 +4884,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 135.5
-        y: 60.5
+        x: 138.11922
+        y: 59.950546
         width: 160
         height: 30
     - id: 2
@@ -4926,7 +4934,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 364
-        y: 64.5
+        y: 63.529144
         width: 160
         height: 30
     - id: 3
@@ -4974,8 +4982,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 600
-        y: 65
+        x: 585.92236
+        y: 68.398056
         width: 160
         height: 30
     - id: 4
@@ -5077,15 +5085,15 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: 
+      conditionsString: GetAttribute("charm") >= 3
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 35
-        y: 177
+        x: 31.153854
+        y: 175.35165
         width: 160
         height: 30
     - id: 6
@@ -5126,20 +5134,20 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: 
+      conditionsString: GetAttribute("charm") <= 2
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 226
-        y: 180.5
+        x: 232.59341
+        y: 179.40112
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasZoom: 1.03
   syncInfo:
     syncActors: 0
     syncItems: 0

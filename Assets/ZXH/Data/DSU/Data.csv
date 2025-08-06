@@ -1,0 +1,203 @@
+﻿Database
+Name,Version,Author,Description,Emphasis1,Emphasis2,Emphasis3,Emphasis4
+Dialogue Database,,,,#ffffffff ---,#ff0000ff ---,#00ff00ff ---,#0000ffff ---
+Global User Script
+
+Actors
+ID,Portrait,AltPortraits,SpritePortrait,AltSpritePortraits,Name,Pictures,Description,IsPlayer
+Number,Special,Special,Special,Special,Text,Files,Text,Boolean
+1,,[],,[],Player,[],,True
+2,,[],,[],NPC,[],,False
+3,,[],,[],Teacher,[],,False
+4,,[],,[],Roommate,[],,False
+5,,[],,[],Counsellor,[],,False
+6,,[],,[],LeaderShip,[],,False
+7,Assets/Resources/Portrait/萧逸立绘.jpg,[],Assets/Plugins/Pixel Crushers/Dialogue System/Prefabs/Art/Textures/JRPG/Test Portrait Sprite.png,[],JuniorStudent,[],,False
+Items
+ID,Name,Pictures,Description,Success Description,Failure Description,State,Is Item,Trackable,Display Name,Group
+Number,Text,Files,Text,Text,Text,Text,Boolean,Boolean,Text,Text
+1,偶遇,[],这是和学妹第一次的相识,,,active,False,True,偶遇,1
+Locations
+ID
+Number
+Variables
+ID,Name,Initial Value,Description,InitialValueType
+Number,Text,Text,Text,Text
+1,Alert,,,Text
+2,isNabuhaniAlive,True,,Boolean
+3,hasTriggeredFlowerProtector,False,,Boolean
+4,isNabhaniSupporter,False,,Boolean
+5,isNabuhaniInHand,True,,Boolean
+6,is,False,,Boolean
+7,isKnowingWithJuniorStudent,False,与学妹是否相识,Boolean
+8,isFirstVisitLibrary,False,第一次拜访图书馆,Boolean
+Conversations
+ID,Title,Description,Actor,Conversant,Overrides
+Number,Text,Text,Actor,Actor,JSON
+1,New Conversation 1,,1,2,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+2,上课,,2,1,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+3,吃饭,,1,4,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+4,游戏,,1,1,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+5,回答问题,,2,1,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+6,饿得受不了,,1,4,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+7,偶遇,,1,7,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+8,图书馆,,1,-1,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+9,图书馆学习成功,,1,-1,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+10,图书馆学习失败,,1,-1,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+11,聊天,,1,7,"{""useOverrides"":false,""overrideSubtitleSettings"":false,""showNPCSubtitlesDuringLine"":true,""showNPCSubtitlesWithResponses"":true,""showPCSubtitlesDuringLine"":false,""skipPCSubtitleAfterResponseMenu"":false,""subtitleCharsPerSecond"":30.0,""minSubtitleSeconds"":2.0,""continueButton"":0,""overrideSequenceSettings"":false,""defaultSequence"":"""",""defaultPlayerSequence"":"""",""defaultResponseMenuSequence"":"""",""overrideInputSettings"":false,""alwaysForceResponseMenu"":true,""includeInvalidEntries"":false,""responseTimeout"":0.0,""emTagForOldResponses"":0,""emTagForInvalidResponses"":0,""cancelSubtitle"":{""key"":27,""buttonName"":""""},""cancelConversation"":{""key"":27,""buttonName"":""""}}"
+DialogueEntries
+entrytag,ConvID,ID,Actor,Conversant,Title,MenuText,DialogueText,IsGroup,FalseConditionAction,ConditionPriority,Conditions,Script,Sequence,Description,canvasRect
+Text,Number,Number,Number,Number,Text,Text,Text,Boolean,Special,Special,Text,Text,Text,Text,Text
+Player_1_0,1,0,1,2,START,,,False,Block,Normal,,,None(),,223.1868;24.50549
+NPC_1_1,1,1,2,1,,来访,奈布哈尼来访，请派人招待,False,Block,Normal,CanTriggerNabuhaniVisit(),,,,507.4994;29.33814
+Player_1_2,1,2,1,-1,,,主角亲自招待,False,Block,Normal,,"Variable[""isNabhaniSupporter""] = true",,,301.1136;137.6858
+Player_1_3,1,3,1,-1,,,老婆招待,False,Block,Normal,,"Variable[""isNabhaniSupporter""] = true",,,507.4166;135.8142
+Player_1_4,1,4,1,-1,,,不予理会,False,Block,Normal,,,,,703.4713;135.5135
+NPC_1_5,1,5,2,-1,,,奈布哈尼外出游玩,False,Block,Normal,"Variable[""isNabuhaniInHand""] == true","CreateEventByID(""E1001"")",,,396.5867;222.6259
+Player_1_6,1,6,1,1,,,你让,False,Block,Normal,,,,,278.4549;320.4282
+NPC_1_7,1,7,2,2,,,你杀死了奈布哈尼,False,Block,Normal,,,,,486.1472;322.0765
+NPC_2_0,2,0,2,2,START,,,False,Block,Normal,,,None(),,459.4546;13.77272
+NPC_2_1,2,1,2,1,,,新的一天，要去上课了\n,False,Block,Normal,,,,,455.4546;72.8409
+Player_2_2,2,2,1,2,,,好困，我再睡会,False,Block,Normal,,,,,281.0228;121.7045
+Player_2_3,2,3,1,2,,,等等我，一起去\n\n,False,Block,Normal,,"CreateEventByID(""E1005"")",,,613.9774;126.25
+Roommate_2_4,2,4,4,1,,,你完了，老师点名，就你没去！,False,Block,Normal,,,,,191.8182;173.9773
+NPC_2_5,2,5,2,1,,,无事发生\n,False,Block,Normal,,,,,376.4773;174.5455
+Player_3_0,3,0,1,4,START,,,False,Block,Normal,,,None(),,320.5;26
+Player_3_1,3,1,1,4,,,饿了饿了，兄弟们怎么吃啊,False,Block,Normal,,,,,320.5;76.5
+Player_3_2,3,2,1,4,,,一起去食堂吃,False,Block,Normal,,,,,119.5;120.5
+Player_3_3,3,3,1,4,,,帮我带个饭吧，不想动,False,Block,Normal,,,,,321.0882;124.147
+Player_3_4,3,4,1,4,,,不吃了，减肥\n,False,Block,Normal,,"CreateEventByID(""E1006"")",,,515.794;122.9706
+Player_4_0,4,0,1,1,START,,,False,,Normal,,,None(),,160;30
+NPC_5_0,5,0,2,1,START,,,False,Block,Normal,,,None(),,611.6026;22.86987
+Player_5_1,5,1,1,-1,,,看来是躲不掉了,False,Block,Normal,,,,,613.6574;80.40414
+Player_5_2,5,2,1,-1,,,大展身手,False,Block,Normal,,,,,495.8492;137.9384
+Player_5_3,5,3,1,-1,,,兄弟救我,False,Block,Normal,,,,,721.1916;133.8288
+Player_6_0,6,0,1,4,START,,,False,Block,Normal,,,None(),,341;30
+Player_6_1,6,1,1,4,,,不行了，要饿嘎了,False,Block,Normal,,,,,338;82
+Player_6_2,6,2,1,4,,,谁有吃的给我来点,False,Block,Normal,,,,,226;132
+Player_6_3,6,3,1,4,,,我还是出去搞点东西吃吃吧,False,Block,Normal,,,,,585.5494;128.3517
+Roommate_6_4,6,4,4,1,,,给你吃点辣条暖暖胃,False,Block,Normal,,,,,222.5;182.5
+Player_6_5,6,5,1,4,,,别别别，使不得使不得,False,Block,Normal,,,,,221.5;231.5
+Roommate_6_6,6,6,4,1,,,我这还有泡面，来点不,False,Block,Normal,,,,,221.5;281.5
+Player_6_7,6,7,1,4,,,义父！,False,Block,Normal,,,,,221.5;331.5
+JuniorStudent_6_8,6,8,7,1,,,学长你好啊，请问食堂在哪边啊,False,Block,Normal,,"RegisterChoiceInLua(""偶遇"")",,,584.4505;173.4066
+Player_7_0,7,0,1,7,START,,,False,Block,Normal,,,None(),,414;14.5
+JuniorStudent_7_1,7,1,7,1,,,学长学长，你怎么了？,False,Block,Normal,"CurrentQuestState(""偶遇"") == ""unassigned""",,,,826.739;144.6893
+Player_7_2,7,2,1,7,,,哦哦，不好意思，你说什么\n,False,Block,Normal,,,,,822.9737;200.3372
+JuniorStudent_7_3,7,3,7,1,,,我说，食堂在哪边啊学长,False,Block,Normal,,,,,822.9737;250.3372
+Player_7_4,7,4,1,7,,,食堂啊，就在那边，我带你过去吧，正好我也要吃饭,False,Block,Normal,"CurrentQuestState(""偶遇"") == ""unassigned""","GiveQuest(""JuniorStudent"",""偶遇"");",,,1038.493;303.9867
+JuniorStudent_7_5,7,5,7,1,,,太好了，谢谢学长，我还要给室友带饭呢,False,Block,Normal,"(CurrentQuestState(""偶遇"") == ""active"") and \n(GetQuestNodeState(""偶遇"",""到达食堂"") == ""active"")   and (Variable[""isKnowingWithJuniorStudent""] == false)","Variable[""isKnowingWithJuniorStudent""] = true",,,401.3688;129.7484
+Player_7_6,7,6,1,7,,,你拿的下吗，要不要我帮你拿\n,False,Block,Normal,,,,,402.1558;178.2901
+JuniorStudent_7_7,7,7,7,1,,,学长~，你过于热情了吧,False,Block,Normal,,,,,402.1558;228.2902
+Player_7_8,7,8,1,7,,,帮助漂亮学妹是我的职责\n,False,Block,Normal,,,,,191.4811;288.9539
+Player_7_9,7,9,1,7,,,咳咳，有这么明显吗\n,False,Block,Normal,,,,,392.8286;286.8429
+Player_7_10,7,10,1,7,,,我只是顺嘴一说，学妹不用多想（高冷男神）,False,Block,Normal,,,,,598.7448;290.8221
+JuniorStudent_7_11,7,11,7,1,,,哈哈，那就谢谢学长了,False,Block,Normal,,,,,192.3902;338.1589
+JuniorStudent_7_12,7,12,7,1,,,是的呢，学长不会对每个学妹都这样吧,False,Block,Normal,,,,,401.4978;336.0233
+Player_7_13,7,13,1,7,,,前面一直走就到了,False,Block,Normal,"CurrentQuestState(""偶遇"") == ""unassigned""",,,,824.0851;302.5281
+JuniorStudent_7_14,7,14,7,1,,,这是到了吧，学长,False,Block,Normal,"(CurrentQuestState(""偶遇"") == ""active"") and \n(GetQuestNodeState(""偶遇"",""Return"") == ""active"")","SetQuestNodeState(""偶遇"",""Return"",""success"") ",,,49.2516;128.2961
+Player_7_15,7,15,1,7,,,是的咱们到了,False,Block,Normal,"CurrentQuestState(""偶遇"") == ""success""",,,,1269.427;154.5601
+Player_8_0,8,0,1,3,START,,,False,Block,Normal,,,None(),,530.5801;41.30173
+Teacher_8_1,8,1,3,1,,,欢迎来到合肥大学图书馆，请注意保持安静,False,Block,Normal,"Variable[""isFirstVisitLibrary""] == false","Variable[""isFirstVisitLibrary""] = true;\nVariable[""isFirstVisitLibrary""] = true;\n",,,1073.385;124.2617
+Player_8_2,8,2,1,-1,,,这就是图书馆了，我想想要干嘛来着,False,Block,Normal,,,,,1072.385;176.2617
+Player_8_3,8,3,1,-1,,,学习,False,Block,Normal,,,,,292;300.0357
+Player_8_4,8,4,1,-1,,,借书\n,False,Block,Normal,,,,,484.3271;299.6827
+Player_8_5,8,5,1,-1,,,读书会,False,Block,Normal,,,,,667.2681;303.2123
+Player_8_6,8,6,1,-1,,,报告厅,False,Block,Normal,,,,,858.444;303.8005
+Teacher_8_7,8,7,3,1,,,请选择,False,Block,Normal,"Variable[""isFirstVisitLibrary""] == true",,,,537.0507;124.2429
+Player_8_8,8,8,1,1,,,终于学完了，美好的一天就要结束了，想一下等会要去干什么呢\n,False,Block,Normal,,,,,289.3771;391.0717
+Player_8_9,8,9,1,1,,,诶，不知道学妹在干嘛，要不发个消息呢？\n,False,Block,Normal,"Variable[""isKnowingWithJuniorStudent""] == true",,,,88.66289;452.5003
+Player_8_10,8,10,1,1,,,干饭干饭\n,False,Block,Normal,,,,,291.52;454.643
+Player_8_11,8,11,1,1,,,力竭了啊家人们，回去躺一会,False,Block,Normal,,,,,482.2343;453.9288
+Player_8_12,8,12,1,1,,,学妹，你在干嘛呢？,False,Block,Normal,,"DialogueManager.StartConversation(""聊天"")",,,89.37717;516.786
+Player_9_0,9,0,1,-1,START,,,False,Block,Normal,,,None(),,369.5;34
+Player_9_1,9,1,1,1,,,爽了，又学了一天，该怎么奖励自己一下呢,False,Block,Normal,,,,,369;87
+Player_9_2,9,2,1,1,,,吃大餐,False,Block,Normal,,,,,153.5;134.5
+Player_9_3,9,3,1,1,,,打一晚上游戏,False,Block,Normal,,,,,369.5;137.5
+Player_9_4,9,4,1,1,,,学妹怎么样了，在干嘛呢？,False,Block,Normal,,,,,577.5;135
+Player_10_0,10,0,1,-1,START,,,False,Block,Normal,,,None(),,320;38.5
+Player_10_1,10,1,1,1,,,我哩个豆，这么难！谁能来救救我啊，最好来个漂亮学妹,False,Block,Normal,,,,,316.5;93.5
+NPC_10_2,10,2,2,1,,,这人谁啊，站大门口抽风,False,Block,Normal,,,,,201;143.5
+JuniorStudent_10_3,10,3,7,1,,,诶，学长，你也来学习了吗,False,Block,Normal,,,,,410.5;144
+Player_11_0,11,0,1,7,START,,,False,Block,Normal,,,None(),,364;11.5
+JuniorStudent_11_1,11,1,7,1,,,我在图书馆学习呢,False,Block,Normal,,,,,138.1192;59.95055
+JuniorStudent_11_2,11,2,7,1,,,有什么事吗学长,False,Block,Normal,,,,,364;63.52914
+JuniorStudent_11_3,11,3,7,1,,,宿舍躺平,False,Block,Normal,,,,,585.9224;68.39806
+Player_11_4,11,4,1,7,,,这么巧，我也图书馆，现在已经很晚了，一起吃个饭吧\n,False,Block,Normal,,,,,131;119
+JuniorStudent_11_5,11,5,7,1,,,好啊，我请学长，上次学长带我找到食堂还没感谢呢,False,Block,Normal,"GetAttribute(""charm"") >= 3",,,,31.15385;175.3517
+JuniorStudent_11_6,11,6,7,1,,,我不饿,False,Block,Normal,"GetAttribute(""charm"") <= 2",,,,232.5934;179.4011
+OutgoingLinks
+OriginConvID,OriginID,DestConvID,DestID,ConditionPriority
+Number,Number,Number,Number,Special
+1,0,1,1,Normal
+1,1,1,2,Normal
+1,1,1,3,Normal
+1,1,1,4,Normal
+1,2,1,5,Normal
+1,3,1,5,Normal
+1,5,1,6,Normal
+1,5,1,7,Normal
+2,0,2,1,Normal
+2,1,2,2,Normal
+2,1,2,3,Normal
+2,2,2,4,Normal
+2,2,2,5,Normal
+3,0,3,1,Normal
+3,1,3,2,Normal
+3,1,3,3,Normal
+3,1,3,4,Normal
+5,0,5,1,Normal
+5,1,5,2,Normal
+5,1,5,3,Normal
+6,0,6,1,Normal
+6,1,6,2,Normal
+6,1,6,3,Normal
+6,2,6,4,Normal
+6,3,6,8,Normal
+6,4,6,5,Normal
+6,5,6,6,Normal
+6,6,6,7,Normal
+7,0,7,1,Low
+7,0,7,14,Normal
+7,0,7,5,Normal
+7,0,7,15,Normal
+7,1,7,2,Normal
+7,2,7,3,Normal
+7,3,7,4,Normal
+7,3,7,13,Normal
+7,5,7,6,Normal
+7,6,7,7,Normal
+7,7,7,8,Normal
+7,7,7,9,Normal
+7,7,7,10,Normal
+7,8,7,11,Normal
+7,9,7,12,Normal
+8,0,8,1,Normal
+8,0,8,7,Normal
+8,1,8,2,Normal
+8,2,8,3,Normal
+8,2,8,4,Normal
+8,2,8,5,Normal
+8,2,8,6,Normal
+8,3,8,8,Normal
+8,7,8,3,Normal
+8,7,8,4,Normal
+8,7,8,5,Normal
+8,7,8,6,Normal
+8,8,8,9,Normal
+8,8,8,10,Normal
+8,8,8,11,Normal
+8,9,8,12,Normal
+9,0,9,1,Normal
+9,1,9,2,Normal
+9,1,9,3,Normal
+9,1,9,4,Normal
+10,0,10,1,Normal
+10,1,10,2,Normal
+10,1,10,3,Normal
+11,0,11,1,Normal
+11,0,11,2,Normal
+11,0,11,3,Normal
+11,1,11,4,Normal
+11,4,11,5,Normal
+11,4,11,6,Normal

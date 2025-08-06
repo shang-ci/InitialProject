@@ -55622,7 +55622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_processQuestMachineTags: 1
-  m_overrideQuestLog: 0
+  m_overrideQuestLog: 1
 --- !u!114 &1529995671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55635,7 +55635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c54f930af957f4488bf65838d4ed623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unregisterOnDisable: 0
+  unregisterOnDisable: 1
 --- !u!1001 &1530251921
 PrefabInstance:
   m_ObjectHideFlags: 0
