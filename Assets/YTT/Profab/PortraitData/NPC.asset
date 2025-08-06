@@ -15,8 +15,4 @@ MonoBehaviour:
   characterName: NPC
   defaultPortrait: {fileID: 21300000, guid: 2b6d2f98f0d56a647aee4b7517cf9fc7, type: 3}
   blinkPortrait: {fileID: 21300000, guid: 2b6d2f98f0d56a647aee4b7517cf9fc7, type: 3}
-  emotions:
-  - emotionName: "\u5962\u9761"
-    portrait: {fileID: 21300000, guid: 2b6d2f98f0d56a647aee4b7517cf9fc7, type: 3}
-    keywords:
-    - "\u5962\u9761"
+  emotions: []
