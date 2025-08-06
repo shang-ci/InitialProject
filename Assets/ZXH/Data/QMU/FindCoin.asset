@@ -193,7 +193,7 @@ MonoBehaviour:
     m_textTableFieldID: 0
   m_icon: {fileID: 0}
   m_group:
-    m_text: 
+    m_text: 1
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0

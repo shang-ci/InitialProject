@@ -186,8 +186,8 @@ MonoBehaviour:
     m_childIndexList: 01000000
     m_canvasRect:
       serializedVersion: 2
-      x: 200
-      y: 20
+      x: 202
+      y: 19
       width: 120
       height: 48
   - m_id:
@@ -238,8 +238,8 @@ MonoBehaviour:
     m_childIndexList: 02000000
     m_canvasRect:
       serializedVersion: 2
-      x: 202
-      y: 88.675674
+      x: 201
+      y: 89.75824
       width: 120
       height: 48
   - m_id:
@@ -294,8 +294,8 @@ MonoBehaviour:
     m_childIndexList: 03000000
     m_canvasRect:
       serializedVersion: 2
-      x: 201
-      y: 153
+      x: 201.91742
+      y: 153.45871
       width: 120
       height: 48
   - m_id:
@@ -341,7 +341,7 @@ MonoBehaviour:
     m_canvasRect:
       serializedVersion: 2
       x: 201
-      y: 218
+      y: 217.08258
       width: 120
       height: 35
   m_textTable: {fileID: 0}

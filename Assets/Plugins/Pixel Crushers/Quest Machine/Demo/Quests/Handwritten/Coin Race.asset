@@ -41,6 +41,7 @@ MonoBehaviour:
   m_showInTrackHUD: 1
   m_isAbandonable: 1
   m_rememberIfAbandoned: 0
+  m_deleteWhenComplete: 0
   m_autostartConditionSet:
     m_conditionList: []
     m_conditionCountMode: 0
@@ -56,6 +57,7 @@ MonoBehaviour:
   m_offerContentList:
   - {fileID: 11412588}
   - {fileID: 11437330}
+  m_infinitelyRepeatable: 0
   m_maxTimes: 1
   m_timesAccepted: 0
   m_cooldownSeconds: 60
@@ -442,6 +444,7 @@ MonoBehaviour:
       y: 192
       width: 120
       height: 35
+  m_textTable: {fileID: 0}
   m_goalEntityTypeName: 
   m_nextContentID: 0
 --- !u!114 &11401326
@@ -509,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a976671aaa12c2e428b2aac89a260302, type: 3}
   m_Name: CounterQuestCondition
   m_EditorClassIdentifier: 
+  m_alreadyTrue: 0
   m_counterIndex: 0
   m_counterValueMode: 0
   m_requiredCounterValue:
@@ -664,6 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab4974ca2ca315f4791bd0e30b1300df, type: 3}
   m_Name: TimerQuestCondition
   m_EditorClassIdentifier: 
+  m_alreadyTrue: 0
   m_counterIndex: 1
 --- !u!114 &11438240
 MonoBehaviour:
@@ -751,6 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5682394e55a192147a020b9edf624e51, type: 3}
   m_Name: MessageQuestCondition
   m_EditorClassIdentifier: 
+  m_alreadyTrue: 0
   m_senderSpecifier: 0
   m_senderID:
     m_text: 
@@ -811,6 +817,7 @@ MonoBehaviour:
   m_useAudioSourceOn:
     m_type: 0
     m_id: 
+  m_interruptPreviousClip: 0
   m_audioNameProxy: 
 --- !u!114 &11476948
 MonoBehaviour:
@@ -901,6 +908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c14ca0a3639b4a4f8084914f2e7227f, type: 3}
   m_Name: SetQuestNodeStateQuestAction
   m_EditorClassIdentifier: 
+  m_questToSet: {fileID: 0}
   m_questID:
     m_text: coinRace
     m_stringAsset: {fileID: 0}
@@ -995,6 +1003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9449505cbe9fc4cbd3884bc7b08baf, type: 3}
   m_Name: DemoItemCountQuestCondition
   m_EditorClassIdentifier: 
+  m_alreadyTrue: 0
   itemType: 2
   comparison: 1
   requiredValue:
