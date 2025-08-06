@@ -11,6 +11,7 @@ public class PortraitManager : MonoBehaviour
     private Coroutine blinkCoroutine;
     private Image currentPortraitImage;
     private PortraitData currentPortraitData;
+    public string leftPortraitName;
 
     void OnEnable()
     {
@@ -53,7 +54,7 @@ public class PortraitManager : MonoBehaviour
     string text = subtitle.formattedText.text;
 
     // NPC在左，Player在右
-    bool isLeft = actorName != "Player";
+    bool isLeft = actorName != leftPortraitName;
     Debug.Log($"OnConversationLine: {actorName}, isLeft: {isLeft}");
 
     // 当新的对话行开始时，重置状态以便检测新的Player回答
@@ -61,12 +62,6 @@ public class PortraitManager : MonoBehaviour
     {
         lastHadResponses = false;
         Debug.Log("NPC speaking - resetting response state");
-        
-        // 确保Player立绘被隐藏
-        if (rightPortrait != null)
-        {
-            rightPortrait.gameObject.SetActive(false);
-        }
     }
 
     PortraitData data = GetPortraitData(actorName);
@@ -76,14 +71,12 @@ public class PortraitManager : MonoBehaviour
     {
         leftPortrait.sprite = portrait;
         leftPortrait.gameObject.SetActive(true);
-        rightPortrait.gameObject.SetActive(false); // 隐藏右侧
         currentPortraitImage = leftPortrait;
     }
     else
     {
         rightPortrait.sprite = portrait;
         rightPortrait.gameObject.SetActive(true);
-        leftPortrait.gameObject.SetActive(false); // 隐藏左侧
         currentPortraitImage = rightPortrait;
     }
 
@@ -94,49 +87,28 @@ public class PortraitManager : MonoBehaviour
     blinkCoroutine = StartCoroutine(BlinkRoutine());
 }
 
-    // 添加一个方法来检查是否应该显示Player立绘
-    // void CheckForPlayerResponse()
-    // {
-    //     // 检查当前对话状态
-    //     if (DialogueManager.instance != null && DialogueManager.instance.conversationController != null)
-    //     {
-    //         var state = DialogueManager.instance.conversationController.currentState;
-    //         if (state != null && state.pcResponses != null && state.pcResponses.Length > 0)
-    //         {
-    //             // 如果有Player回答选项，显示Player立绘
-    //             OnPlayerResponseMenuOpen(state.pcResponses);
-    //         }
-    //     }
-    // }
-
+    
     public void OnPlayerResponseMenuOpen(Response[] responses)
+{
+    Debug.Log("PortraitManager.OnPlayerResponseMenuOpen called");
+    PortraitData playerData = GetPortraitData(leftPortraitName);
+    if (playerData != null)
     {
-        // 当Player回答选项出现时，显示Player的立绘
-        Debug.Log("PortraitManager.OnPlayerResponseMenuOpen called");
-        
-        PortraitData playerData = GetPortraitData("Player");
-        if (playerData != null)
-        {
-            Debug.Log("Player PortraitData found, showing rightPortrait");
-            // 使用默认表情
-            Sprite playerPortrait = playerData.defaultPortrait;
-            
-            rightPortrait.sprite = playerPortrait;
-            rightPortrait.gameObject.SetActive(true);
-            leftPortrait.gameObject.SetActive(false); // 隐藏左侧NPC立绘
-            
-            currentPortraitImage = rightPortrait;
-            currentPortraitData = playerData;
-            
-            // 启动眨眼协程
-            if (blinkCoroutine != null) StopCoroutine(blinkCoroutine);
-            blinkCoroutine = StartCoroutine(BlinkRoutine());
-        }
-        else
-        {
-            Debug.LogWarning("PortraitManager: Player PortraitData not found!");
-        }
+        Debug.Log("Player PortraitData found, showing rightPortrait");
+        Sprite playerPortrait = playerData.defaultPortrait;
+        rightPortrait.sprite = playerPortrait;
+        rightPortrait.gameObject.SetActive(true);
+        // 不要隐藏左侧NPC立绘
+        currentPortraitImage = rightPortrait;
+        currentPortraitData = playerData;
+        if (blinkCoroutine != null) StopCoroutine(blinkCoroutine);
+        blinkCoroutine = StartCoroutine(BlinkRoutine());
     }
+    else
+    {
+        Debug.LogWarning("PortraitManager: Player PortraitData not found!");
+    }
+}
 
 
 
@@ -187,7 +159,7 @@ public class PortraitManager : MonoBehaviour
                 if (hasResponses && !lastHadResponses)
                 {
                     // 计算延迟时间：基础延迟 + 根据对话长度调整
-                    float baseDelay = 1.0f; // 基础延迟1秒
+                    float baseDelay = 1.5f; // 基础延迟1.5秒
                     float textLengthDelay = 0f;
                     
                     // 如果有当前对话，根据文本长度调整延迟
@@ -237,7 +209,7 @@ public class PortraitManager : MonoBehaviour
             {
                 var original = currentPortraitImage.sprite;
                 currentPortraitImage.sprite = currentPortraitData.GetBlinkPortrait();
-                yield return new WaitForSeconds(0.15f); // 眨眼持续时间
+                yield return new WaitForSeconds(0.5f); // 眨眼持续时间
                 currentPortraitImage.sprite = original;
             }
         }
