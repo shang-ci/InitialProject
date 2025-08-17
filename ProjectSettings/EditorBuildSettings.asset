@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NaiBuHaNi.unity
     guid: ee124bcd568617949a706b06e5d1c8a1
+  - enabled: 1
+    path: Assets/Scenes/Quick Start.unity
+    guid: 557b2b51b283ef24b974f6f5b1071ea8
+  - enabled: 1
+    path: Assets/Scenes/Quick Start 1.unity
+    guid: 1cb59283078e8994db1dd0adacbec728
+  - enabled: 1
+    path: Assets/Scenes/Quick Start 2.unity
+    guid: aeb4dba00c9810a40b81b46df0babd6a
   m_configObjects: {}
