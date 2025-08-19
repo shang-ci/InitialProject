@@ -1,6 +1,6 @@
 [
   {
-    "Name": "Move the heart to the left",
+    "Name": "1",
     "ID": "1",
     "AllSeasons": true,
     "SkipSpring": false,
@@ -12,8 +12,8 @@
     "Timestamp": {
       "Day": 1,
       "Date": 1,
-      "Hour": 7,
-      "Minutes": 0,
+      "Hour": 6,
+      "Minutes": 10,
       "Year": 1,
       "Season": 0
     },
@@ -39,9 +39,9 @@
     "Frequency": 0,
     "Timestamp": {
       "Day": 1,
-      "Date": 4,
+      "Date": 1,
       "Hour": 8,
-      "Minutes": 0,
+      "Minutes": 10,
       "Year": 1,
       "Season": 0
     },
@@ -69,6 +69,34 @@
       "Day": 1,
       "Date": 1,
       "Hour": 9,
+      "Minutes": 0,
+      "Year": 1,
+      "Season": 0
+    },
+    "IgnoreEndsAt": true,
+    "EndsAt": {
+      "Day": 0,
+      "Date": 1,
+      "Hour": 0,
+      "Minutes": 0,
+      "Year": 0,
+      "Season": 0
+    }
+  },
+  {
+    "Name": "NPC_xuemei_xunzhaoshitang",
+    "ID": "4",
+    "AllSeasons": false,
+    "SkipSpring": false,
+    "SkipSummer": false,
+    "SkipAutumn": false,
+    "SkipWinter": false,
+    "Type": 0,
+    "Frequency": 4,
+    "Timestamp": {
+      "Day": 1,
+      "Date": 1,
+      "Hour": 8,
       "Minutes": 0,
       "Year": 1,
       "Season": 0

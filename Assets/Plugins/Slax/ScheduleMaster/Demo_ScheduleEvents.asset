@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Demo_ScheduleEvents
   m_EditorClassIdentifier: 
   _events:
-  - Name: Move the heart to the left
+  - Name: 1
     ID: 1
     AllSeasons: 1
     SkipSpring: 0
@@ -25,8 +25,8 @@ MonoBehaviour:
     Timestamp:
       Day: 1
       Date: 1
-      Hour: 7
-      Minutes: 0
+      Hour: 6
+      Minutes: 10
       Year: 1
       Season: 0
     IgnoreEndsAt: 1
@@ -48,9 +48,9 @@ MonoBehaviour:
     Frequency: 0
     Timestamp:
       Day: 1
-      Date: 4
+      Date: 1
       Hour: 8
-      Minutes: 0
+      Minutes: 10
       Year: 1
       Season: 0
     IgnoreEndsAt: 1
@@ -74,6 +74,30 @@ MonoBehaviour:
       Day: 1
       Date: 1
       Hour: 9
+      Minutes: 0
+      Year: 1
+      Season: 0
+    IgnoreEndsAt: 1
+    EndsAt:
+      Day: 0
+      Date: 1
+      Hour: 0
+      Minutes: 0
+      Year: 0
+      Season: 0
+  - Name: NPC_xuemei_xunzhaoshitang
+    ID: 4
+    AllSeasons: 0
+    SkipSpring: 0
+    SkipSummer: 0
+    SkipAutumn: 0
+    SkipWinter: 0
+    Type: 0
+    Frequency: 4
+    Timestamp:
+      Day: 1
+      Date: 1
+      Hour: 8
       Minutes: 0
       Year: 1
       Season: 0

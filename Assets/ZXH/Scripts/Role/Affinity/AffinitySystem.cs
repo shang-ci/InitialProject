@@ -16,6 +16,8 @@ public struct AffinityTier
 /// </summary>
 public class AffinitySystem : MonoBehaviour
 {
+    public static AffinitySystem Instance { get; private set; }
+
     [Header("段位阈值（按 minValue 升序）")]
     public List<AffinityTier> tiers = new()
     {
@@ -37,6 +39,19 @@ public class AffinitySystem : MonoBehaviour
     // 内部存储：每个 NPC 的好感值
     private readonly Dictionary<string, float> _affinity = new();//存储NPC的好感度
     private readonly Dictionary<string, string> _currentTier = new();//好感类型
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public float GetAffinity(NpcDefinition npc)
     {
